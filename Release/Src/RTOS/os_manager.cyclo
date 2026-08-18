@@ -1,0 +1,4 @@
+../Src/RTOS/os_manager.c:122:6:_idle_task	1
+../Src/RTOS/os_manager.c:148:18:OS_CreateTaskStatic	7
+../Src/RTOS/os_manager.c:132:6:OS_Initialization	1
+../Src/RTOS/os_manager.c:182:13:OS_DeleteTask	5

@@ -1,0 +1,4 @@
+../Src/RTOS/os_manager.c:122:6:_idle_task	0	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:148:18:OS_CreateTaskStatic	20	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:132:6:OS_Initialization	16	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:182:13:OS_DeleteTask	16	static,ignoring_inline_asm
