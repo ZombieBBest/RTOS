@@ -28,14 +28,14 @@
 
 void Task1(void) {
 	while(1) {
-		GPIOC->ODR &= ~(GPIO_ODR_OD13);
+		GPIOC->ODR |= (GPIO_ODR_OD13);
 		for (uint32_t i = 0; i < 100000; i++);
 	}
 }
 
 void Task2(void) {
 	while(1) {
-		GPIOC->ODR |= (GPIO_ODR_OD13);
+		GPIOC->ODR &= ~(GPIO_ODR_OD13);
 		for (uint32_t i = 0; i < 100000; i++);
 	}
 }
