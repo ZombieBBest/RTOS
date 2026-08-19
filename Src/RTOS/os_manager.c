@@ -119,6 +119,11 @@ static inline void* _stack_init(void(*task_ptr)(void), OS_StackDescriptor_t* des
 	return (void*)stack_ptr;
 }
 
+void _auto_task_deleter(void) {
+	OS_DeleteTask((OS_TaskHandle_t*)os_context.current_run_task->stack_descriptor);
+	//Портится os_context.current_run_task
+}
+
 void _idle_task(void) {
 	while (1) {
 		__WFI();

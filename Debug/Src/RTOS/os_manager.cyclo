@@ -7,7 +7,8 @@
 ../Src/RTOS/os_manager.c:75:25:_get_free_TCB	4
 ../Src/RTOS/os_manager.c:94:20:_add_free_TCB	2
 ../Src/RTOS/os_manager.c:105:21:_stack_init	1
-../Src/RTOS/os_manager.c:122:6:_idle_task	1
-../Src/RTOS/os_manager.c:132:6:OS_Initialization	1
-../Src/RTOS/os_manager.c:148:18:OS_CreateTaskStatic	4
-../Src/RTOS/os_manager.c:182:13:OS_DeleteTask	2
+../Src/RTOS/os_manager.c:122:6:_auto_task_deleter	1
+../Src/RTOS/os_manager.c:127:6:_idle_task	1
+../Src/RTOS/os_manager.c:137:6:OS_Initialization	1
+../Src/RTOS/os_manager.c:153:18:OS_CreateTaskStatic	4
+../Src/RTOS/os_manager.c:187:13:OS_DeleteTask	2

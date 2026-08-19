@@ -1,1 +1,1 @@
-../Src/RTOS/context_switch_logic.c:8:10:OS_SwitchLogic	32	static
+../Src/RTOS/context_switch_logic.c:8:10:OS_SwitchLogic	24	static
