@@ -100,28 +100,24 @@ static inline void _add_free_TCB(OS_TCB_t* task_ptr) {
 	}
 
 	os_context.free_TCB_ptr = task_ptr;
+	task_ptr->state = OS_STATE_FREE;
 }
 
-static inline void* _stack_init(void(*task_ptr)(void), OS_StackDescriptor_t* desc) {
-	uint32_t* stack_ptr = (uint32_t*)((uintptr_t)desc->stack_ptr + desc->stack_size);
+static inline void* _stack_init(void(*task_ptr)(void), OS_TCB_t* TCB) {
+	uint32_t* stack_ptr = (uint32_t*)((uintptr_t)TCB->stack_descriptor->stack_ptr + TCB->stack_descriptor->stack_size);
 
 	//ЗНАЧЕНИЕ LR И КОЛИЧЕСТВО РЕГИСТРОВ ЗАВИСЯТ ОТ FPU!
-	*(--stack_ptr) = (1 << 24);		*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
-	*(--stack_ptr) = 0xFFFFFFFD; 	*(--stack_ptr) = 0;						//LR, R12
-	*(--stack_ptr) = 0;				*(--stack_ptr) = 0;						//R3, R2
-	*(--stack_ptr) = 0; 			*(--stack_ptr) = 0;						//R1, R0
+	*(--stack_ptr) = (1 << 24);						*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
+	*(--stack_ptr) = (uintptr_t)OS_DeleteTask;		*(--stack_ptr) = 0;						//LR, R12
+	*(--stack_ptr) = 0;								*(--stack_ptr) = 0;						//R3, R2
+	*(--stack_ptr) = 0; 							*(--stack_ptr) = (uintptr_t)TCB;		//R1, R0
 
-	*(--stack_ptr) = 0; 			*(--stack_ptr) = 0;						//R11...
-	*(--stack_ptr) = 0; 			*(--stack_ptr) = 0;
-	*(--stack_ptr) = 0; 			*(--stack_ptr) = 0;
-	*(--stack_ptr) = 0; 			*(--stack_ptr) = 0;						//...R4
+	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//R11...
+	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
+	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
+	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//...R4
 
 	return (void*)stack_ptr;
-}
-
-void _auto_task_deleter(void) {
-	OS_DeleteTask((OS_TaskHandle_t*)os_context.current_run_task->stack_descriptor);
-	//Портится os_context.current_run_task
 }
 
 void _idle_task(void) {
@@ -149,67 +145,64 @@ void OS_Initialization(void) {
 	OS_EXIT_CRITICAL(prev_irq);
 }
 
-//Attention! Stack uses 64 bytes for switch
+//Attention! Stack uses 68 bytes for switch
 OS_TaskHandle_t* OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
-	OS_TCB_t* free_task = NULL;
+	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
 
 
 	uint32_t prev_irq = OS_ENTER_CRITICAL();
 
-	free_task = _get_free_TCB();
-	if (free_task) {
+	free_TCB = _get_free_TCB();
+	if (free_TCB) {
 		if (!desc->is_taken) {
-			free_task->state = OS_STATE_RESERVED;
+			free_TCB->state = OS_STATE_RESERVED;
 			desc->is_taken = 1;
 		}
 		else {
-			free_task = NULL;
+			free_TCB = NULL;
 		}
 	}
 
 	OS_EXIT_CRITICAL(prev_irq);
 
-	if (free_task) {
-		free_task->stack_descriptor = desc;
-		free_task->stack_pointer = _stack_init(task_ptr, desc);
+	if (free_TCB) {
+		free_TCB->stack_descriptor = desc;
+		free_TCB->stack_pointer = _stack_init(task_ptr, free_TCB);
 
 		prev_irq = OS_ENTER_CRITICAL();
 
-		_add_to_ready_list(free_task, priority);
+		_add_to_ready_list(free_TCB, priority);
 
 		OS_EXIT_CRITICAL(prev_irq);
 	}
 
-	return (OS_TaskHandle_t*)free_task;
+	return (OS_TaskHandle_t*)free_TCB;
 }
 
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t* handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
+	uint32_t prev_irq = OS_ENTER_CRITICAL();
+
 	if (!task_ptr) {
 		return OS_EXIT_ERROR;
 	}
 
-	uint32_t prev_irq = OS_ENTER_CRITICAL();
+	task_ptr->stack_descriptor->is_taken = 0;
 
 	_remove_from_ready_list(task_ptr);
 
-	OS_EXIT_CRITICAL(prev_irq);
-
-	task_ptr->stack_descriptor->is_taken = 0;
-	task_ptr->stack_descriptor = NULL;
-
-	task_ptr->priority = 0;
-	task_ptr->stack_pointer = NULL;
-	task_ptr->state = OS_STATE_FREE;
-
-
-	prev_irq = OS_ENTER_CRITICAL();
-
 	_add_free_TCB(task_ptr);
 
+	OS_TCB_t* current_run_task = (OS_TCB_t*)os_context.current_run_task;
+
 	OS_EXIT_CRITICAL(prev_irq);
+
+	if (task_ptr == current_run_task) {
+		OS_Yield();
+		while(1);
+	}
 
 	return OS_EXIT_SUCCESS;
 }

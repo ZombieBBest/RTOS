@@ -26,14 +26,26 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-void Task1(void) {
+OS_CREATE_STACK(stack1_handle, 128);
+OS_CREATE_STACK(stack2_handle, 128);
+
+void Task2(void) {
+	return;
+	/*while(1) {
+		GPIOC->ODR |= (GPIO_ODR_OD13);
+		for (uint32_t i = 0; i < 100000; i++);
+	}*/
+}
+
+void Task3(void) {
 	while(1) {
 		GPIOC->ODR |= (GPIO_ODR_OD13);
 		for (uint32_t i = 0; i < 100000; i++);
 	}
 }
 
-void Task2(void) {
+void Task1(void) {
+	OS_CreateTaskStatic(Task3, stack2_handle, 1);
 	while(1) {
 		GPIOC->ODR &= ~(GPIO_ODR_OD13);
 		for (uint32_t i = 0; i < 100000; i++);
@@ -54,9 +66,6 @@ void GPIO_Config(void) {
 	GPIOC->ODR |= (GPIO_ODR_OD13);
 }
 
-OS_CREATE_STACK(stack1_handle, 128);
-OS_CREATE_STACK(stack2_handle, 128);
-
 int main(void)
 {
 	__disable_irq();
@@ -76,6 +85,8 @@ int main(void)
 	__enable_irq();
 	OS_Start();
 }
+//Перестановка PSP при удалении
+//Возникнут проблемы, если задача захочет удалить сама себя
 //Реализовать удаление задачи
 //Вытеснение задач
 //Модификация полей контекста ОС обязана быть атомарной
