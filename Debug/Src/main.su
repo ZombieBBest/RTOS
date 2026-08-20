@@ -1,3 +1,4 @@
+../Src/RTOS/os_manager.h:45:32:OS_CreateTaskStatic	24	static,ignoring_inline_asm
 ../Src/main.c:32:6:Task2	4	static
 ../Src/main.c:40:6:Task3	16	static
 ../Src/main.c:47:6:Task1	16	static

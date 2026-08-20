@@ -1,5 +1,6 @@
 ../Inc/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
 ../Src/RTOS/os_manager.h:36:20:OS_Yield	4	static,ignoring_inline_asm
+../Src/RTOS/os_manager.h:45:32:OS_CreateTaskStatic	24	static,ignoring_inline_asm
 ../Src/RTOS/critical.h:6:24:OS_ENTER_CRITICAL	16	static,ignoring_inline_asm
 ../Src/RTOS/critical.h:14:20:OS_EXIT_CRITICAL	24	static,ignoring_inline_asm
 ../Src/RTOS/os_manager.c:14:20:_context_initialization	16	static
@@ -9,7 +10,7 @@
 ../Src/RTOS/os_manager.c:94:20:_add_free_TCB	24	static
 ../Src/RTOS/os_manager.c:106:21:_stack_init	24	static
 ../Src/RTOS/os_manager.c:123:6:_idle_task	4	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:133:6:SVC_Handler_C	32	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:159:6:OS_Initialization	16	static
-../Src/RTOS/os_manager.c:175:18:OS_CreateTaskStatic	40	static
-../Src/RTOS/os_manager.c:209:13:OS_DeleteTask	32	static
+../Src/RTOS/os_manager.c:134:6:SVC_Handler_C	40	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:166:6:OS_Initialization	8	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:217:17:OS_CreateTaskStatic_SVC	32	static
+../Src/RTOS/os_manager.c:242:13:OS_DeleteTask	32	static

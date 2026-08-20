@@ -129,18 +129,21 @@ void _idle_task(void) {
 OS_CREATE_STACK(_idle_stack_handle, 128);
 
 // ========================== ISR ===========================
+OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority);
 
 void SVC_Handler_C(uint32_t* sp) {
 	uint32_t pc_reg = sp[6];
 	uint8_t svc_arg = ((uint8_t*)pc_reg)[-2];
 
 	uint32_t arg1 = sp[1];
+	uint32_t arg2 = sp[2];
+	uint32_t arg3 = sp[3];
 
 	uint32_t result = 0xFFFFFFFF;
 
 	switch(svc_arg) {
 		case 0:
-			asm volatile (
+			__asm volatile (
 					"mov r0, %[task_sp] 	\n\t"
 					"ldr lr, =0xFFFFFFFD 	\n\t"
 					"b OS_Load_Context 		\n\t"
@@ -148,6 +151,10 @@ void SVC_Handler_C(uint32_t* sp) {
 					: [task_sp] "r" (arg1)
 					: "r0", "memory"
 					);
+			break;
+
+		case 1:
+			result = (uint32_t)OS_CreateTaskStatic_SVC(arg1, arg2, arg3);
 			break;
 	}
 
@@ -157,7 +164,7 @@ void SVC_Handler_C(uint32_t* sp) {
 // ======================= PUBLIC_API =======================
 
 void OS_Initialization(void) {
-	uint32_t prev_irq = OS_ENTER_CRITICAL();
+	__disable_irq();
 
 	NVIC_SetPriority(SVCall_IRQn, 15);
 	NVIC_SetPriority(PendSV_IRQn, 15);
@@ -166,12 +173,12 @@ void OS_Initialization(void) {
 	_context_initialization();
 	Sys_SysTick_Initialization();
 
+	__enable_irq();
 	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);
-
-	OS_EXIT_CRITICAL(prev_irq);
 }
 
 //Attention! Stack uses 68 bytes for switch
+/*
 OS_TaskHandle_t* OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
@@ -201,6 +208,32 @@ OS_TaskHandle_t* OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t han
 		_add_to_ready_list(free_TCB, priority);
 
 		OS_EXIT_CRITICAL(prev_irq);
+	}
+
+	return (OS_TaskHandle_t*)free_TCB;
+}
+*/
+
+OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
+	OS_TCB_t* free_TCB = NULL;
+	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
+
+	free_TCB = _get_free_TCB();
+	if (free_TCB) {
+		if (!desc->is_taken) {
+			free_TCB->state = OS_STATE_RESERVED;
+			desc->is_taken = 1;
+		}
+		else {
+			free_TCB = NULL;
+		}
+	}
+
+	if (free_TCB) {
+		free_TCB->stack_descriptor = desc;
+		free_TCB->stack_pointer = _stack_init(task_ptr, free_TCB);
+
+		_add_to_ready_list(free_TCB, priority);
 	}
 
 	return (OS_TaskHandle_t*)free_TCB;

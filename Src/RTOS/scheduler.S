@@ -7,8 +7,8 @@
 
 
 PendSV_Handler:
-	mov r4, #OS_BASEPRI_LOCK_VALUE
-	msr basepri, r4
+	mov r3, #OS_BASEPRI_LOCK_VALUE
+	msr basepri, r3
 
 	mrs r0, PSP
 	stmdb r0!, {r4-r11}
@@ -24,6 +24,6 @@ OS_Load_Context:
 	ldmia r0!, {r4-r11}
 	msr PSP, r0
 
-	mov r4, #0x00
-	msr basepri, r4
+	mov r3, #0x00
+	msr basepri, r3
 	bx LR

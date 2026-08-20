@@ -68,7 +68,6 @@ void GPIO_Config(void) {
 
 int main(void)
 {
-	__disable_irq();
 	OS_Initialization();
 
 	OS_TaskHandle_t h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
@@ -82,7 +81,6 @@ int main(void)
 
 	GPIO_Config();
 
-	__enable_irq();
 	OS_Start();
 }
 /*
@@ -93,7 +91,7 @@ SVC_Handler:
 	b OS_Load_Context
 */
 
-
+//Тик может произойти до OS_START
 //Переделать критическую секцию
 //Перенести всё в SVC, настроить BASEPRI
 //Включить прерывания перед удалением задачи

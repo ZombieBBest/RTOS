@@ -1,3 +1,4 @@
+../Src/RTOS/os_manager.h:45:32:OS_CreateTaskStatic	1
 ../Src/main.c:32:6:Task2	1
 ../Src/main.c:40:6:Task3	2
 ../Src/main.c:47:6:Task1	2
