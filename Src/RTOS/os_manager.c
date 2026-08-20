@@ -128,14 +128,40 @@ void _idle_task(void) {
 
 OS_CREATE_STACK(_idle_stack_handle, 128);
 
+// ========================== ISR ===========================
+
+void SVC_Handler_C(uint32_t* sp) {
+	uint32_t pc_reg = sp[6];
+	uint8_t svc_arg = ((uint8_t*)pc_reg)[-2];
+
+	uint32_t arg1 = sp[1];
+
+	uint32_t result = 0xFFFFFFFF;
+
+	switch(svc_arg) {
+		case 0:
+			asm volatile (
+					"mov r0, %[task_sp] 	\n\t"
+					"ldr lr, =0xFFFFFFFD 	\n\t"
+					"b OS_Load_Context 		\n\t"
+					:
+					: [task_sp] "r" (arg1)
+					: "r0", "memory"
+					);
+			break;
+	}
+
+	sp[0] = result;
+}
+
 // ======================= PUBLIC_API =======================
 
 void OS_Initialization(void) {
 	uint32_t prev_irq = OS_ENTER_CRITICAL();
 
-	NVIC_SetPriority(SVCall_IRQn, 0);
+	NVIC_SetPriority(SVCall_IRQn, 15);
 	NVIC_SetPriority(PendSV_IRQn, 15);
-	NVIC_SetPriority(SysTick_IRQn, 15);
+	NVIC_SetPriority(SysTick_IRQn, 14);
 
 	_context_initialization();
 	Sys_SysTick_Initialization();

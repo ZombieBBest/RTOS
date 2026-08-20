@@ -1,5 +1,5 @@
-../Src/RTOS/os_manager.c:129:6:_idle_task	0	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:155:18:OS_CreateTaskStatic	20	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:139:6:OS_Initialization	16	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:189:13:OS_DeleteTask	20	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:14:6:_auto_task_deleter	8	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:123:6:_idle_task	0	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:209:13:OS_DeleteTask	20	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:133:6:SVC_Handler_C	0	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:175:18:OS_CreateTaskStatic	20	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:159:6:OS_Initialization	8	static,ignoring_inline_asm

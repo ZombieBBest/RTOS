@@ -1,3 +1,4 @@
+#include "config.h"
 .extern OS_SwitchLogic
 .global OS_Load_Context
 .global PendSV_Handler
@@ -6,7 +7,9 @@
 
 
 PendSV_Handler:
-	cpsid i
+	mov r4, #OS_BASEPRI_LOCK_VALUE
+	msr basepri, r4
+
 	mrs r0, PSP
 	stmdb r0!, {r4-r11}
 
@@ -21,5 +24,6 @@ OS_Load_Context:
 	ldmia r0!, {r4-r11}
 	msr PSP, r0
 
-	cpsie i
+	mov r4, #0x00
+	msr basepri, r4
 	bx LR
