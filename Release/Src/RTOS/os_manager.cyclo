@@ -1,5 +1,5 @@
+../Src/RTOS/os_manager.h:58:27:OS_DeleteTask	1
 ../Src/RTOS/os_manager.c:123:6:_idle_task	1
-../Src/RTOS/os_manager.c:242:13:OS_DeleteTask	6
-../Src/RTOS/os_manager.c:166:6:OS_Initialization	1
-../Src/RTOS/os_manager.c:217:17:OS_CreateTaskStatic_SVC	6
-../Src/RTOS/os_manager.c:134:6:SVC_Handler_C	3
+../Src/RTOS/os_manager.c:133:6:OS_Initialization	1
+../Src/RTOS/os_manager.c:149:17:OS_CreateTaskStatic_SVC	6
+../Src/RTOS/os_manager.c:174:13:OS_DeleteTask_SVC	6

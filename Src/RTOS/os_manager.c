@@ -128,39 +128,6 @@ void _idle_task(void) {
 
 OS_CREATE_STACK(_idle_stack_handle, 128);
 
-// ========================== ISR ===========================
-OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority);
-
-void SVC_Handler_C(uint32_t* sp) {
-	uint32_t pc_reg = sp[6];
-	uint8_t svc_arg = ((uint8_t*)pc_reg)[-2];
-
-	uint32_t arg1 = sp[1];
-	uint32_t arg2 = sp[2];
-	uint32_t arg3 = sp[3];
-
-	uint32_t result = 0xFFFFFFFF;
-
-	switch(svc_arg) {
-		case 0:
-			__asm volatile (
-					"mov r0, %[task_sp] 	\n\t"
-					"ldr lr, =0xFFFFFFFD 	\n\t"
-					"b OS_Load_Context 		\n\t"
-					:
-					: [task_sp] "r" (arg1)
-					: "r0", "memory"
-					);
-			break;
-
-		case 1:
-			result = (uint32_t)OS_CreateTaskStatic_SVC(arg1, arg2, arg3);
-			break;
-	}
-
-	sp[0] = result;
-}
-
 // ======================= PUBLIC_API =======================
 
 void OS_Initialization(void) {
@@ -177,42 +144,7 @@ void OS_Initialization(void) {
 	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);
 }
 
-//Attention! Stack uses 68 bytes for switch
-/*
-OS_TaskHandle_t* OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
-	OS_TCB_t* free_TCB = NULL;
-	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
-
-
-	uint32_t prev_irq = OS_ENTER_CRITICAL();
-
-	free_TCB = _get_free_TCB();
-	if (free_TCB) {
-		if (!desc->is_taken) {
-			free_TCB->state = OS_STATE_RESERVED;
-			desc->is_taken = 1;
-		}
-		else {
-			free_TCB = NULL;
-		}
-	}
-
-	OS_EXIT_CRITICAL(prev_irq);
-
-	if (free_TCB) {
-		free_TCB->stack_descriptor = desc;
-		free_TCB->stack_pointer = _stack_init(task_ptr, free_TCB);
-
-		prev_irq = OS_ENTER_CRITICAL();
-
-		_add_to_ready_list(free_TCB, priority);
-
-		OS_EXIT_CRITICAL(prev_irq);
-	}
-
-	return (OS_TaskHandle_t*)free_TCB;
-}
-*/
+// ======================= SVC_CALLS ========================
 
 OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
@@ -239,6 +171,29 @@ OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t 
 	return (OS_TaskHandle_t*)free_TCB;
 }
 
+OS_Return_t OS_DeleteTask_SVC(OS_TaskHandle_t handle) {
+	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
+
+	if (!task_ptr) {
+		return OS_EXIT_ERROR;
+	}
+
+	task_ptr->stack_descriptor->is_taken = 0;
+
+	_remove_from_ready_list(task_ptr);
+
+	_add_free_TCB(task_ptr);
+
+	OS_TCB_t* current_run_task = (OS_TCB_t*)os_context.current_run_task;
+
+	if (task_ptr == current_run_task) {
+		OS_Yield();
+	}
+
+	return OS_EXIT_SUCCESS;
+}
+
+/*
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t* handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
@@ -265,3 +220,4 @@ OS_Return_t OS_DeleteTask(OS_TaskHandle_t* handle) {
 
 	return OS_EXIT_SUCCESS;
 }
+*/

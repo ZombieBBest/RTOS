@@ -3,6 +3,7 @@
 "./Src/RTOS/os_manager.o"
 "./Src/RTOS/scheduler.o"
 "./Src/RTOS/supervisor_call.o"
+"./Src/RTOS/supervisor_call_asm.o"
 "./Src/RTOS/sys_timer.o"
 "./Src/main.o"
 "./Src/syscalls.o"

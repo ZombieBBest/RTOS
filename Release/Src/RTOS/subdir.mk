@@ -8,11 +8,12 @@ C_SRCS += \
 ../Src/RTOS/context.c \
 ../Src/RTOS/context_switch_logic.c \
 ../Src/RTOS/os_manager.c \
+../Src/RTOS/supervisor_call.c \
 ../Src/RTOS/sys_timer.c 
 
 S_UPPER_SRCS += \
 ../Src/RTOS/scheduler.S \
-../Src/RTOS/supervisor_call.S 
+../Src/RTOS/supervisor_call_asm.S 
 
 OBJS += \
 ./Src/RTOS/context.o \
@@ -20,16 +21,18 @@ OBJS += \
 ./Src/RTOS/os_manager.o \
 ./Src/RTOS/scheduler.o \
 ./Src/RTOS/supervisor_call.o \
+./Src/RTOS/supervisor_call_asm.o \
 ./Src/RTOS/sys_timer.o 
 
 S_UPPER_DEPS += \
 ./Src/RTOS/scheduler.d \
-./Src/RTOS/supervisor_call.d 
+./Src/RTOS/supervisor_call_asm.d 
 
 C_DEPS += \
 ./Src/RTOS/context.d \
 ./Src/RTOS/context_switch_logic.d \
 ./Src/RTOS/os_manager.d \
+./Src/RTOS/supervisor_call.d \
 ./Src/RTOS/sys_timer.d 
 
 
@@ -42,7 +45,7 @@ Src/RTOS/%.o: ../Src/RTOS/%.S Src/RTOS/subdir.mk
 clean: clean-Src-2f-RTOS
 
 clean-Src-2f-RTOS:
-	-$(RM) ./Src/RTOS/context.cyclo ./Src/RTOS/context.d ./Src/RTOS/context.o ./Src/RTOS/context.su ./Src/RTOS/context_switch_logic.cyclo ./Src/RTOS/context_switch_logic.d ./Src/RTOS/context_switch_logic.o ./Src/RTOS/context_switch_logic.su ./Src/RTOS/os_manager.cyclo ./Src/RTOS/os_manager.d ./Src/RTOS/os_manager.o ./Src/RTOS/os_manager.su ./Src/RTOS/scheduler.d ./Src/RTOS/scheduler.o ./Src/RTOS/supervisor_call.d ./Src/RTOS/supervisor_call.o ./Src/RTOS/sys_timer.cyclo ./Src/RTOS/sys_timer.d ./Src/RTOS/sys_timer.o ./Src/RTOS/sys_timer.su
+	-$(RM) ./Src/RTOS/context.cyclo ./Src/RTOS/context.d ./Src/RTOS/context.o ./Src/RTOS/context.su ./Src/RTOS/context_switch_logic.cyclo ./Src/RTOS/context_switch_logic.d ./Src/RTOS/context_switch_logic.o ./Src/RTOS/context_switch_logic.su ./Src/RTOS/os_manager.cyclo ./Src/RTOS/os_manager.d ./Src/RTOS/os_manager.o ./Src/RTOS/os_manager.su ./Src/RTOS/scheduler.d ./Src/RTOS/scheduler.o ./Src/RTOS/supervisor_call.cyclo ./Src/RTOS/supervisor_call.d ./Src/RTOS/supervisor_call.o ./Src/RTOS/supervisor_call.su ./Src/RTOS/supervisor_call_asm.d ./Src/RTOS/supervisor_call_asm.o ./Src/RTOS/sys_timer.cyclo ./Src/RTOS/sys_timer.d ./Src/RTOS/sys_timer.o ./Src/RTOS/sys_timer.su
 
 .PHONY: clean-Src-2f-RTOS
 
