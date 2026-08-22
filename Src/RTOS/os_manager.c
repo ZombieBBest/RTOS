@@ -4,7 +4,6 @@
 #include <string.h>
 #include "critical.h"
 #include "memory.h"
-#include "sys_timer.h"
 #include "context.h"
 #include "config.h"
 
@@ -139,8 +138,8 @@ void OS_Initialization(void) {
 
 	_context_initialization();
 	Sys_SysTick_Initialization();
-
 	__enable_irq();
+
 	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);
 }
 
@@ -192,32 +191,3 @@ OS_Return_t OS_DeleteTask_SVC(OS_TaskHandle_t handle) {
 
 	return OS_EXIT_SUCCESS;
 }
-
-/*
-OS_Return_t OS_DeleteTask(OS_TaskHandle_t* handle) {
-	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
-
-	uint32_t prev_irq = OS_ENTER_CRITICAL();
-
-	if (!task_ptr) {
-		return OS_EXIT_ERROR;
-	}
-
-	task_ptr->stack_descriptor->is_taken = 0;
-
-	_remove_from_ready_list(task_ptr);
-
-	_add_free_TCB(task_ptr);
-
-	OS_TCB_t* current_run_task = (OS_TCB_t*)os_context.current_run_task;
-
-	OS_EXIT_CRITICAL(prev_irq);
-
-	if (task_ptr == current_run_task) {
-		OS_Yield();
-		while(1);
-	}
-
-	return OS_EXIT_SUCCESS;
-}
-*/

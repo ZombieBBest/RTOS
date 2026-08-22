@@ -1,2 +1,3 @@
 ../Src/RTOS/sys_timer.c:6:6:Sys_SysTick_Initialization	0	static
-../Src/RTOS/sys_timer.c:11:6:SysTick_Handler	0	static,ignoring_inline_asm
+../Src/RTOS/sys_timer.c:11:6:Sys_SysTick_Start	0	static
+../Src/RTOS/sys_timer.c:15:6:SysTick_Handler	0	static,ignoring_inline_asm

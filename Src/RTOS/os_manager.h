@@ -3,12 +3,14 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include "sys_timer.h"
 #include "supervisor_call.h"
 #include "memory.h"
 #include "context.h"
 
-
+/*
 #define OS_Start()													\
+	Sys_SysTick_Start();											\
 	__asm volatile(													\
 		"str %[f_task], [%[s_task]] \n\t"							\
 		"mov r0, %[source]			\n\t"							\
@@ -21,7 +23,7 @@
 		  [source] "r" (os_context.task_context[0].stack_pointer)	\
 		: "r1", "r2", "r3", "r12", "lr", "memory"					\
 	)
-
+*/
 
 typedef void* OS_TaskHandle_t;
 
@@ -33,6 +35,22 @@ typedef enum {
 
 void OS_Initialization(void);
 
+
+static inline void OS_Start(void) {
+	Sys_SysTick_Start();
+	__asm volatile(
+		"str %[f_task], [%[s_task]] \n\t"
+		"mov r0, %[source]			\n\t"
+		"cpsie i					\n\t"
+		"svc %[svc_num]				\n\t"
+		:
+		: [svc_num] "i" (SVC_START_OS),
+		  [f_task] "r" (&os_context.task_context[0]),
+		  [s_task] "r" (&os_context.current_run_task),
+		  [source] "r" (os_context.task_context[0].stack_pointer)
+		: "r1", "r2", "r3", "r12", "lr", "memory"
+	);
+}
 
 static inline void OS_Yield(void) {
 	__asm volatile("" : : : "memory");
