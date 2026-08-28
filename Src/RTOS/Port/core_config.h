@@ -1,0 +1,24 @@
+#ifndef RTOS_PORT_CORE_CONFIG_H_
+#define RTOS_PORT_CORE_CONFIG_H_
+
+#define CORE_CONFIG_KERNEL_PRIORITY       		5
+#define CORE_CONFIG_NVIC_PRIO_BITS				4
+#define CORE_CONFIG_BASEPRI_LOCK_VALUE     		(CORE_CONFIG_KERNEL_PRIORITY << (8 - CORE_CONFIG_NVIC_PRIO_BITS))
+
+#define CORE_CONFIG_FPU_LAZY_STACKING_ACTIVE	1
+#define CORE_CONFIG_USE_FPU						0
+
+#if (CORE_CONFIG_USE_FPU == 1)
+	#define INITIAL_EXC_RETURN   					0xFFFFFFED
+#else
+	#define INITIAL_EXC_RETURN   					0xFFFFFFFD
+#endif
+
+#ifndef __ASSEMBLER__
+	#include <assert.h>
+
+	static_assert(CORE_CONFIG_NVIC_PRIO_BITS == 4, "Error: CONFIG_NVIC_PRIO_BITS must be equal 4 for STM32F411");
+#endif
+
+
+#endif

@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-uint8_t* OS_SwitchLogic(uint8_t* current_task_stack_pointer);
+void* OS_SwitchLogic(void* current_task_stack_pointer);
 
 #endif

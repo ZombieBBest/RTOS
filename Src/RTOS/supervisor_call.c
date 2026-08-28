@@ -1,14 +1,16 @@
 #include "supervisor_call.h"
 #include "os_manager.h"
+#include "Port/core_config.h"
 
-#define SVC_START_CONDITION()				\
+#define SVC_SHEDULER_FIRST_ENTER()			\
 	__asm volatile (						\
 		"mov r0, %[task_sp] 	\n\t"		\
-		"ldr lr, =0xFFFFFFFD 	\n\t"		\
+		"ldr lr, =%[lr_exc] 	\n\t"		\
 		"b OS_Load_Context 		\n\t"		\
 		:									\
-		: [task_sp] "r" (arg1)				\
-		: "r1", "r2", "r3", "r12", "memory" \
+		: [task_sp] "r" (arg1),				\
+		  [lr_exc]  "i" (INITIAL_EXC_RETURN)\
+		: "r0", "lr", "memory"				\
 	)
 
 extern OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority);
@@ -26,7 +28,7 @@ void SVC_Handler_C(uint32_t* sp) {
 
 	switch(svc_arg) {
 		case SVC_START_OS:
-			SVC_START_CONDITION();
+			SVC_SHEDULER_FIRST_ENTER();
 			break;
 
 		case SVC_CREATE_TASK:

@@ -31,7 +31,7 @@ static inline void OS_Start(void) {
 		  [f_task] "r" (&os_context.task_context[0]),
 		  [s_task] "r" (&os_context.current_run_task),
 		  [source] "r" (os_context.task_context[0].stack_pointer)
-		: "r1", "r2", "r3", "r12", "lr", "memory"
+		: "r0", "r1", "r2", "r3", "r12", "lr", "memory"
 	);
 }
 

@@ -2,6 +2,7 @@
 
 #include <stm32f4xx.h>
 #include <string.h>
+#include "Port/port_functions.h"
 #include "critical.h"
 #include "memory.h"
 #include "context.h"
@@ -102,35 +103,19 @@ static inline void _add_free_TCB(OS_TCB_t* task_ptr) {
 	task_ptr->state = OS_STATE_FREE;
 }
 
-static inline void* _stack_init(void(*task_ptr)(void), OS_TCB_t* TCB) {
-	uint32_t* stack_ptr = (uint32_t*)((uintptr_t)TCB->stack_descriptor->stack_ptr + TCB->stack_descriptor->stack_size);
-
-	//ЗНАЧЕНИЕ LR И КОЛИЧЕСТВО РЕГИСТРОВ ЗАВИСЯТ ОТ FPU!
-	*(--stack_ptr) = (1 << 24);						*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
-	*(--stack_ptr) = (uintptr_t)OS_DeleteTask;		*(--stack_ptr) = 0;						//LR, R12
-	*(--stack_ptr) = 0;								*(--stack_ptr) = 0;						//R3, R2
-	*(--stack_ptr) = 0; 							*(--stack_ptr) = (uintptr_t)TCB;		//R1, R0
-
-	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//R11...
-	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
-	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
-	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//...R4
-
-	return (void*)stack_ptr;
-}
-
 void _idle_task(void) {
 	while (1) {
 		__WFI();
 	}
 }
 
-OS_CREATE_STACK(_idle_stack_handle, 128);
-
 // ======================= PUBLIC_API =======================
+
+OS_CREATE_STACK(_idle_stack_handle, 256);
 
 void OS_Initialization(void) {
 	__disable_irq();
+	_port_fpu_apply_settings();
 
 	NVIC_SetPriority(SVCall_IRQn, 15);
 	NVIC_SetPriority(PendSV_IRQn, 15);
@@ -162,7 +147,7 @@ OS_TaskHandle_t OS_CreateTaskStatic_SVC(void(*task_ptr)(void), OS_StackHandle_t 
 
 	if (free_TCB) {
 		free_TCB->stack_descriptor = desc;
-		free_TCB->stack_pointer = _stack_init(task_ptr, free_TCB);
+		free_TCB->stack_pointer = _port_stack_init(task_ptr, (void(*)(void))OS_DeleteTask, free_TCB);
 
 		_add_to_ready_list(free_TCB, priority);
 	}

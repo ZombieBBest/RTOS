@@ -26,8 +26,8 @@
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
-OS_CREATE_STACK(stack1_handle, 128);
-OS_CREATE_STACK(stack2_handle, 128);
+OS_CREATE_STACK(stack1_handle, 256);
+OS_CREATE_STACK(stack2_handle, 256);
 
 void Task2(void) {
 	return;
@@ -81,17 +81,22 @@ int main(void)
 
 	GPIO_Config();
 
+	volatile float a = 0.0f;
+	a += 0.1f;
+
 	OS_Start();
 }
 
-//Переделать критическую секцию
-//Реализовать static assert для проверки стека и т.д.
+//Исправить Syntax error в OS_CREATE_STACK
+//Внедрить ldrex/strex инструкции в планировщик
+//Добавить поддержку FPU ТОЛЬКО ПО МАНУАЛУ!
+//Добавить секции для дескрипторов
 //Добавить поддержку MPU
-//Добавить поддержку FPU
 //Добавить unpriveleged mod
 //Перенести библиотеки на GitHub
 
 //Вытеснение задач
 //Модификация полей контекста ОС обязана быть атомарной
 //Частота МК
+//static assert
 //ЗНАЧЕНИЕ LR И КОЛИЧЕСТВО РЕГИСТРОВ ЗАВИСЯТ ОТ FPU!
