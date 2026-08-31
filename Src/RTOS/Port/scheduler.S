@@ -6,33 +6,20 @@
 .syntax unified
 
 // ======================== INTERNAL ========================
-@3
-#if (CORE_CONFIG_USE_FPU == 1)
-	.macro SaveContext
-		mrs r0, PSP
-		stmdb r0!, {r4-r11}
-		vstmdb r0!, {s16-s31}
-	.endm
-#else
-	.macro SaveContext
-		mrs r0, PSP
-		stmdb r0!, {r4-r11}
-	.endm
-#endif
+@1
+.macro SaveContext
+	mrs r0, PSP
+	stmdb r0!, {r4-r11}
+	vstmdb r0!, {s16-s31}
+.endm
 
-@4
-#if (CORE_CONFIG_USE_FPU == 1)
-	.macro LoadContext
-		vldmia r0!, {s16-s31}
-		ldmia r0!, {r4-r11}
-		msr PSP, r0
-	.endm
-#else
-	.macro LoadContext
-		ldmia r0!, {r4-r11}
-		msr PSP, r0
-	.endm
-#endif
+@2
+.macro LoadContext
+	vldmia r0!, {s16-s31}
+	ldmia r0!, {r4-r11}
+	msr PSP, r0
+.endm
+
 
 // ========================== ISR ===========================
 

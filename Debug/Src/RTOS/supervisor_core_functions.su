@@ -1,0 +1,10 @@
+../Src/RTOS/os_manager.h:72:20:OS_Yield	4	static,ignoring_inline_asm
+../Src/RTOS/Port/port_functions.h:17:21:_port_stack_init	32	static
+../Src/RTOS/supervisor_core_functions.c:7:20:_add_to_ready_list	24	static
+../Src/RTOS/supervisor_core_functions.c:31:20:_remove_from_ready_list	32	static
+../Src/RTOS/supervisor_core_functions.c:57:25:_get_free_TCB	16	static
+../Src/RTOS/supervisor_core_functions.c:76:20:_add_free_TCB	24	static
+../Src/RTOS/supervisor_core_functions.c:88:6:_delete_current_task	16	static
+../Src/RTOS/supervisor_core_functions.c:95:17:OS_CreateTaskStatic_SVC_Handle	32	static
+../Src/RTOS/supervisor_core_functions.c:121:13:OS_DeleteTask_SVC_Handle	24	static
+../Src/RTOS/supervisor_core_functions.c:143:6:OS_FPU_Settings_SVC_Handle	16	static

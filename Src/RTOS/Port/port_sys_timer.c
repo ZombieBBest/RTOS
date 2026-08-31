@@ -1,14 +1,13 @@
-#include "sys_timer.h"
-#include "config.h"
+#include "port_sys_timer.h"
+
 #include <stm32f4xx.h>
 
-
-void Sys_SysTick_Initialization(void) {
-	SysTick->LOAD = CONFIG_F_CPU_HZ / CONFIG_TICK_RATE_HZ - 1UL;
+void _port_sys_SysTick_initialization(uint32_t cpu_f_hz, uint32_t tick_hz) {
+	SysTick->LOAD = cpu_f_hz / tick_hz - 1UL;
 	SysTick->CTRL |= (SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk);
 }
 
-void Sys_SysTick_Start(void) {
+void _port_sys_SysTick_start(void) {
 	SysTick->CTRL |= SysTick_CTRL_ENABLE_Msk;
 }
 

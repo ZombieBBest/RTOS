@@ -30,6 +30,7 @@ OS_CREATE_STACK(stack1_handle, 256);
 OS_CREATE_STACK(stack2_handle, 256);
 
 void Task2(void) {
+	OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
 	return;
 	/*while(1) {
 		GPIOC->ODR |= (GPIO_ODR_OD13);
@@ -87,9 +88,15 @@ int main(void)
 	OS_Start();
 }
 
+//	ДГТУ СТИПЕНДИЯ
+//	Военкомат
+//	Перцовка
+//	Разобраться с таблицей прерываний
+
+//Прописать обработчики
+//Настройка FPSCR
 //Исправить Syntax error в OS_CREATE_STACK
 //Внедрить ldrex/strex инструкции в планировщик
-//Добавить поддержку FPU ТОЛЬКО ПО МАНУАЛУ!
 //Добавить секции для дескрипторов
 //Добавить поддержку MPU
 //Добавить unpriveleged mod
@@ -99,4 +106,3 @@ int main(void)
 //Модификация полей контекста ОС обязана быть атомарной
 //Частота МК
 //static assert
-//ЗНАЧЕНИЕ LR И КОЛИЧЕСТВО РЕГИСТРОВ ЗАВИСЯТ ОТ FPU!

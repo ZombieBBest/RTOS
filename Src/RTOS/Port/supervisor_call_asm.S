@@ -14,11 +14,11 @@ SVC_Handler:
 	mrseq r0, msp
 	mrsne r0, psp
 
-	push {lr}
+	push {r4, lr}
 
 	bl SVC_Handler_C
 
-	pop {lr}
+	pop {r4, lr}
 
 	mov r3, #0x00
 	msr basepri, r3

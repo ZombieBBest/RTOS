@@ -5,6 +5,7 @@ typedef enum {
 	SVC_START_OS,
 	SVC_CREATE_TASK,
 	SVC_DELETE_TASK,
+	SVC_SET_FPSCR
 } OS_SVC_Enter_t;
 
 #endif
