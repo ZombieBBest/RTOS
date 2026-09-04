@@ -1,4 +1,4 @@
-../Src/RTOS/supervisor_core_functions.c:88:6:_delete_current_task	1
-../Src/RTOS/supervisor_core_functions.c:95:17:OS_CreateTaskStatic_SVC_Handle	6
-../Src/RTOS/supervisor_core_functions.c:121:13:OS_DeleteTask_SVC_Handle	6
-../Src/RTOS/supervisor_core_functions.c:143:6:OS_FPU_Settings_SVC_Handle	1
+../Src/RTOS/supervisor_core_functions.c:87:6:_delete_current_task	1
+../Src/RTOS/supervisor_core_functions.c:94:17:_svc_create_task_static_handle	6
+../Src/RTOS/supervisor_core_functions.c:120:13:_svc_delete_task_handle	6
+../Src/RTOS/supervisor_core_functions.c:142:6:_svc_fpu_settings_handle	1

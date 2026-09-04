@@ -1,6 +1,5 @@
 #include "supervisor_core_functions.h"
 #include "Port/port_functions.h"
-#include "Port/port_macroses.h"
 
 // ======================== INTERNAL ========================
 
@@ -90,9 +89,9 @@ void _delete_current_task(void) {
 	OS_DeleteTask(c);
 }
 
-// ======================= PUBLIC_API =======================
+// ====================== SVC_HANDLES =======================
 
-OS_TaskHandle_t OS_CreateTaskStatic_SVC_Handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
+OS_TaskHandle_t _svc_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
 
@@ -118,7 +117,7 @@ OS_TaskHandle_t OS_CreateTaskStatic_SVC_Handle(void(*task_ptr)(void), OS_StackHa
 	return (OS_TaskHandle_t*)free_TCB;
 }
 
-OS_Return_t OS_DeleteTask_SVC_Handle(OS_TaskHandle_t handle) {
+OS_Return_t _svc_delete_task_handle(OS_TaskHandle_t handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
 	if (!task_ptr) {
@@ -140,8 +139,8 @@ OS_Return_t OS_DeleteTask_SVC_Handle(OS_TaskHandle_t handle) {
 	return OS_EXIT_SUCCESS;
 }
 
-void OS_FPU_Settings_SVC_Handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
+void _svc_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 
-	PORT_FPU_SETTINGS(h, n, f, r);
+	_port_fpu_mode_settings(sp, (uint32_t)h, (uint32_t)n, (uint32_t)f, (uint32_t)r);
 }

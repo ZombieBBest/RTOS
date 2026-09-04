@@ -1,1 +1,1 @@
-../Src/RTOS/supervisor_call.c:6:6:SVC_Handler_C	56	static,ignoring_inline_asm
+../Src/RTOS/supervisor_call.c:6:10:OS_SVC_Dispatcher	40	static,ignoring_inline_asm

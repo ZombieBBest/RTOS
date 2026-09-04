@@ -6,12 +6,27 @@
 #include <stm32f4xx.h>
 #include "core_config.h"
 
-static inline void _port_fpu_apply_settings(void) {
+#define FPSCR_AHP_Pos				(26U)
+#define FPSCR_DN_Pos				(25U)
+#define FPSCR_FZ_Pos				(24U)
+#define FPSCR_RMODE_Pos				(22U)
+
+#define _get_FPSCR_from_SP(sp)		&sp[24]
+
+
+static inline void _port_fpu_start_settings(void) {
 	SCB->CPACR |= (3 << 22) | (3 << 20);
 
 	FPU->FPCCR &= ~(FPU_FPCCR_LSPEN_Msk | FPU_FPCCR_ASPEN_Msk);
 	__DSB();
 	__ISB();
+}
+
+static inline void _port_fpu_mode_settings(uint32_t* sp, uint32_t AHP, uint32_t DN, uint32_t FZ, uint32_t RMODE) {
+	uint32_t* FPSCR_ptr = _get_FPSCR_from_SP(sp);
+	*FPSCR_ptr &= ~((1 << FPSCR_AHP_Pos) | (1 << FPSCR_DN_Pos) | (1 << FPSCR_FZ_Pos) | (3 << FPSCR_RMODE_Pos));
+	*FPSCR_ptr |= ((uint32_t)AHP << FPSCR_AHP_Pos) | ((uint32_t)DN << FPSCR_DN_Pos) |
+				((uint32_t)FZ << FPSCR_FZ_Pos) | ((uint32_t)RMODE << FPSCR_RMODE_Pos);
 }
 
 static inline void _port_PendSV_enter(void) {

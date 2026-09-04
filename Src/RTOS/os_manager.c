@@ -34,7 +34,7 @@ OS_CREATE_STACK(_idle_stack_handle, 256);
 
 void OS_Initialization(void) {
 	__disable_irq();
-	_port_fpu_apply_settings();
+	_port_fpu_start_settings();
 
 	NVIC_SetPriority(SVCall_IRQn, 13);
 	NVIC_SetPriority(SysTick_IRQn, 14);
