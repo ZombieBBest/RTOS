@@ -4,15 +4,16 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stm32f4xx.h>
-#include "core_config.h"
+
+#include "port_config.h"
 
 #define FPSCR_AHP_Pos				(26U)
 #define FPSCR_DN_Pos				(25U)
 #define FPSCR_FZ_Pos				(24U)
 #define FPSCR_RMODE_Pos				(22U)
 
-#define _get_FPSCR_from_SP(sp)		&sp[24]
-
+#define _get_FPSCR_from_SP(sp)		(&sp[24])
+#define INITIAL_EXC_RETURN  	 	(0xFFFFFFED)
 
 static inline void _port_fpu_start_settings(void) {
 	SCB->CPACR |= (3 << 22) | (3 << 20);
@@ -36,9 +37,23 @@ static inline void _port_PendSV_enter(void) {
 	__asm volatile("isb" : : : "memory");
 }
 
+static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
+	__set_CONTROL(__get_CONTROL() | CONTROL_nPRIV_Msk);
+	__asm volatile (
+		"mov r0, %[task_sp] 	\n\t"
+		"ldr lr, =%[lr_exc] 	\n\t"
+		"b OS_Load_Context_test 		\n\t"
+		:
+		: [task_sp] "r" (first_task_sp),
+		  [lr_exc]  "i" (INITIAL_EXC_RETURN)
+		: "r0", "lr", "memory"
+	);
+}
+
 static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
 
 	uintptr_t* stack_ptr = (uintptr_t*)((uintptr_t)stack_base + stack_size);
+	*(--stack_ptr) = 0;
 
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//FPSCR, S15...
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;

@@ -1,3 +1,4 @@
+"./Src/RTOS/Port/hardfault.o"
 "./Src/RTOS/Port/port_mpu.o"
 "./Src/RTOS/Port/port_supervisor_call.o"
 "./Src/RTOS/Port/port_sys_timer.o"

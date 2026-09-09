@@ -1,1 +1,2 @@
-../Src/RTOS/Port/port_mpu.c:4:6:_port_MPU_Initialization	4	static
+../Src/RTOS/Port/port_mpu.c:11:6:_port_mpu_initialization	4	static,ignoring_inline_asm
+../Src/RTOS/Port/port_mpu.c:51:24:_port_mpu_prepare_task_stack_region	40	static

@@ -1,5 +1,6 @@
 #include "supervisor_core_functions.h"
 #include "Port/port_functions.h"
+#include "Port/port_mpu.h"
 
 // ======================== INTERNAL ========================
 
@@ -108,6 +109,8 @@ OS_TaskHandle_t _svc_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 
 	if (free_TCB) {
 		free_TCB->stack_descriptor = desc;
+
+		free_TCB->mpu_sr = _port_mpu_prepare_task_stack_region(free_TCB->stack_descriptor->stack_ptr, free_TCB->stack_descriptor->stack_size);
 		free_TCB->stack_pointer = _port_stack_init(task_ptr, _delete_current_task, free_TCB->stack_descriptor->stack_ptr,
 														free_TCB->stack_descriptor->stack_size);
 

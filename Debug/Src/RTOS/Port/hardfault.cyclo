@@ -1,0 +1,2 @@
+../Src/RTOS/Port/hardfault.c:3:6:HardFault_Decoder	1
+../Src/RTOS/Port/hardfault.c:24:29:HardFault_Handler	1

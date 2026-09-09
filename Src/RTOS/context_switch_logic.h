@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
-void* OS_SwitchLogic(void* current_task_stack_pointer);
+// ====================== SCHEDULER_API =====================
+
+void* _scheduler_switch_logic(void* current_task_stack_pointer);
 
 #endif

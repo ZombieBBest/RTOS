@@ -1,6 +1,7 @@
-#include "core_config.h"
+#include "port_config.h"
 .extern OS_SwitchLogic
 .global OS_Load_Context
+.global OS_Load_Context_test
 .global PendSV_Handler
 .type PendSV_Handler, %function
 .syntax unified
@@ -24,16 +25,18 @@
 // ========================== ISR ===========================
 
 PendSV_Handler:
-	mov r3, #CORE_CONFIG_BASEPRI_LOCK_VALUE
+	mov r3, #PORT_CONFIG_BASEPRI_LOCK_VALUE
 	msr basepri, r3
 
 	SaveContext
 
-	push {lr}
+OS_Load_Context_test:
 
-	bl OS_SwitchLogic
+	push {r4, lr}
 
-	pop {lr}
+	bl _scheduler_switch_logic
+
+	pop {r4, lr}
 
 OS_Load_Context:
 	clrex

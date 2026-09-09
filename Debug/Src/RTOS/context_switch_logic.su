@@ -1,1 +1,2 @@
-../Src/RTOS/context_switch_logic.c:8:7:OS_SwitchLogic	24	static
+../Src/RTOS/Port/port_mpu.h:17:20:_port_mpu_set_task_stack_region	24	static,ignoring_inline_asm
+../Src/RTOS/context_switch_logic.c:10:7:_scheduler_switch_logic	32	static

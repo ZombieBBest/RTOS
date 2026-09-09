@@ -29,7 +29,7 @@
 OS_CREATE_STACK(stack1_handle, 256);
 OS_CREATE_STACK(stack2_handle, 256);
 
-void Task2(void) {
+void Task1(void) {
 	OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
 	return;
 	/*while(1) {
@@ -45,8 +45,8 @@ void Task3(void) {
 	}
 }
 
-void Task1(void) {
-	OS_CreateTaskStatic(Task3, stack2_handle, 1);
+void Task2(void) {
+	OS_CreateTaskStatic(Task3, stack1_handle, 1);
 	while(1) {
 		GPIOC->ODR &= ~(GPIO_ODR_OD13);
 		for (uint32_t i = 0; i < 100000; i++);
@@ -88,6 +88,7 @@ int main(void)
 	OS_Start();
 }
 
+//Возвращать из CREATESTACK хэндлер стека
 //Прописать обработчики
 //Исправить Syntax error в OS_CREATE_STACK
 //Внедрить ldrex/strex инструкции в планировщик

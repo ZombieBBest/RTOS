@@ -3,8 +3,11 @@
 
 #include <stdint.h>
 #include <stm32f4xx.h>
+#include "Port/port_mpu.h"
 #include "memory.h"
 #include "config.h"
+
+// ==================== TYPE_DEFINITIONS ====================
 
 typedef enum {
 	OS_STATE_FREE,
@@ -20,6 +23,8 @@ typedef struct OS_TCB_t {
 	struct OS_TCB_t* prev_node_ptr;
 	struct OS_TCB_t* next_node_ptr;
 	OS_StackDescriptor_t* stack_descriptor;
+
+	port_MPU_StackRegion_t mpu_sr;
 } OS_TCB_t;
 
 typedef struct {

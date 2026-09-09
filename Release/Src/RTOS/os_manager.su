@@ -1,5 +1,6 @@
-../Src/RTOS/os_manager.c:25:6:_idle_task	0	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:50:17:OS_CreateTaskStatic	4	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:35:6:OS_Initialization	8	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:68:13:OS_DeleteTask	4	static,ignoring_inline_asm
-../Src/RTOS/os_manager.c:84:6:OS_FPU_Settings	4	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:32:6:_idle_task	0	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:58:6:OS_Start	8	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:73:17:OS_CreateTaskStatic	4	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:42:6:OS_Initialization	8	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:91:13:OS_DeleteTask	4	static,ignoring_inline_asm
+../Src/RTOS/os_manager.c:107:6:OS_FPU_Settings	4	static,ignoring_inline_asm

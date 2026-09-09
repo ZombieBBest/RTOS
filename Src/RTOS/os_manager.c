@@ -3,6 +3,7 @@
 #include <stm32f4xx.h>
 #include <string.h>
 #include "Port/port_functions.h"
+#include "Port/port_mpu.h"
 #include "critical.h"
 #include "memory.h"
 #include "context.h"
@@ -20,6 +21,12 @@ static inline void _context_initialization(void) {
 	}
 
 	os_context.free_TCB_ptr = (OS_TCB_t*)&os_context.task_context[0];
+}
+
+static inline OS_TCB_t* _get_most_priority_task(void) {
+	uint32_t max_ready_priority = 31 - __builtin_clz(os_context.priority_bitmap);
+
+	return os_context.task_ready_list[max_ready_priority];
 }
 
 void _idle_task(void) {
@@ -42,9 +49,25 @@ void OS_Initialization(void) {
 
 	_context_initialization();
 	_port_sys_SysTick_initialization(CONFIG_F_CPU_HZ, CONFIG_TICK_RATE_HZ);
+	_port_mpu_initialization();
 	__enable_irq();
 
 	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);
+}
+
+void OS_Start(void) {
+	//_port_sys_SysTick_start();
+	//os_context.current_run_task = (OS_TCB_t*)&os_context.task_context[0];
+	//_PORT_OS_RUN(SVC_START_OS, os_context.task_context[0].stack_pointer);
+
+	_port_sys_SysTick_start();
+	OS_TCB_t* most_priority_task = _get_most_priority_task();
+	os_context.current_run_task = most_priority_task;
+
+	//_port_sys_SysTick_start();
+	//OS_TCB_t* idle_task_ptr = os_context.task_ready_list[0];
+	//os_context.current_run_task = idle_task_ptr;
+	_PORT_OS_RUN(SVC_START_OS, most_priority_task->stack_pointer);
 }
 
 OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
