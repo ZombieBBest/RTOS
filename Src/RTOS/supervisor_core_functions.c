@@ -86,8 +86,12 @@ static inline void _add_free_TCB(OS_TCB_t* task_ptr) {
 }
 
 void _delete_current_task(void) {
-	OS_TCB_t* c = os_context.current_run_task;
-	OS_DeleteTask(c);
+	__asm volatile(
+		"svc %[svc_num]		\n\t"
+		:
+		: [svc_num] "i" (SVC_DELETE_CURRENT_TASK)
+		: "r12", "lr", "memory"
+	);
 }
 
 // ====================== SVC_HANDLES =======================
@@ -140,6 +144,11 @@ OS_Return_t _svc_delete_task_handle(OS_TaskHandle_t handle) {
 	}
 
 	return OS_EXIT_SUCCESS;
+}
+
+void _svc_delete_current_task_handle(void) {
+	OS_TCB_t* c = os_context.current_run_task;
+	_svc_delete_task_handle(c);
 }
 
 void _svc_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,

@@ -8,9 +8,6 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg1, uint32_t arg2, uint3
 
 	switch(svc_arg) {
 		case SVC_START_OS:
-			//_PORT_START_SCHEDULER_FROM_SVC(arg1);
-			//OS_TCB_t* task_ptr = _get_most_priority_task();
-			//_port_start_scheduler_from_svc((void*)task_ptr->stack_pointer);
 			_port_start_scheduler_from_svc((void*)arg1);
 			break;
 
@@ -20,6 +17,10 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg1, uint32_t arg2, uint3
 
 		case SVC_DELETE_TASK:
 			result = (uint32_t)_svc_delete_task_handle((OS_TaskHandle_t)arg1);
+			break;
+
+		case SVC_DELETE_CURRENT_TASK:
+			_svc_delete_current_task_handle();
 			break;
 
 		case SVC_SET_FPSCR:

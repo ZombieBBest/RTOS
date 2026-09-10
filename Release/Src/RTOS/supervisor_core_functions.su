@@ -1,4 +1,5 @@
-../Src/RTOS/supervisor_core_functions.c:88:6:_delete_current_task	0	static
-../Src/RTOS/supervisor_core_functions.c:95:17:_svc_create_task_static_handle	40	static
-../Src/RTOS/supervisor_core_functions.c:123:13:_svc_delete_task_handle	16	static,ignoring_inline_asm
-../Src/RTOS/supervisor_core_functions.c:145:6:_svc_fpu_settings_handle	12	static
+../Src/RTOS/supervisor_core_functions.c:88:6:_delete_current_task	4	static,ignoring_inline_asm
+../Src/RTOS/supervisor_core_functions.c:99:17:_svc_create_task_static_handle	40	static
+../Src/RTOS/supervisor_core_functions.c:127:13:_svc_delete_task_handle	16	static,ignoring_inline_asm
+../Src/RTOS/supervisor_core_functions.c:149:6:_svc_delete_current_task_handle	0	static
+../Src/RTOS/supervisor_core_functions.c:154:6:_svc_fpu_settings_handle	12	static

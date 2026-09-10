@@ -56,17 +56,10 @@ void OS_Initialization(void) {
 }
 
 void OS_Start(void) {
-	//_port_sys_SysTick_start();
-	//os_context.current_run_task = (OS_TCB_t*)&os_context.task_context[0];
-	//_PORT_OS_RUN(SVC_START_OS, os_context.task_context[0].stack_pointer);
-
 	_port_sys_SysTick_start();
 	OS_TCB_t* most_priority_task = _get_most_priority_task();
 	os_context.current_run_task = most_priority_task;
 
-	//_port_sys_SysTick_start();
-	//OS_TCB_t* idle_task_ptr = os_context.task_ready_list[0];
-	//os_context.current_run_task = idle_task_ptr;
 	_PORT_OS_RUN(SVC_START_OS, most_priority_task->stack_pointer);
 }
 

@@ -42,7 +42,7 @@ static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
 	__asm volatile (
 		"mov r0, %[task_sp] 	\n\t"
 		"ldr lr, =%[lr_exc] 	\n\t"
-		"b OS_Load_Context_test 		\n\t"
+		"b OS_Load_Context 		\n\t"
 		:
 		: [task_sp] "r" (first_task_sp),
 		  [lr_exc]  "i" (INITIAL_EXC_RETURN)

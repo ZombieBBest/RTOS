@@ -30,7 +30,7 @@ PendSV_Handler:
 
 	SaveContext
 
-OS_Load_Context_test:
+OS_Load_Context:
 
 	push {r4, lr}
 
@@ -38,7 +38,6 @@ OS_Load_Context_test:
 
 	pop {r4, lr}
 
-OS_Load_Context:
 	clrex
 
 	LoadContext

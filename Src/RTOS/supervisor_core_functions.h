@@ -9,6 +9,8 @@ OS_TaskHandle_t _svc_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 
 OS_Return_t _svc_delete_task_handle(OS_TaskHandle_t handle);
 
+void _svc_delete_current_task_handle(void);
+
 void _svc_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
 

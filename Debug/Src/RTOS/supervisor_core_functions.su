@@ -6,7 +6,8 @@
 ../Src/RTOS/supervisor_core_functions.c:31:20:_remove_from_ready_list	32	static
 ../Src/RTOS/supervisor_core_functions.c:57:25:_get_free_TCB	16	static
 ../Src/RTOS/supervisor_core_functions.c:76:20:_add_free_TCB	24	static
-../Src/RTOS/supervisor_core_functions.c:88:6:_delete_current_task	16	static
-../Src/RTOS/supervisor_core_functions.c:95:17:_svc_create_task_static_handle	48	static
-../Src/RTOS/supervisor_core_functions.c:123:13:_svc_delete_task_handle	24	static
-../Src/RTOS/supervisor_core_functions.c:145:6:_svc_fpu_settings_handle	24	static
+../Src/RTOS/supervisor_core_functions.c:88:6:_delete_current_task	8	static,ignoring_inline_asm
+../Src/RTOS/supervisor_core_functions.c:99:17:_svc_create_task_static_handle	48	static
+../Src/RTOS/supervisor_core_functions.c:127:13:_svc_delete_task_handle	24	static
+../Src/RTOS/supervisor_core_functions.c:149:6:_svc_delete_current_task_handle	16	static
+../Src/RTOS/supervisor_core_functions.c:154:6:_svc_fpu_settings_handle	24	static
