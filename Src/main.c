@@ -88,6 +88,8 @@ int main(void)
 	OS_Start();
 }
 
+//Сделать секцию глобальных данных для MPU
+
 //Возвращать из CREATESTACK хэндлер стека
 //Прописать обработчики
 //Исправить Syntax error в OS_CREATE_STACK

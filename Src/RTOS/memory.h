@@ -28,6 +28,6 @@ typedef struct{
 			.stack_size = size_in_bytes,																							\
 			.is_taken = 0,																											\
 	};																																\
-	static OS_StackHandle_t name = (OS_StackHandle_t)&name##_sys_descriptor
+	const static OS_StackHandle_t name = (OS_StackHandle_t)&name##_sys_descriptor
 
 #endif
