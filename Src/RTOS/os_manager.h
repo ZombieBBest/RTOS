@@ -11,7 +11,7 @@
 #include "context.h"
 #include "Port/port_sys_timer.h"
 
-// ==================== TYPE_DEFINITIONS ====================
+// ==================== TYPES_DEFINITION ====================
 
 typedef void* OS_TaskHandle_t;
 
@@ -43,7 +43,7 @@ typedef enum {
 	FPU_ROUND_TO_ZERO
 } OS_FPU_ROUNDING_t;
 
-// ======================= PUBLIC_API =======================
+// =================== FUNCTIONS_PROTOTYPES==================
 
 void OS_Initialization(void);
 
@@ -54,6 +54,8 @@ OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t hand
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle);
 
 void OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
+
+// ================= PUBLIC_STATIC_FUNCTIONS ================
 
 static inline void OS_Yield(void) {
 	_port_PendSV_enter();

@@ -2,6 +2,7 @@
 
 #include <stm32f4xx.h>
 #include <string.h>
+#include "isr_core_functions.h"
 #include "Port/port_functions.h"
 #include "Port/port_mpu.h"
 #include "critical.h"
@@ -9,8 +10,7 @@
 #include "context.h"
 #include "config.h"
 
-
-// ======================== INTERNAL ========================
+// ===================== INTERNAL_STATIC ====================
 
 static inline void _context_initialization(void) {
 	memset((void*)&os_context, 0, sizeof(OS_Context_t));
@@ -29,6 +29,10 @@ static inline OS_TCB_t* _get_most_priority_task(void) {
 	return os_context.task_ready_list[max_ready_priority];
 }
 
+// ======================== INTERNAL ========================
+
+OS_CREATE_STACK(_idle_stack_handle, 256);
+
 void _idle_task(void) {
 	while (1) {
 		__WFI();
@@ -37,19 +41,18 @@ void _idle_task(void) {
 
 // ======================= PUBLIC_API =======================
 
-OS_CREATE_STACK(_idle_stack_handle, 256);
-
 void OS_Initialization(void) {
 	__disable_irq();
 	_port_fpu_start_settings();
 
-	NVIC_SetPriority(SVCall_IRQn, 13);
-	NVIC_SetPriority(SysTick_IRQn, 14);
-	NVIC_SetPriority(PendSV_IRQn, 15);
+	_port_ISR_settings_apply();
 
 	_context_initialization();
 	_port_sys_SysTick_initialization(CONFIG_F_CPU_HZ, CONFIG_TICK_RATE_HZ);
+
 	_port_mpu_initialization();
+	_port_mpu_register_stacking_error_callback(_isr_task_suicide_handle);
+
 	__enable_irq();
 
 	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);

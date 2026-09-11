@@ -1,0 +1,13 @@
+../Src/RTOS/Port/port_functions.h:28:20:_port_fpu_mode_settings	32	static
+../Src/RTOS/Port/port_functions.h:35:20:_port_PendSV_enter	4	static,ignoring_inline_asm
+../Src/RTOS/Port/port_functions.h:64:21:_port_stack_init	32	static
+../Src/RTOS/os_manager.h:60:20:OS_Yield	8	static
+../Src/RTOS/isr_core_functions.c:7:20:_add_to_ready_list	24	static
+../Src/RTOS/isr_core_functions.c:31:20:_remove_from_ready_list	32	static
+../Src/RTOS/isr_core_functions.c:57:25:_get_free_TCB	16	static
+../Src/RTOS/isr_core_functions.c:76:20:_add_free_TCB	24	static
+../Src/RTOS/isr_core_functions.c:90:6:_task_suicide	8	static,ignoring_inline_asm
+../Src/RTOS/isr_core_functions.c:101:17:_isr_create_task_static_handle	48	static
+../Src/RTOS/isr_core_functions.c:129:13:_isr_delete_task_handle	24	static
+../Src/RTOS/isr_core_functions.c:151:6:_isr_task_suicide_handle	16	static
+../Src/RTOS/isr_core_functions.c:156:6:_isr_fpu_settings_handle	24	static

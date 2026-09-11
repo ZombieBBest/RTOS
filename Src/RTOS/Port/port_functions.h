@@ -15,6 +15,8 @@
 #define _get_FPSCR_from_SP(sp)		(&sp[24])
 #define INITIAL_EXC_RETURN  	 	(0xFFFFFFED)
 
+// ================= PUBLIC_STATIC_FUNCTIONS ================
+
 static inline void _port_fpu_start_settings(void) {
 	SCB->CPACR |= (3 << 22) | (3 << 20);
 
@@ -48,6 +50,15 @@ static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
 		  [lr_exc]  "i" (INITIAL_EXC_RETURN)
 		: "r0", "lr", "memory"
 	);
+}
+
+static inline void _port_ISR_settings_apply(void) {
+	NVIC_SetPriority(MemoryManagement_IRQn, 0);
+	NVIC_SetPriority(SVCall_IRQn, 13);
+	NVIC_SetPriority(SysTick_IRQn, 14);
+	NVIC_SetPriority(PendSV_IRQn, 15);
+
+	SCB->SHCSR |= (SCB_SHCSR_MEMFAULTENA_Msk);
 }
 
 static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {

@@ -1,8 +1,8 @@
-#include "supervisor_core_functions.h"
+#include "isr_core_functions.h"
 #include "Port/port_functions.h"
 #include "Port/port_mpu.h"
 
-// ======================== INTERNAL ========================
+// ===================== INTERNAL_STATIC ====================
 
 static inline void _add_to_ready_list(OS_TCB_t* task_ptr, uint32_t priority) {
 	task_ptr->state = OS_STATE_READY;
@@ -85,18 +85,20 @@ static inline void _add_free_TCB(OS_TCB_t* task_ptr) {
 	task_ptr->state = OS_STATE_FREE;
 }
 
-void _delete_current_task(void) {
+// ======================== INTERNAL ========================
+
+void _task_suicide(void) {
 	__asm volatile(
 		"svc %[svc_num]		\n\t"
 		:
-		: [svc_num] "i" (SVC_DELETE_CURRENT_TASK)
+		: [svc_num] "i" (SVC_SUICIDE_TASK)
 		: "r12", "lr", "memory"
 	);
 }
 
-// ====================== SVC_HANDLES =======================
+// ====================== ISR_HANDLES =======================
 
-OS_TaskHandle_t _svc_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
+OS_TaskHandle_t _isr_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
 
@@ -115,7 +117,7 @@ OS_TaskHandle_t _svc_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 		free_TCB->stack_descriptor = desc;
 
 		free_TCB->mpu_sr = _port_mpu_prepare_task_stack_region(free_TCB->stack_descriptor->stack_ptr, free_TCB->stack_descriptor->stack_size);
-		free_TCB->stack_pointer = _port_stack_init(task_ptr, _delete_current_task, free_TCB->stack_descriptor->stack_ptr,
+		free_TCB->stack_pointer = _port_stack_init(task_ptr, _task_suicide, free_TCB->stack_descriptor->stack_ptr,
 														free_TCB->stack_descriptor->stack_size);
 
 		_add_to_ready_list(free_TCB, priority);
@@ -124,7 +126,7 @@ OS_TaskHandle_t _svc_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 	return (OS_TaskHandle_t*)free_TCB;
 }
 
-OS_Return_t _svc_delete_task_handle(OS_TaskHandle_t handle) {
+OS_Return_t _isr_delete_task_handle(OS_TaskHandle_t handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
 	if (!task_ptr) {
@@ -146,12 +148,12 @@ OS_Return_t _svc_delete_task_handle(OS_TaskHandle_t handle) {
 	return OS_EXIT_SUCCESS;
 }
 
-void _svc_delete_current_task_handle(void) {
+void _isr_task_suicide_handle(void) {
 	OS_TCB_t* c = os_context.current_run_task;
-	_svc_delete_task_handle(c);
+	_isr_delete_task_handle(c);
 }
 
-void _svc_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
+void _isr_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 
 	_port_fpu_mode_settings(sp, (uint32_t)h, (uint32_t)n, (uint32_t)f, (uint32_t)r);

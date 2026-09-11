@@ -23,7 +23,7 @@
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
+  //#warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
 OS_CREATE_STACK(stack1_handle, 256);
@@ -89,6 +89,7 @@ int main(void)
 }
 
 //Сделать секцию глобальных данных для MPU
+//Изменение приоритета задачи
 
 //Возвращать из CREATESTACK хэндлер стека
 //Прописать обработчики

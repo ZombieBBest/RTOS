@@ -3,6 +3,8 @@
 
 #include <stm32f4xx.h>
 
+// ================= PUBLIC_STATIC_FUNCTIONS ================
+
 static inline uint32_t OS_ENTER_CRITICAL(void) {
     uint32_t primask = __get_PRIMASK();
 

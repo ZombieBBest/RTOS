@@ -6,7 +6,7 @@ Src/RTOS/supervisor_call.o: ../Src/RTOS/supervisor_call.c \
  ../Inc/system_stm32f4xx.h ../Src/RTOS/Port/port_config.h \
  ../Src/RTOS/Port/port_sys_timer.h ../Src/RTOS/Port/port_macroses.h \
  ../Src/RTOS/memory.h ../Src/RTOS/context.h ../Src/RTOS/Port/port_mpu.h \
- ../Src/RTOS/config.h ../Src/RTOS/supervisor_core_functions.h
+ ../Src/RTOS/config.h ../Src/RTOS/isr_core_functions.h
 ../Src/RTOS/supervisor_call.h:
 ../Src/RTOS/os_manager.h:
 ../Src/RTOS/Port/port_functions.h:
@@ -25,4 +25,4 @@ Src/RTOS/supervisor_call.o: ../Src/RTOS/supervisor_call.c \
 ../Src/RTOS/context.h:
 ../Src/RTOS/Port/port_mpu.h:
 ../Src/RTOS/config.h:
-../Src/RTOS/supervisor_core_functions.h:
+../Src/RTOS/isr_core_functions.h:

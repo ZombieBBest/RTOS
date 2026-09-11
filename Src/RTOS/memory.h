@@ -5,7 +5,7 @@
 #include <stdint.h>
 #include <assert.h>
 
-// ==================== TYPE_DEFINITIONS ====================
+// ==================== TYPES_DEFINITION ====================
 
 typedef void* OS_StackHandle_t;
 

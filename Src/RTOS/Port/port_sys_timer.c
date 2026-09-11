@@ -2,6 +2,8 @@
 
 #include <stm32f4xx.h>
 
+// ======================= PUBLIC_API =======================
+
 void _port_sys_SysTick_initialization(uint32_t cpu_f_hz, uint32_t tick_hz) {
 	SysTick->LOAD = cpu_f_hz / tick_hz - 1UL;
 	SysTick->CTRL |= (SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_TICKINT_Msk);

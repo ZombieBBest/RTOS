@@ -7,23 +7,23 @@
 C_SRCS += \
 ../Src/RTOS/context.c \
 ../Src/RTOS/context_switch_logic.c \
+../Src/RTOS/isr_core_functions.c \
 ../Src/RTOS/os_manager.c \
-../Src/RTOS/supervisor_call.c \
-../Src/RTOS/supervisor_core_functions.c 
+../Src/RTOS/supervisor_call.c 
 
 OBJS += \
 ./Src/RTOS/context.o \
 ./Src/RTOS/context_switch_logic.o \
+./Src/RTOS/isr_core_functions.o \
 ./Src/RTOS/os_manager.o \
-./Src/RTOS/supervisor_call.o \
-./Src/RTOS/supervisor_core_functions.o 
+./Src/RTOS/supervisor_call.o 
 
 C_DEPS += \
 ./Src/RTOS/context.d \
 ./Src/RTOS/context_switch_logic.d \
+./Src/RTOS/isr_core_functions.d \
 ./Src/RTOS/os_manager.d \
-./Src/RTOS/supervisor_call.d \
-./Src/RTOS/supervisor_core_functions.d 
+./Src/RTOS/supervisor_call.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -33,7 +33,7 @@ Src/RTOS/%.o Src/RTOS/%.su Src/RTOS/%.cyclo: ../Src/RTOS/%.c Src/RTOS/subdir.mk
 clean: clean-Src-2f-RTOS
 
 clean-Src-2f-RTOS:
-	-$(RM) ./Src/RTOS/context.cyclo ./Src/RTOS/context.d ./Src/RTOS/context.o ./Src/RTOS/context.su ./Src/RTOS/context_switch_logic.cyclo ./Src/RTOS/context_switch_logic.d ./Src/RTOS/context_switch_logic.o ./Src/RTOS/context_switch_logic.su ./Src/RTOS/os_manager.cyclo ./Src/RTOS/os_manager.d ./Src/RTOS/os_manager.o ./Src/RTOS/os_manager.su ./Src/RTOS/supervisor_call.cyclo ./Src/RTOS/supervisor_call.d ./Src/RTOS/supervisor_call.o ./Src/RTOS/supervisor_call.su ./Src/RTOS/supervisor_core_functions.cyclo ./Src/RTOS/supervisor_core_functions.d ./Src/RTOS/supervisor_core_functions.o ./Src/RTOS/supervisor_core_functions.su
+	-$(RM) ./Src/RTOS/context.cyclo ./Src/RTOS/context.d ./Src/RTOS/context.o ./Src/RTOS/context.su ./Src/RTOS/context_switch_logic.cyclo ./Src/RTOS/context_switch_logic.d ./Src/RTOS/context_switch_logic.o ./Src/RTOS/context_switch_logic.su ./Src/RTOS/isr_core_functions.cyclo ./Src/RTOS/isr_core_functions.d ./Src/RTOS/isr_core_functions.o ./Src/RTOS/isr_core_functions.su ./Src/RTOS/os_manager.cyclo ./Src/RTOS/os_manager.d ./Src/RTOS/os_manager.o ./Src/RTOS/os_manager.su ./Src/RTOS/supervisor_call.cyclo ./Src/RTOS/supervisor_call.d ./Src/RTOS/supervisor_call.o ./Src/RTOS/supervisor_call.su
 
 .PHONY: clean-Src-2f-RTOS
 

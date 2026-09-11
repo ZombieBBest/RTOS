@@ -3,10 +3,52 @@
 #include <stm32f4xx.h>
 #include <stddef.h>
 
+// ====================== DEFINITIONS =======================
+
 #define FLASH_REGION_NUMBER		(0UL)
 #define SRAM_REGION_NUMBER		(1UL)
 #define PERIPH_REGION_NUMBER	(2UL)
 #define STACK_REGION_NUMBER		(3UL)
+
+#define ENTER_HARDFAULT()		\
+	__asm volatile (			\
+		"mov r0, #0 	\n\t"	\
+		"bx r0     		\n\t"	\
+	)
+
+// ======================= CALLBACKS ========================
+
+void(*mem_stacking_error_callback)(void) = 0;
+
+// ========================== ISR ===========================
+
+void MemManage_Handler(uint32_t* sp) {
+	__asm volatile ("bkpt #0");
+
+	volatile uint32_t mmfar = SCB->MMFAR;
+
+	uint32_t faults_to_clear = SCB->CFSR;
+
+	if (SCB->CFSR & SCB_CFSR_MSTKERR_Msk || SCB->CFSR & SCB_CFSR_DACCVIOL_Msk) {
+		if (mem_stacking_error_callback) {
+			mem_stacking_error_callback();
+		}
+		else {
+			ENTER_HARDFAULT();
+			while(1);
+		}
+	}
+
+	(void)mmfar;
+	SCB->CFSR = faults_to_clear;
+	__DSB();
+}
+
+// ====================== PUBLIC_API ========================
+
+void _port_mpu_register_stacking_error_callback(void(*callback)(void)) {
+	mem_stacking_error_callback = callback;
+}
 
 void _port_mpu_initialization(void) {
 	MPU->CTRL &= ~(MPU_CTRL_ENABLE_Msk);

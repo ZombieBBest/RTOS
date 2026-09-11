@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-// ====================== SCHEDULER_API =====================
+// =================== SCHEDULER_PROTOTYPE ==================
 
 void* _scheduler_switch_logic(void* current_task_stack_pointer);
 

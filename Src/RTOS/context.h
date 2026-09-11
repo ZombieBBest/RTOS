@@ -7,7 +7,7 @@
 #include "memory.h"
 #include "config.h"
 
-// ==================== TYPE_DEFINITIONS ====================
+// ==================== TYPES_DEFINITION ====================
 
 typedef enum {
 	OS_STATE_FREE,

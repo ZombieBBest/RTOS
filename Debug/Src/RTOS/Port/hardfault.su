@@ -1,2 +1,2 @@
-../Src/RTOS/Port/hardfault.c:3:6:HardFault_Decoder	64	static,ignoring_inline_asm
-../Src/RTOS/Port/hardfault.c:24:29:HardFault_Handler	0	static,ignoring_inline_asm
+../Src/RTOS/Port/hardfault.c:5:6:HardFault_Decoder	64	static,ignoring_inline_asm
+../Src/RTOS/Port/hardfault.c:26:29:HardFault_Handler	0	static,ignoring_inline_asm

@@ -5,7 +5,8 @@ Src/RTOS/os_manager.o: ../Src/RTOS/os_manager.c ../Src/RTOS/os_manager.h \
  ../Inc/system_stm32f4xx.h ../Src/RTOS/Port/port_config.h \
  ../Src/RTOS/Port/port_sys_timer.h ../Src/RTOS/Port/port_macroses.h \
  ../Src/RTOS/supervisor_call.h ../Src/RTOS/memory.h ../Src/RTOS/context.h \
- ../Src/RTOS/Port/port_mpu.h ../Src/RTOS/config.h ../Src/RTOS/critical.h
+ ../Src/RTOS/Port/port_mpu.h ../Src/RTOS/config.h \
+ ../Src/RTOS/isr_core_functions.h ../Src/RTOS/critical.h
 ../Src/RTOS/os_manager.h:
 ../Src/RTOS/Port/port_functions.h:
 ../Inc/stm32f4xx.h:
@@ -24,4 +25,5 @@ Src/RTOS/os_manager.o: ../Src/RTOS/os_manager.c ../Src/RTOS/os_manager.h \
 ../Src/RTOS/context.h:
 ../Src/RTOS/Port/port_mpu.h:
 ../Src/RTOS/config.h:
+../Src/RTOS/isr_core_functions.h:
 ../Src/RTOS/critical.h:
