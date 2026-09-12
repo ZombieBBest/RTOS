@@ -1,4 +1,4 @@
-../Src/RTOS/Port/port_mpu.c:25:6:MemManage_Handler	4
-../Src/RTOS/Port/port_mpu.c:49:6:_port_mpu_register_stacking_error_callback	1
-../Src/RTOS/Port/port_mpu.c:53:6:_port_mpu_initialization	1
-../Src/RTOS/Port/port_mpu.c:93:24:_port_mpu_prepare_task_stack_region	1
+../Src/RTOS/Port/port_mpu.c:30:6:MemManage_Handler_C	2
+../Src/RTOS/Port/port_mpu.c:48:6:_port_mpu_register_stacking_error_callback	1
+../Src/RTOS/Port/port_mpu.c:52:6:_port_mpu_initialization	1
+../Src/RTOS/Port/port_mpu.c:92:24:_port_mpu_prepare_task_stack_region	1

@@ -16,7 +16,7 @@ extern uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1
 
 void SVC_Handler_C(uint32_t* sp) {
 	uint32_t pc_reg = sp[PC_SP_INDEX];
-	uint8_t svc_arg = *((uint8_t*)(pc_reg + SVC_NUM_INSTRUCTION_INDEX));
+	uint8_t svc_arg = *((uint8_t*)((uintptr_t)pc_reg + SVC_NUM_INSTRUCTION_INDEX));
 
 	uint32_t arg0 = sp[ARG0_SP_INDEX];
 	uint32_t arg1 = sp[ARG1_SP_INDEX];
