@@ -89,11 +89,11 @@ void _port_mpu_initialization(void) {
 }
 
 //Size must be a multiple of 2
-port_MPU_StackRegion_t _port_mpu_prepare_task_stack_region(uint32_t* stack_start_ptr, size_t stack_size) {
+Port_MPU_StackRegion_t _port_mpu_prepare_task_stack_region(uint32_t* stack_start_ptr, size_t stack_size) {
 	uint32_t highest_bit = 31 - __builtin_clz(stack_size);
 	uint32_t size_mpu_format = highest_bit - 1;
 
-	port_MPU_StackRegion_t sr;
+	Port_MPU_StackRegion_t sr;
 
 	sr.rbar = ((uintptr_t)stack_start_ptr)
 			  | (MPU_RBAR_VALID_Msk)

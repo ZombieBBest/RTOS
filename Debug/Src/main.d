@@ -1,11 +1,13 @@
 Src/main.o: ../Src/main.c ../Inc/stm32f4xx.h ../Inc/stm32f411xe.h \
  ../Inc/core_cm4.h ../Inc/cmsis_version.h ../Inc/cmsis_compiler.h \
  ../Inc/cmsis_gcc.h ../Inc/mpu_armv7.h ../Inc/system_stm32f4xx.h \
- ../Src/RTOS/os_manager.h ../Src/RTOS/Port/port_functions.h \
- ../Src/RTOS/Port/port_config.h ../Src/RTOS/Port/port_sys_timer.h \
- ../Src/RTOS/Port/port_macroses.h ../Src/RTOS/supervisor_call.h \
- ../Src/RTOS/memory.h ../Src/RTOS/context.h ../Src/RTOS/Port/port_mpu.h \
- ../Src/RTOS/config.h
+ ../Src/RTOS/Core/os_manager.h ../Src/RTOS/Core/../Port/port_functions.h \
+ ../Src/RTOS/Core/../Port/port_config.h \
+ ../Src/RTOS/Core/../Port/port_sys_timer.h \
+ ../Src/RTOS/Core/../Port/port_macroses.h \
+ ../Src/RTOS/Core/supervisor_call.h ../Src/RTOS/Core/memory.h \
+ ../Src/RTOS/Core/context.h ../Src/RTOS/Core/../Port/port_mpu.h \
+ ../Src/RTOS/Core/../Port/port_periphery.h ../Src/RTOS/Core/config.h
 ../Inc/stm32f4xx.h:
 ../Inc/stm32f411xe.h:
 ../Inc/core_cm4.h:
@@ -14,13 +16,14 @@ Src/main.o: ../Src/main.c ../Inc/stm32f4xx.h ../Inc/stm32f411xe.h \
 ../Inc/cmsis_gcc.h:
 ../Inc/mpu_armv7.h:
 ../Inc/system_stm32f4xx.h:
-../Src/RTOS/os_manager.h:
-../Src/RTOS/Port/port_functions.h:
-../Src/RTOS/Port/port_config.h:
-../Src/RTOS/Port/port_sys_timer.h:
-../Src/RTOS/Port/port_macroses.h:
-../Src/RTOS/supervisor_call.h:
-../Src/RTOS/memory.h:
-../Src/RTOS/context.h:
-../Src/RTOS/Port/port_mpu.h:
-../Src/RTOS/config.h:
+../Src/RTOS/Core/os_manager.h:
+../Src/RTOS/Core/../Port/port_functions.h:
+../Src/RTOS/Core/../Port/port_config.h:
+../Src/RTOS/Core/../Port/port_sys_timer.h:
+../Src/RTOS/Core/../Port/port_macroses.h:
+../Src/RTOS/Core/supervisor_call.h:
+../Src/RTOS/Core/memory.h:
+../Src/RTOS/Core/context.h:
+../Src/RTOS/Core/../Port/port_mpu.h:
+../Src/RTOS/Core/../Port/port_periphery.h:
+../Src/RTOS/Core/config.h:

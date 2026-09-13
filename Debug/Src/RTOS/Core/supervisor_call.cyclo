@@ -1,0 +1,2 @@
+../Src/RTOS/Core/../Port/port_functions.h:42:20:_port_start_scheduler_from_svc	1
+../Src/RTOS/Core/supervisor_call.c:8:10:OS_SVC_Dispatcher	6

@@ -1,0 +1,11 @@
+../Inc/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
+../Src/RTOS/Core/../Port/port_functions.h:20:20:_port_fpu_start_settings	4	static,ignoring_inline_asm
+../Src/RTOS/Core/../Port/port_functions.h:55:20:_port_ISR_settings_apply	8	static
+../Src/RTOS/Core/os_manager.c:15:20:_context_initialization	16	static
+../Src/RTOS/Core/os_manager.c:26:25:_get_most_priority_task	16	static
+../Src/RTOS/Core/os_manager.c:36:6:_idle_task	4	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:44:6:OS_Initialization	8	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:61:6:OS_Start	24	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:69:17:OS_CreateTaskStatic	24	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:87:13:OS_DeleteTask	16	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:103:6:OS_FPU_Settings	24	static,ignoring_inline_asm

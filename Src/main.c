@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include <stm32f4xx.h>
 
-#include "RTOS/os_manager.h"
+#include "RTOS/Core/os_manager.h"
 
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
@@ -96,7 +96,6 @@ int main(void)
 //Исправить Syntax error в OS_CREATE_STACK
 //Внедрить ldrex/strex инструкции в планировщик
 //Добавить секции для дескрипторов
-//Добавить поддержку MPU
 //Перенести библиотеки на GitHub
 
 //Вытеснение задач

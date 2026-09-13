@@ -1,5 +1,0 @@
-../Src/RTOS/isr_core_functions.c:90:6:_task_suicide	1
-../Src/RTOS/isr_core_functions.c:101:17:_isr_create_task_static_handle	6
-../Src/RTOS/isr_core_functions.c:129:13:_isr_delete_task_handle	6
-../Src/RTOS/isr_core_functions.c:151:6:_isr_task_suicide_handle	1
-../Src/RTOS/isr_core_functions.c:156:6:_isr_fpu_settings_handle	1

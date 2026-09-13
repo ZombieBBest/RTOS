@@ -11,7 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include Startup/subdir.mk
 -include Src/RTOS/Port/subdir.mk
--include Src/RTOS/subdir.mk
+-include Src/RTOS/Core/subdir.mk
 -include Src/subdir.mk
 -include objects.mk
 
