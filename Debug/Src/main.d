@@ -6,8 +6,8 @@ Src/main.o: ../Src/main.c ../Inc/stm32f4xx.h ../Inc/stm32f411xe.h \
  ../Src/RTOS/Core/../Port/port_sys_timer.h \
  ../Src/RTOS/Core/../Port/port_macroses.h \
  ../Src/RTOS/Core/supervisor_call.h ../Src/RTOS/Core/memory.h \
- ../Src/RTOS/Core/context.h ../Src/RTOS/Core/../Port/port_mpu.h \
- ../Src/RTOS/Core/../Port/port_periphery.h ../Src/RTOS/Core/config.h
+ ../Src/RTOS/Core/context.h ../Src/RTOS/Core/../Drivers/periphery_enums.h \
+ ../Src/RTOS/Core/../Port/port_mpu.h ../Src/RTOS/Core/config.h
 ../Inc/stm32f4xx.h:
 ../Inc/stm32f411xe.h:
 ../Inc/core_cm4.h:
@@ -24,6 +24,6 @@ Src/main.o: ../Src/main.c ../Inc/stm32f4xx.h ../Inc/stm32f411xe.h \
 ../Src/RTOS/Core/supervisor_call.h:
 ../Src/RTOS/Core/memory.h:
 ../Src/RTOS/Core/context.h:
+../Src/RTOS/Core/../Drivers/periphery_enums.h:
 ../Src/RTOS/Core/../Port/port_mpu.h:
-../Src/RTOS/Core/../Port/port_periphery.h:
 ../Src/RTOS/Core/config.h:

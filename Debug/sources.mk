@@ -23,6 +23,7 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Src/RTOS/Core \
+Src/RTOS/Drivers/GPIO \
 Src/RTOS/Port \
 Src \
 Startup \

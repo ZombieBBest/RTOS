@@ -5,6 +5,7 @@
 #include "isr_core_functions.h"
 #include "../Port/port_functions.h"
 #include "../Port/port_mpu.h"
+#include "../Drivers/GPIO/gpio_stm32f4.h"
 #include "critical.h"
 #include "memory.h"
 #include "context.h"
@@ -113,4 +114,38 @@ void OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH
 		  "r"(arg0), "r"(arg1), "r"(arg2), "r"(arg3)
 		: "r12", "lr", "memory"
 	);
+}
+
+OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
+	register OS_Return_t 				result 	__asm("r0");
+
+	register Drivers_GPIO_PortsEnum_t	arg0	__asm("r0") = gpio;
+	register uint16_t 					arg1 	__asm("r1") = pin;
+
+	__asm volatile(
+		"svc %[svc_num]		\n\t"
+		: "=r" (result)
+		: [svc_num] "i" (SVC_GPIO_PIN_REQUEST),
+		  "r" (arg0), "r" (arg1)
+		: "r12", "lr", "memory"
+	);
+
+	return result;
+}
+
+OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
+	register OS_Return_t 				result 	__asm("r0");
+
+	register Drivers_GPIO_PortsEnum_t	arg0	__asm("r0") = gpio;
+	register uint16_t 					arg1 	__asm("r1") = pin;
+
+	__asm volatile(
+		"svc %[svc_num]		\n\t"
+		: "=r" (result)
+		: [svc_num] "i" (SVC_GPIO_PIN_FREE),
+		  "r" (arg0), "r" (arg1)
+		: "r12", "lr", "memory"
+	);
+
+	return result;
 }

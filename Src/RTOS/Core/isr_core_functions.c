@@ -129,23 +129,24 @@ OS_TaskHandle_t _isr_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 OS_Return_t _isr_delete_task_handle(OS_TaskHandle_t handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
-	if (!task_ptr) {
+	if (task_ptr) {
+		task_ptr->stack_descriptor->is_taken = 0;
+
+		_remove_from_ready_list(task_ptr);
+
+		_add_free_TCB(task_ptr);
+
+		OS_TCB_t* current_run_task = (OS_TCB_t*)os_context.current_run_task;
+
+		if (task_ptr == current_run_task) {
+			OS_Yield();
+		}
+
+		return OS_EXIT_SUCCESS;
+	}
+	else {
 		return OS_EXIT_ERROR;
 	}
-
-	task_ptr->stack_descriptor->is_taken = 0;
-
-	_remove_from_ready_list(task_ptr);
-
-	_add_free_TCB(task_ptr);
-
-	OS_TCB_t* current_run_task = (OS_TCB_t*)os_context.current_run_task;
-
-	if (task_ptr == current_run_task) {
-		OS_Yield();
-	}
-
-	return OS_EXIT_SUCCESS;
 }
 
 void _isr_task_suicide_handle(void) {
@@ -157,4 +158,28 @@ void _isr_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 
 	_port_fpu_mode_settings(sp, (uint32_t)h, (uint32_t)n, (uint32_t)f, (uint32_t)r);
+}
+
+OS_Return_t _isr_gpio_pin_request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
+	if (gpio >= DRIVERS_GPIO_PORTS_NUM || os_context.busy_gpio_pins[gpio] & pins_mask){
+		return OS_EXIT_ERROR;
+	}
+	else {
+		os_context.busy_gpio_pins[gpio] |= pins_mask;
+		os_context.current_run_task->permitted_gpio_pins[gpio] |= pins_mask;
+
+		return OS_EXIT_SUCCESS;
+	}
+}
+
+OS_Return_t _isr_gpio_pin_free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
+	if (gpio >= DRIVERS_GPIO_PORTS_NUM || os_context.current_run_task->permitted_gpio_pins[gpio] & ~pins_mask) {
+		return OS_EXIT_ERROR;
+	}
+	else {
+		os_context.busy_gpio_pins[gpio] &= ~pins_mask;
+		os_context.current_run_task->permitted_gpio_pins[gpio] &= ~pins_mask;
+
+		return OS_EXIT_SUCCESS;
+	}
 }

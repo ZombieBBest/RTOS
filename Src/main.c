@@ -47,6 +47,10 @@ void Task3(void) {
 
 void Task2(void) {
 	OS_CreateTaskStatic(Task3, stack1_handle, 1);
+
+	(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
+	(void)OS_GPIO_PIN_Free(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
+
 	while(1) {
 		GPIOC->ODR &= ~(GPIO_ODR_OD13);
 		for (uint32_t i = 0; i < 100000; i++);
@@ -87,6 +91,8 @@ int main(void)
 
 	OS_Start();
 }
+
+//Питание GPIO
 
 //Сделать секцию глобальных данных для MPU
 //Изменение приоритета задачи

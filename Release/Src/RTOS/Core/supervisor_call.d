@@ -6,8 +6,9 @@ Src/RTOS/Core/supervisor_call.o: ../Src/RTOS/Core/supervisor_call.c \
  ../Inc/system_stm32f4xx.h ../Src/RTOS/Core/../Port/port_config.h \
  ../Src/RTOS/Core/../Port/port_sys_timer.h \
  ../Src/RTOS/Core/../Port/port_macroses.h ../Src/RTOS/Core/memory.h \
- ../Src/RTOS/Core/context.h ../Src/RTOS/Core/../Port/port_mpu.h \
- ../Src/RTOS/Core/../Drivers/port_periphery.h ../Src/RTOS/Core/config.h \
+ ../Src/RTOS/Core/context.h ../Src/RTOS/Core/../Drivers/periphery_enums.h \
+ ../Src/RTOS/Core/../Port/port_mpu.h ../Src/RTOS/Core/config.h \
+ ../Src/RTOS/Core/../Drivers/GPIO/gpio_stm32f4.h \
  ../Src/RTOS/Core/isr_core_functions.h
 ../Src/RTOS/Core/supervisor_call.h:
 ../Src/RTOS/Core/os_manager.h:
@@ -25,7 +26,8 @@ Src/RTOS/Core/supervisor_call.o: ../Src/RTOS/Core/supervisor_call.c \
 ../Src/RTOS/Core/../Port/port_macroses.h:
 ../Src/RTOS/Core/memory.h:
 ../Src/RTOS/Core/context.h:
+../Src/RTOS/Core/../Drivers/periphery_enums.h:
 ../Src/RTOS/Core/../Port/port_mpu.h:
-../Src/RTOS/Core/../Drivers/port_periphery.h:
 ../Src/RTOS/Core/config.h:
+../Src/RTOS/Core/../Drivers/GPIO/gpio_stm32f4.h:
 ../Src/RTOS/Core/isr_core_functions.h:

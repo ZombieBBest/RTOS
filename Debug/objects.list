@@ -3,6 +3,7 @@
 "./Src/RTOS/Core/isr_core_functions.o"
 "./Src/RTOS/Core/os_manager.o"
 "./Src/RTOS/Core/supervisor_call.o"
+"./Src/RTOS/Drivers/GPIO/gpio_stm32f4.o"
 "./Src/RTOS/Port/hardfault.o"
 "./Src/RTOS/Port/port_mpu.o"
 "./Src/RTOS/Port/port_mpu_asm.o"

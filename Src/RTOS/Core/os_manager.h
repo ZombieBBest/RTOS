@@ -43,7 +43,7 @@ typedef enum {
 	FPU_ROUND_TO_ZERO
 } OS_FPU_ROUNDING_t;
 
-// =================== FUNCTIONS_PROTOTYPES==================
+// =================== FUNCTIONS_PROTOTYPES ==================
 
 void OS_Initialization(void);
 
@@ -54,6 +54,10 @@ OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t hand
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle);
 
 void OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
+
+OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
+
+OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
 
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
