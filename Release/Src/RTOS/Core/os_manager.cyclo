@@ -2,7 +2,5 @@
 ../Src/RTOS/Core/os_manager.c:62:6:OS_Start	1
 ../Src/RTOS/Core/os_manager.c:70:17:OS_CreateTaskStatic	1
 ../Src/RTOS/Core/os_manager.c:45:6:OS_Initialization	1
-../Src/RTOS/Core/os_manager.c:88:13:OS_DeleteTask	1
-../Src/RTOS/Core/os_manager.c:104:6:OS_FPU_Settings	1
-../Src/RTOS/Core/os_manager.c:119:13:OS_GPIO_PIN_Request	1
-../Src/RTOS/Core/os_manager.c:136:13:OS_GPIO_PIN_Free	1
+../Src/RTOS/Core/os_manager.c:74:13:OS_DeleteTask	1
+../Src/RTOS/Core/os_manager.c:78:13:OS_FPU_Settings	1

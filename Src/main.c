@@ -30,7 +30,7 @@ OS_CREATE_STACK(stack1_handle, 256);
 OS_CREATE_STACK(stack2_handle, 256);
 
 void Task1(void) {
-	OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
+	OS_Return_t r1 = OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
 	return;
 	/*while(1) {
 		GPIOC->ODR |= (GPIO_ODR_OD13);
@@ -46,10 +46,10 @@ void Task3(void) {
 }
 
 void Task2(void) {
-	OS_CreateTaskStatic(Task3, stack1_handle, 1);
+	OS_TaskHandle_t h1 = OS_CreateTaskStatic(Task3, stack1_handle, 1);
 
-	(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
-	(void)OS_GPIO_PIN_Free(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
+	//(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
+	//(void)OS_GPIO_PIN_Free(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
 
 	while(1) {
 		GPIOC->ODR &= ~(GPIO_ODR_OD13);
@@ -78,8 +78,8 @@ int main(void)
 	OS_TaskHandle_t h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
 	OS_TaskHandle_t h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
 
-	OS_DeleteTask(h1);
-	OS_DeleteTask(h2);
+	OS_Return_t r1 = OS_DeleteTask(h1);
+	OS_Return_t r2 = OS_DeleteTask(h2);
 
 	h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
 	h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
@@ -94,8 +94,11 @@ int main(void)
 
 //Питание GPIO
 
+//Dump задача
+//Перезапуск задачи при MemManage
 //Сделать секцию глобальных данных для MPU
 //Изменение приоритета задачи
+//При удалении зпдпчи нужно освобождать занятые ей ресурсы
 
 //Возвращать из CREATESTACK хэндлер стека
 //Прописать обработчики

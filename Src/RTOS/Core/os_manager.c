@@ -1,15 +1,15 @@
 #include "os_manager.h"
 
-#include <stm32f4xx.h>
 #include <string.h>
-#include "isr_core_functions.h"
 #include "../Port/port_functions.h"
+#include "../Port/port_macroses.h"
 #include "../Port/port_mpu.h"
+#include "../Port/port_sys_timer.h"
+#include "supervisor_call.h"
 #include "../Drivers/GPIO/gpio_stm32f4.h"
-#include "critical.h"
-#include "memory.h"
 #include "context.h"
 #include "config.h"
+#include "sys_core_functions.h"
 
 // ===================== INTERNAL_STATIC ====================
 
@@ -52,7 +52,7 @@ void OS_Initialization(void) {
 	_port_sys_SysTick_initialization(CONFIG_F_CPU_HZ, CONFIG_TICK_RATE_HZ);
 
 	_port_mpu_initialization();
-	_port_mpu_register_stacking_error_callback(_isr_task_suicide_handle);
+	_port_mpu_register_stacking_error_callback((void(*)(void))_sys_task_suicide_handle);
 
 	__enable_irq();
 
@@ -68,55 +68,18 @@ void OS_Start(void) {
 }
 
 OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
-	register OS_TaskHandle_t result 		__asm("r0");
-
-	register void(*arg0)(void)  	 		__asm("r0") = task_ptr;
-	register OS_StackHandle_t 	arg1 		__asm("r1") = handle;
-	register uint32_t 			arg2 		__asm("r2") = priority;
-
-	__asm volatile(
-		"svc %[svc_num]		\n\t"
-		: "=r" (result)
-		: [svc_num] "i" (SVC_CREATE_TASK),
-		  "r" (arg0), "r" (arg1), "r" (arg2)
-		: "r12", "lr", "memory"
-	);
-
-	return result;
+	return (OS_TaskHandle_t)_PORT_ENTER_SVC_3_ARGS_AND_RETURN(SVC_CREATE_TASK, task_ptr, handle, priority);
 }
 
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle) {
-	register OS_Return_t result __asm("r0");
-
-	register uint32_t 	arg0 	__asm("r0") = (uint32_t)handle;
-
-	__asm volatile(
-		"svc %[svc_num]		\n\t"
-		: "=r" (result)
-		: [svc_num] "i" (SVC_DELETE_TASK),
-		  "r" (arg0)
-		: "r12", "lr", "memory"
-	);
-
-	return result;
+	return (OS_Return_t)_PORT_ENTER_SVC_1_ARGS_AND_RETURN(SVC_DELETE_TASK, (uint32_t)handle);
 }
 
-void OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
-	register uint32_t arg0 __asm("r0") = h;
-	register uint32_t arg1 __asm("r1") = n;
-	register uint32_t arg2 __asm("r2") = f;
-	register uint32_t arg3 __asm("r3") = r;
-
-	__asm volatile(
-		"svc %[svc_num]		\n\t"
-		:
-		: [svc_num] "i" (SVC_SET_FPSCR),
-		  "r"(arg0), "r"(arg1), "r"(arg2), "r"(arg3)
-		: "r12", "lr", "memory"
-	);
+OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
+	return (OS_Return_t)_PORT_ENTER_SVC_4_ARGS_AND_RETURN(SVC_SET_FPSCR, h, n, f, r);
 }
 
-OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
+/*OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
 	register OS_Return_t 				result 	__asm("r0");
 
 	register Drivers_GPIO_PortsEnum_t	arg0	__asm("r0") = gpio;
@@ -148,4 +111,4 @@ OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
 	);
 
 	return result;
-}
+}*/

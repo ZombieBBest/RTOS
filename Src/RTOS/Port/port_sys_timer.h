@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-// =================== FUNCTIONS_PROTOTYPES==================
+// =================== FUNCTIONS_PROTOTYPES ==================
 
 void _port_sys_SysTick_initialization(uint32_t cpu_f_hz, uint32_t tick_hz);
 

@@ -17,6 +17,13 @@
 
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
+static inline void _port_yield(void) {
+	__asm volatile("" : : : "memory");
+	SCB->ICSR = SCB_ICSR_PENDSVSET_Msk;
+	__asm volatile("dsb" : : : "memory");
+	__asm volatile("isb" : : : "memory");
+}
+
 static inline void _port_fpu_start_settings(void) {
 	SCB->CPACR |= (3 << 22) | (3 << 20);
 
@@ -30,13 +37,6 @@ static inline void _port_fpu_mode_settings(uint32_t* sp, uint32_t AHP, uint32_t 
 	*FPSCR_ptr &= ~((1 << FPSCR_AHP_Pos) | (1 << FPSCR_DN_Pos) | (1 << FPSCR_FZ_Pos) | (3 << FPSCR_RMODE_Pos));
 	*FPSCR_ptr |= ((uint32_t)AHP << FPSCR_AHP_Pos) | ((uint32_t)DN << FPSCR_DN_Pos) |
 				((uint32_t)FZ << FPSCR_FZ_Pos) | ((uint32_t)RMODE << FPSCR_RMODE_Pos);
-}
-
-static inline void _port_PendSV_enter(void) {
-	__asm volatile("" : : : "memory");
-	SCB->ICSR = SCB_ICSR_PENDSVSET_Msk;
-	__asm volatile("dsb" : : : "memory");
-	__asm volatile("isb" : : : "memory");
 }
 
 static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
@@ -53,7 +53,7 @@ static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
 }
 
 static inline void _port_ISR_settings_apply(void) {
-	NVIC_SetPriority(MemoryManagement_IRQn, 0);
+	NVIC_SetPriority(MemoryManagement_IRQn, 4);
 	NVIC_SetPriority(SVCall_IRQn, 13);
 	NVIC_SetPriority(SysTick_IRQn, 14);
 	NVIC_SetPriority(PendSV_IRQn, 15);
@@ -64,7 +64,7 @@ static inline void _port_ISR_settings_apply(void) {
 static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
 
 	uintptr_t* stack_ptr = (uintptr_t*)((uintptr_t)stack_base + stack_size);
-	*(--stack_ptr) = 0;
+	*(--stack_ptr) = 0;																		//Alignment Word
 
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//FPSCR, S15...
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;

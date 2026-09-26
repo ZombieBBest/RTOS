@@ -2,14 +2,8 @@
 #define OS_MANAGER_H_
 
 #include <stdint.h>
-#include <stdlib.h>
 #include "../Port/port_functions.h"
-#include "../Port/port_sys_timer.h"
-#include "../Port/port_macroses.h"
-#include "../Port/port_sys_timer.h"
-#include "supervisor_call.h"
 #include "memory.h"
-#include "context.h"
 
 // ==================== TYPES_DEFINITION ====================
 
@@ -17,7 +11,9 @@ typedef void* OS_TaskHandle_t;
 
 typedef enum {
 	OS_EXIT_ERROR,
-	OS_EXIT_SUCCESS
+	OS_EXIT_SUCCESS,
+	OS_EXIT_ERROR_INVALID_ARGUMENT,
+	OS_EXIT_ERROR_NOT_FROM_SYSCALL
 } OS_Return_t;
 
 
@@ -53,16 +49,16 @@ OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t hand
 
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle);
 
-void OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
+OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
 
-OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
+//OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
 
-OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
+//OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
 
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
 static inline void OS_Yield(void) {
-	_port_PendSV_enter();
+	_port_yield();
 }
 
 #endif

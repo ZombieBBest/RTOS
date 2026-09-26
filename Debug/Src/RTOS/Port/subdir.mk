@@ -6,6 +6,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Src/RTOS/Port/hardfault.c \
+../Src/RTOS/Port/port_api_functions.c \
 ../Src/RTOS/Port/port_mpu.c \
 ../Src/RTOS/Port/port_supervisor_call.c \
 ../Src/RTOS/Port/port_sys_timer.c 
@@ -17,6 +18,7 @@ S_UPPER_SRCS += \
 
 OBJS += \
 ./Src/RTOS/Port/hardfault.o \
+./Src/RTOS/Port/port_api_functions.o \
 ./Src/RTOS/Port/port_mpu.o \
 ./Src/RTOS/Port/port_mpu_asm.o \
 ./Src/RTOS/Port/port_supervisor_call.o \
@@ -31,6 +33,7 @@ S_UPPER_DEPS += \
 
 C_DEPS += \
 ./Src/RTOS/Port/hardfault.d \
+./Src/RTOS/Port/port_api_functions.d \
 ./Src/RTOS/Port/port_mpu.d \
 ./Src/RTOS/Port/port_supervisor_call.d \
 ./Src/RTOS/Port/port_sys_timer.d 
@@ -45,7 +48,7 @@ Src/RTOS/Port/%.o: ../Src/RTOS/Port/%.S Src/RTOS/Port/subdir.mk
 clean: clean-Src-2f-RTOS-2f-Port
 
 clean-Src-2f-RTOS-2f-Port:
-	-$(RM) ./Src/RTOS/Port/hardfault.cyclo ./Src/RTOS/Port/hardfault.d ./Src/RTOS/Port/hardfault.o ./Src/RTOS/Port/hardfault.su ./Src/RTOS/Port/port_mpu.cyclo ./Src/RTOS/Port/port_mpu.d ./Src/RTOS/Port/port_mpu.o ./Src/RTOS/Port/port_mpu.su ./Src/RTOS/Port/port_mpu_asm.d ./Src/RTOS/Port/port_mpu_asm.o ./Src/RTOS/Port/port_supervisor_call.cyclo ./Src/RTOS/Port/port_supervisor_call.d ./Src/RTOS/Port/port_supervisor_call.o ./Src/RTOS/Port/port_supervisor_call.su ./Src/RTOS/Port/port_sys_timer.cyclo ./Src/RTOS/Port/port_sys_timer.d ./Src/RTOS/Port/port_sys_timer.o ./Src/RTOS/Port/port_sys_timer.su ./Src/RTOS/Port/scheduler.d ./Src/RTOS/Port/scheduler.o ./Src/RTOS/Port/supervisor_call_asm.d ./Src/RTOS/Port/supervisor_call_asm.o
+	-$(RM) ./Src/RTOS/Port/hardfault.cyclo ./Src/RTOS/Port/hardfault.d ./Src/RTOS/Port/hardfault.o ./Src/RTOS/Port/hardfault.su ./Src/RTOS/Port/port_api_functions.cyclo ./Src/RTOS/Port/port_api_functions.d ./Src/RTOS/Port/port_api_functions.o ./Src/RTOS/Port/port_api_functions.su ./Src/RTOS/Port/port_mpu.cyclo ./Src/RTOS/Port/port_mpu.d ./Src/RTOS/Port/port_mpu.o ./Src/RTOS/Port/port_mpu.su ./Src/RTOS/Port/port_mpu_asm.d ./Src/RTOS/Port/port_mpu_asm.o ./Src/RTOS/Port/port_supervisor_call.cyclo ./Src/RTOS/Port/port_supervisor_call.d ./Src/RTOS/Port/port_supervisor_call.o ./Src/RTOS/Port/port_supervisor_call.su ./Src/RTOS/Port/port_sys_timer.cyclo ./Src/RTOS/Port/port_sys_timer.d ./Src/RTOS/Port/port_sys_timer.o ./Src/RTOS/Port/port_sys_timer.su ./Src/RTOS/Port/scheduler.d ./Src/RTOS/Port/scheduler.o ./Src/RTOS/Port/supervisor_call_asm.d ./Src/RTOS/Port/supervisor_call_asm.o
 
 .PHONY: clean-Src-2f-RTOS-2f-Port
 

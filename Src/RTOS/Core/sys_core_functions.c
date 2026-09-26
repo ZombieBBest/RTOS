@@ -1,6 +1,9 @@
-#include "isr_core_functions.h"
+#include "sys_core_functions.h"
+
 #include "../Port/port_functions.h"
+#include "../Port/port_macroses.h"
 #include "../Port/port_mpu.h"
+#include "supervisor_call.h"
 
 // ===================== INTERNAL_STATIC ====================
 
@@ -98,13 +101,25 @@ void _task_suicide(void) {
 
 // ====================== ISR_HANDLES =======================
 
-OS_TaskHandle_t _isr_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
+void _sys_task_context_reset(OS_TCB_t* r_task) {
+	/*r_task->stack_descriptor = desc;
+
+	r_task->mpu_sr = _port_mpu_prepare_task_stack_region(r_task->stack_descriptor->stack_ptr, r_task->stack_descriptor->stack_size);
+	r_task->stack_pointer = _port_stack_init(task_ptr, _task_suicide, r_task->stack_descriptor->stack_ptr,
+													r_task->stack_descriptor->stack_size);*/
+}
+
+OS_TaskHandle_t _sys_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
 
+	if (!_PORT_IS_INSIDE_SYSCALL()) {
+		return NULL;
+	}
+
 	free_TCB = _get_free_TCB();
 	if (free_TCB) {
-		if (!desc->is_taken) {
+		if (desc && !desc->is_taken && priority <= CONFIG_NUM_OF_PRIORITIES) {
 			free_TCB->state = OS_STATE_RESERVED;
 			desc->is_taken = 1;
 		}
@@ -126,8 +141,12 @@ OS_TaskHandle_t _isr_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 	return (OS_TaskHandle_t*)free_TCB;
 }
 
-OS_Return_t _isr_delete_task_handle(OS_TaskHandle_t handle) {
+OS_Return_t _sys_delete_task_handle(OS_TaskHandle_t handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
+
+	if (!_PORT_IS_INSIDE_SYSCALL()) {
+		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
+	}
 
 	if (task_ptr) {
 		task_ptr->stack_descriptor->is_taken = 0;
@@ -145,22 +164,34 @@ OS_Return_t _isr_delete_task_handle(OS_TaskHandle_t handle) {
 		return OS_EXIT_SUCCESS;
 	}
 	else {
-		return OS_EXIT_ERROR;
+		return OS_EXIT_ERROR_INVALID_ARGUMENT;
 	}
 }
 
-void _isr_task_suicide_handle(void) {
+OS_Return_t _sys_task_suicide_handle(void) {
+	if (!_PORT_IS_INSIDE_SYSCALL()) {
+		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
+	}
+
 	OS_TCB_t* c = os_context.current_run_task;
-	_isr_delete_task_handle(c);
+	_sys_delete_task_handle(c);
+
+	return OS_EXIT_SUCCESS;
 }
 
-void _isr_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
+OS_Return_t _sys_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 
+	if (!_PORT_IS_INSIDE_SYSCALL()) {
+		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
+	}
+
 	_port_fpu_mode_settings(sp, (uint32_t)h, (uint32_t)n, (uint32_t)f, (uint32_t)r);
+
+	return OS_EXIT_SUCCESS;
 }
 
-OS_Return_t _isr_gpio_pin_request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
+/*OS_Return_t _sys_gpio_pin_request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
 	if (gpio >= DRIVERS_GPIO_PORTS_NUM || os_context.busy_gpio_pins[gpio] & pins_mask){
 		return OS_EXIT_ERROR;
 	}
@@ -172,7 +203,7 @@ OS_Return_t _isr_gpio_pin_request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_m
 	}
 }
 
-OS_Return_t _isr_gpio_pin_free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
+OS_Return_t _sys_gpio_pin_free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
 	if (gpio >= DRIVERS_GPIO_PORTS_NUM || os_context.current_run_task->permitted_gpio_pins[gpio] & ~pins_mask) {
 		return OS_EXIT_ERROR;
 	}
@@ -182,4 +213,4 @@ OS_Return_t _isr_gpio_pin_free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask
 
 		return OS_EXIT_SUCCESS;
 	}
-}
+}*/

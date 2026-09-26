@@ -12,7 +12,7 @@ typedef struct {
 	uint32_t rasr;
 } Port_MPU_StackRegion_t;
 
-// =================== FUNCTIONS_PROTOTYPES==================
+// =================== FUNCTIONS_PROTOTYPES ==================
 
 void _port_mpu_register_stacking_error_callback(void(*callback)(void));
 

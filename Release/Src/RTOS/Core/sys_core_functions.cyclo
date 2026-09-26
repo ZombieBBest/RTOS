@@ -1,0 +1,6 @@
+../Src/RTOS/Core/sys_core_functions.c:93:6:_task_suicide	1
+../Src/RTOS/Core/sys_core_functions.c:104:6:_sys_task_context_reset	1
+../Src/RTOS/Core/sys_core_functions.c:112:17:_sys_create_task_static_handle	9
+../Src/RTOS/Core/sys_core_functions.c:144:13:_sys_delete_task_handle	7
+../Src/RTOS/Core/sys_core_functions.c:171:13:_sys_task_suicide_handle	2
+../Src/RTOS/Core/sys_core_functions.c:182:13:_sys_fpu_settings_handle	2

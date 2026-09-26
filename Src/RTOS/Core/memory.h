@@ -17,6 +17,7 @@ typedef struct{
 
 // ======================= PUBLIC_API =======================
 
+/* protected with mpu*/
 /* size_in_bytes must be a multiply of 2 and greater than or equal to 256 */
 #define OS_CREATE_STACK(name, size_in_bytes)																						\
 	static_assert((size_in_bytes >= 256), "Error: stack must be greater than or equal to 256");										\

@@ -1,5 +1,5 @@
 ../Inc/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
-../Src/RTOS/Core/../Port/port_functions.h:20:20:_port_fpu_start_settings	4	static,ignoring_inline_asm
+../Src/RTOS/Core/../Port/port_functions.h:27:20:_port_fpu_start_settings	4	static,ignoring_inline_asm
 ../Src/RTOS/Core/../Port/port_functions.h:55:20:_port_ISR_settings_apply	8	static
 ../Src/RTOS/Core/os_manager.c:16:20:_context_initialization	16	static
 ../Src/RTOS/Core/os_manager.c:27:25:_get_most_priority_task	16	static
@@ -7,7 +7,5 @@
 ../Src/RTOS/Core/os_manager.c:45:6:OS_Initialization	8	static,ignoring_inline_asm
 ../Src/RTOS/Core/os_manager.c:62:6:OS_Start	24	static,ignoring_inline_asm
 ../Src/RTOS/Core/os_manager.c:70:17:OS_CreateTaskStatic	24	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:88:13:OS_DeleteTask	16	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:104:6:OS_FPU_Settings	24	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:119:13:OS_GPIO_PIN_Request	16	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:136:13:OS_GPIO_PIN_Free	16	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:74:13:OS_DeleteTask	16	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:78:13:OS_FPU_Settings	24	static,ignoring_inline_asm

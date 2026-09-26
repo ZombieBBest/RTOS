@@ -2,7 +2,5 @@
 ../Src/RTOS/Core/os_manager.c:62:6:OS_Start	8	static,ignoring_inline_asm
 ../Src/RTOS/Core/os_manager.c:70:17:OS_CreateTaskStatic	4	static,ignoring_inline_asm
 ../Src/RTOS/Core/os_manager.c:45:6:OS_Initialization	8	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:88:13:OS_DeleteTask	4	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:104:6:OS_FPU_Settings	4	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:119:13:OS_GPIO_PIN_Request	4	static,ignoring_inline_asm
-../Src/RTOS/Core/os_manager.c:136:13:OS_GPIO_PIN_Free	4	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:74:13:OS_DeleteTask	4	static,ignoring_inline_asm
+../Src/RTOS/Core/os_manager.c:78:13:OS_FPU_Settings	4	static,ignoring_inline_asm

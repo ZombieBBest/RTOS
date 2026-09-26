@@ -1,4 +1,4 @@
-../Src/main.c:32:6:Task1	8	static
+../Src/main.c:32:6:Task1	16	static
 ../Src/main.c:41:6:Task3	16	static
 ../Src/main.c:48:6:Task2	16	static
 ../Src/main.c:60:6:GPIO_Config	4	static

@@ -1,0 +1,6 @@
+../Src/RTOS/Core/sys_core_functions.c:93:6:_task_suicide	4	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:104:6:_sys_task_context_reset	0	static
+../Src/RTOS/Core/sys_core_functions.c:112:17:_sys_create_task_static_handle	40	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:144:13:_sys_delete_task_handle	16	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:171:13:_sys_task_suicide_handle	8	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:182:13:_sys_fpu_settings_handle	12	static,ignoring_inline_asm
