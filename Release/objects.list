@@ -5,7 +5,6 @@
 "./Src/RTOS/Core/sys_core_functions.o"
 "./Src/RTOS/Drivers/GPIO/gpio_stm32f4.o"
 "./Src/RTOS/Port/hardfault.o"
-"./Src/RTOS/Port/port_api_functions.o"
 "./Src/RTOS/Port/port_mpu.o"
 "./Src/RTOS/Port/port_mpu_asm.o"
 "./Src/RTOS/Port/port_supervisor_call.o"

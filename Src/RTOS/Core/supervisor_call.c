@@ -22,12 +22,20 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint3
 			result = (uint32_t)_sys_delete_task_handle((OS_TaskHandle_t)arg0);
 			break;
 
+		case SVC_YIELD:
+			_port_yield();
+			break;
+
 		case SVC_SUICIDE_TASK:
 			result = (uint32_t)_sys_task_suicide_handle();
 			break;
 
 		case SVC_SET_FPSCR:
 			result = (uint32_t)_sys_fpu_settings_handle(caller_sp, arg0, arg1, arg2, arg3);
+			break;
+
+		case SVC_RESTART_TASK:
+			_sys_task_context_reset_handle();
 			break;
 
 		/*case SVC_GPIO_PIN_REQUEST:

@@ -22,8 +22,11 @@ typedef struct OS_TCB_t {
 	uint32_t state;
 	uint32_t priority;
 	void* 	 stack_pointer;
+	void(*task_function_ptr)(void);
+
 	struct OS_TCB_t* prev_node_ptr;
 	struct OS_TCB_t* next_node_ptr;
+
 	OS_StackDescriptor_t* stack_descriptor;
 
 	Port_MPU_StackRegion_t mpu_sr;

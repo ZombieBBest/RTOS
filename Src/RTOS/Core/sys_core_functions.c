@@ -101,19 +101,23 @@ void _task_suicide(void) {
 
 // ====================== ISR_HANDLES =======================
 
-void _sys_task_context_reset(OS_TCB_t* r_task) {
-	/*r_task->stack_descriptor = desc;
+void _sys_task_context_reset_handle(void) {
+	if (!_PORT_IS_INSIDE_CORE_ISR()) {
+		return;
+	}
 
-	r_task->mpu_sr = _port_mpu_prepare_task_stack_region(r_task->stack_descriptor->stack_ptr, r_task->stack_descriptor->stack_size);
-	r_task->stack_pointer = _port_stack_init(task_ptr, _task_suicide, r_task->stack_descriptor->stack_ptr,
-													r_task->stack_descriptor->stack_size);*/
+	OS_TCB_t* r_task = os_context.current_run_task;
+	r_task->stack_pointer = _port_stack_hardware_stack_init(r_task->task_function_ptr, _task_suicide, r_task->stack_descriptor->stack_ptr,
+													r_task->stack_descriptor->stack_size);
+
+	__set_PSP(r_task->stack_pointer);
 }
 
 OS_TaskHandle_t _sys_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
 
-	if (!_PORT_IS_INSIDE_SYSCALL()) {
+	if (!_PORT_IS_INSIDE_CORE_ISR()) {
 		return NULL;
 	}
 
@@ -131,6 +135,7 @@ OS_TaskHandle_t _sys_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 	if (free_TCB) {
 		free_TCB->stack_descriptor = desc;
 
+		free_TCB->task_function_ptr = task_ptr;
 		free_TCB->mpu_sr = _port_mpu_prepare_task_stack_region(free_TCB->stack_descriptor->stack_ptr, free_TCB->stack_descriptor->stack_size);
 		free_TCB->stack_pointer = _port_stack_init(task_ptr, _task_suicide, free_TCB->stack_descriptor->stack_ptr,
 														free_TCB->stack_descriptor->stack_size);
@@ -144,7 +149,7 @@ OS_TaskHandle_t _sys_create_task_static_handle(void(*task_ptr)(void), OS_StackHa
 OS_Return_t _sys_delete_task_handle(OS_TaskHandle_t handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
-	if (!_PORT_IS_INSIDE_SYSCALL()) {
+	if (!_PORT_IS_INSIDE_CORE_ISR()) {
 		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
 	}
 
@@ -158,7 +163,7 @@ OS_Return_t _sys_delete_task_handle(OS_TaskHandle_t handle) {
 		OS_TCB_t* current_run_task = (OS_TCB_t*)os_context.current_run_task;
 
 		if (task_ptr == current_run_task) {
-			OS_Yield();
+			_port_yield();
 		}
 
 		return OS_EXIT_SUCCESS;
@@ -169,20 +174,14 @@ OS_Return_t _sys_delete_task_handle(OS_TaskHandle_t handle) {
 }
 
 OS_Return_t _sys_task_suicide_handle(void) {
-	if (!_PORT_IS_INSIDE_SYSCALL()) {
-		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
-	}
-
 	OS_TCB_t* c = os_context.current_run_task;
-	_sys_delete_task_handle(c);
-
-	return OS_EXIT_SUCCESS;
+	return _sys_delete_task_handle(c);
 }
 
 OS_Return_t _sys_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 
-	if (!_PORT_IS_INSIDE_SYSCALL()) {
+	if (!_PORT_IS_INSIDE_CORE_ISR()) {
 		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
 	}
 

@@ -52,7 +52,8 @@ void OS_Initialization(void) {
 	_port_sys_SysTick_initialization(CONFIG_F_CPU_HZ, CONFIG_TICK_RATE_HZ);
 
 	_port_mpu_initialization();
-	_port_mpu_register_stacking_error_callback((void(*)(void))_sys_task_suicide_handle);
+
+	_port_mpu_register_stacking_error_callback((void(*)(void))_sys_task_context_reset_handle);
 
 	__enable_irq();
 
@@ -77,6 +78,14 @@ OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle) {
 
 OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 	return (OS_Return_t)_PORT_ENTER_SVC_4_ARGS_AND_RETURN(SVC_SET_FPSCR, h, n, f, r);
+}
+
+void OS_RestartTask(void) {
+	_PORT_ENTER_SVC_0_ARGS_AND_RETURN(SVC_RESTART_TASK);
+}
+
+void OS_Yield(void) {
+	_PORT_ENTER_SVC_0_ARGS_AND_RETURN(SVC_YIELD);
 }
 
 /*OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {

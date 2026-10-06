@@ -10,8 +10,8 @@
 typedef void* OS_TaskHandle_t;
 
 typedef enum {
-	OS_EXIT_ERROR,
 	OS_EXIT_SUCCESS,
+	OS_EXIT_ERROR,
 	OS_EXIT_ERROR_INVALID_ARGUMENT,
 	OS_EXIT_ERROR_NOT_FROM_SYSCALL
 } OS_Return_t;
@@ -51,14 +51,16 @@ OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle);
 
 OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
 
+void OS_RestartTask(void);
+
 //OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
 
 //OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
 
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
-static inline void OS_Yield(void) {
+/*static inline void OS_Yield(void) {
 	_port_yield();
-}
+}*/
 
 #endif

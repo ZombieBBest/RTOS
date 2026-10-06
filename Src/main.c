@@ -22,15 +22,20 @@
 #include "RTOS/Core/os_manager.h"
 
 
-#if !defined(__SOFT_FP__) && defined(__ARM_FP)
-  //#warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
-#endif
 
 OS_CREATE_STACK(stack1_handle, 256);
 OS_CREATE_STACK(stack2_handle, 256);
 
 void Task1(void) {
+	//GPIOC->ODR &= ~(GPIO_ODR_OD13);
 	OS_Return_t r1 = OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
+
+	uint32_t tst = 0xABABABAB;
+	uint32_t* ptr = &tst;
+
+	(void)r1;
+	OS_RestartTask();
+
 	return;
 	/*while(1) {
 		GPIOC->ODR |= (GPIO_ODR_OD13);
@@ -46,7 +51,8 @@ void Task3(void) {
 }
 
 void Task2(void) {
-	OS_TaskHandle_t h1 = OS_CreateTaskStatic(Task3, stack1_handle, 1);
+	OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack1_handle, 1);
+	(void)h3;
 
 	//(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
 	//(void)OS_GPIO_PIN_Free(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
@@ -81,6 +87,8 @@ int main(void)
 	OS_Return_t r1 = OS_DeleteTask(h1);
 	OS_Return_t r2 = OS_DeleteTask(h2);
 
+	(void)r1, (void)r2;
+
 	h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
 	h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
 
@@ -91,6 +99,7 @@ int main(void)
 
 	OS_Start();
 }
+
 
 //Питание GPIO
 

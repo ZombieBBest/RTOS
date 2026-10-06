@@ -207,6 +207,8 @@ Discarded input sections
  .bss           0x00000000        0x0 ./Src/RTOS/Core/os_manager.o
  .rodata._idle_stack_handle
                 0x00000000        0x4 ./Src/RTOS/Core/os_manager.o
+ .text.OS_Yield
+                0x00000000        0xa ./Src/RTOS/Core/os_manager.o
  .debug_macro   0x00000000      0xac0 ./Src/RTOS/Core/os_manager.o
  .debug_macro   0x00000000       0x22 ./Src/RTOS/Core/os_manager.o
  .debug_macro   0x00000000       0x8e ./Src/RTOS/Core/os_manager.o
@@ -299,7 +301,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x11f ./Src/RTOS/Core/supervisor_call.o
  .debug_macro   0x00000000     0xb968 ./Src/RTOS/Core/supervisor_call.o
  .debug_macro   0x00000000       0x6d ./Src/RTOS/Core/supervisor_call.o
- .debug_macro   0x00000000       0x52 ./Src/RTOS/Core/supervisor_call.o
+ .debug_macro   0x00000000       0x58 ./Src/RTOS/Core/supervisor_call.o
  .debug_macro   0x00000000       0x61 ./Src/RTOS/Core/supervisor_call.o
  .debug_macro   0x00000000       0x2a ./Src/RTOS/Core/supervisor_call.o
  .debug_macro   0x00000000       0x43 ./Src/RTOS/Core/supervisor_call.o
@@ -360,8 +362,6 @@ Discarded input sections
  .text          0x00000000        0x0 ./Src/RTOS/Core/sys_core_functions.o
  .data          0x00000000        0x0 ./Src/RTOS/Core/sys_core_functions.o
  .bss           0x00000000        0x0 ./Src/RTOS/Core/sys_core_functions.o
- .text._sys_task_context_reset
-                0x00000000       0x14 ./Src/RTOS/Core/sys_core_functions.o
  .debug_macro   0x00000000      0xac0 ./Src/RTOS/Core/sys_core_functions.o
  .debug_macro   0x00000000       0x22 ./Src/RTOS/Core/sys_core_functions.o
  .debug_macro   0x00000000       0x8e ./Src/RTOS/Core/sys_core_functions.o
@@ -397,9 +397,9 @@ Discarded input sections
  .debug_macro   0x00000000       0x20 ./Src/RTOS/Core/sys_core_functions.o
  .debug_macro   0x00000000       0x16 ./Src/RTOS/Core/sys_core_functions.o
  .debug_macro   0x00000000       0x22 ./Src/RTOS/Core/sys_core_functions.o
- .debug_macro   0x00000000       0x52 ./Src/RTOS/Core/sys_core_functions.o
+ .debug_macro   0x00000000       0x58 ./Src/RTOS/Core/sys_core_functions.o
  .debug_macro   0x00000000       0x28 ./Src/RTOS/Core/sys_core_functions.o
- .debug_macro   0x00000000       0x2e ./Src/RTOS/Core/sys_core_functions.o
+ .debug_macro   0x00000000       0x34 ./Src/RTOS/Core/sys_core_functions.o
  .group         0x00000000        0xc ./Src/RTOS/Drivers/GPIO/gpio_stm32f4.o
  .group         0x00000000        0xc ./Src/RTOS/Drivers/GPIO/gpio_stm32f4.o
  .group         0x00000000        0xc ./Src/RTOS/Drivers/GPIO/gpio_stm32f4.o
@@ -480,91 +480,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x11f ./Src/RTOS/Port/hardfault.o
  .debug_macro   0x00000000     0xb968 ./Src/RTOS/Port/hardfault.o
  .debug_macro   0x00000000       0x6d ./Src/RTOS/Port/hardfault.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .group         0x00000000        0xc ./Src/RTOS/Port/port_api_functions.o
- .text          0x00000000        0x0 ./Src/RTOS/Port/port_api_functions.o
- .data          0x00000000        0x0 ./Src/RTOS/Port/port_api_functions.o
- .bss           0x00000000        0x0 ./Src/RTOS/Port/port_api_functions.o
- .debug_info    0x00000000       0x7e ./Src/RTOS/Port/port_api_functions.o
- .debug_abbrev  0x00000000       0x28 ./Src/RTOS/Port/port_api_functions.o
- .debug_aranges
-                0x00000000       0x18 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x1e9 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0xac0 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x22 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x8e ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x51 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x103 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x6a ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x1df ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x189 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x28 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x28 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x1c ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x22 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0xfb ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000     0x1011 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x11f ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000     0xb968 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x6d ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x52 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x61 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x2a ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x43 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x34 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x1c ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x28 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x16 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x43 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x34 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x10 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x58 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x8e ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x16 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x177 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000      0x369 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x10 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x35 ./Src/RTOS/Port/port_api_functions.o
- .debug_macro   0x00000000       0x20 ./Src/RTOS/Port/port_api_functions.o
- .debug_line    0x00000000      0x66e ./Src/RTOS/Port/port_api_functions.o
- .debug_str     0x00000000    0x5379d ./Src/RTOS/Port/port_api_functions.o
- .comment       0x00000000       0x44 ./Src/RTOS/Port/port_api_functions.o
- .ARM.attributes
-                0x00000000       0x34 ./Src/RTOS/Port/port_api_functions.o
+ .group         0x00000000        0xc ./Src/RTOS/Port/port_mpu.o
  .group         0x00000000        0xc ./Src/RTOS/Port/port_mpu.o
  .group         0x00000000        0xc ./Src/RTOS/Port/port_mpu.o
  .group         0x00000000        0xc ./Src/RTOS/Port/port_mpu.o
@@ -608,12 +524,13 @@ Discarded input sections
  .debug_macro   0x00000000     0xb968 ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000       0x6d ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000      0x189 ./Src/RTOS/Port/port_mpu.o
- .debug_macro   0x00000000       0x52 ./Src/RTOS/Port/port_mpu.o
+ .debug_macro   0x00000000       0x58 ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000       0x61 ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000       0x2a ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000       0x43 ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000       0x34 ./Src/RTOS/Port/port_mpu.o
  .debug_macro   0x00000000       0x1c ./Src/RTOS/Port/port_mpu.o
+ .debug_macro   0x00000000       0x28 ./Src/RTOS/Port/port_mpu.o
  .data          0x00000000        0x0 ./Src/RTOS/Port/port_mpu_asm.o
  .bss           0x00000000        0x0 ./Src/RTOS/Port/port_mpu_asm.o
  .group         0x00000000        0xc ./Src/RTOS/Port/port_supervisor_call.o
@@ -732,7 +649,7 @@ Discarded input sections
  .debug_macro   0x00000000     0xb968 ./Src/main.o
  .debug_macro   0x00000000       0x6d ./Src/main.o
  .debug_macro   0x00000000      0x189 ./Src/main.o
- .debug_macro   0x00000000       0x52 ./Src/main.o
+ .debug_macro   0x00000000       0x58 ./Src/main.o
  .debug_macro   0x00000000       0x61 ./Src/main.o
  .debug_macro   0x00000000       0x2a ./Src/main.o
  .debug_macro   0x00000000       0x43 ./Src/main.o
@@ -1238,7 +1155,6 @@ LOAD ./Src/RTOS/Core/supervisor_call.o
 LOAD ./Src/RTOS/Core/sys_core_functions.o
 LOAD ./Src/RTOS/Drivers/GPIO/gpio_stm32f4.o
 LOAD ./Src/RTOS/Port/hardfault.o
-LOAD ./Src/RTOS/Port/port_api_functions.o
 LOAD ./Src/RTOS/Port/port_mpu.o
 LOAD ./Src/RTOS/Port/port_mpu_asm.o
 LOAD ./Src/RTOS/Port/port_supervisor_call.o
@@ -1281,7 +1197,7 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
                 0x08000000                g_pfnVectors
                 0x08000198                        . = ALIGN (0x4)
 
-.text           0x08000198     0x105c
+.text           0x08000198     0x1144
                 0x08000198                        . = ALIGN (0x4)
  *(.text)
  .text          0x08000198       0x40 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
@@ -1289,7 +1205,7 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
                 0x080001d8                MemManage_Handler
  .text          0x080001f4       0x38 ./Src/RTOS/Port/scheduler.o
                 0x080001f4                PendSV_Handler
-                0x08000208                OS_Load_Context
+                0x08000208                OS_Switch_Context
  .text          0x0800022c       0x2a ./Src/RTOS/Port/supervisor_call_asm.o
                 0x0800022c                SVC_Handler
  *(.text*)
@@ -1297,270 +1213,275 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
  .text._port_mpu_set_task_stack_region
                 0x08000258       0x4c ./Src/RTOS/Core/context_switch_logic.o
  .text._scheduler_switch_logic
-                0x080002a4       0x70 ./Src/RTOS/Core/context_switch_logic.o
+                0x080002a4       0x74 ./Src/RTOS/Core/context_switch_logic.o
                 0x080002a4                _scheduler_switch_logic
  .text.__NVIC_SetPriority
-                0x08000314       0x54 ./Src/RTOS/Core/os_manager.o
+                0x08000318       0x54 ./Src/RTOS/Core/os_manager.o
  .text._port_fpu_start_settings
-                0x08000368       0x40 ./Src/RTOS/Core/os_manager.o
+                0x0800036c       0x40 ./Src/RTOS/Core/os_manager.o
  .text._port_ISR_settings_apply
-                0x080003a8       0x40 ./Src/RTOS/Core/os_manager.o
+                0x080003ac       0x40 ./Src/RTOS/Core/os_manager.o
  .text._context_initialization
-                0x080003e8       0x88 ./Src/RTOS/Core/os_manager.o
+                0x080003ec       0x80 ./Src/RTOS/Core/os_manager.o
  .text._get_most_priority_task
-                0x08000470       0x30 ./Src/RTOS/Core/os_manager.o
+                0x0800046c       0x30 ./Src/RTOS/Core/os_manager.o
  .text._idle_task
-                0x080004a0        0x8 ./Src/RTOS/Core/os_manager.o
-                0x080004a0                _idle_task
+                0x0800049c        0x8 ./Src/RTOS/Core/os_manager.o
+                0x0800049c                _idle_task
  .text.OS_Initialization
-                0x080004a8       0x4c ./Src/RTOS/Core/os_manager.o
-                0x080004a8                OS_Initialization
+                0x080004a4       0x4c ./Src/RTOS/Core/os_manager.o
+                0x080004a4                OS_Initialization
  .text.OS_Start
-                0x080004f4       0x34 ./Src/RTOS/Core/os_manager.o
-                0x080004f4                OS_Start
+                0x080004f0       0x34 ./Src/RTOS/Core/os_manager.o
+                0x080004f0                OS_Start
  .text.OS_CreateTaskStatic
-                0x08000528       0x22 ./Src/RTOS/Core/os_manager.o
-                0x08000528                OS_CreateTaskStatic
+                0x08000524       0x22 ./Src/RTOS/Core/os_manager.o
+                0x08000524                OS_CreateTaskStatic
  .text.OS_DeleteTask
-                0x0800054a       0x1a ./Src/RTOS/Core/os_manager.o
-                0x0800054a                OS_DeleteTask
+                0x08000546       0x1a ./Src/RTOS/Core/os_manager.o
+                0x08000546                OS_DeleteTask
  .text.OS_FPU_Settings
-                0x08000564       0x3a ./Src/RTOS/Core/os_manager.o
-                0x08000564                OS_FPU_Settings
- .text._port_start_scheduler_from_svc
-                0x0800059e       0x38 ./Src/RTOS/Core/supervisor_call.o
- *fill*         0x080005d6        0x2 
- .text.OS_SVC_Dispatcher
-                0x080005d8       0x94 ./Src/RTOS/Core/supervisor_call.o
-                0x080005d8                OS_SVC_Dispatcher
+                0x08000560       0x3a ./Src/RTOS/Core/os_manager.o
+                0x08000560                OS_FPU_Settings
+ .text.OS_RestartTask
+                0x0800059a        0xa ./Src/RTOS/Core/os_manager.o
+                0x0800059a                OS_RestartTask
  .text._port_yield
-                0x0800066c       0x24 ./Src/RTOS/Core/sys_core_functions.o
+                0x080005a4       0x24 ./Src/RTOS/Core/supervisor_call.o
+ .text._port_start_scheduler_from_svc
+                0x080005c8       0x38 ./Src/RTOS/Core/supervisor_call.o
+ .text.OS_SVC_Dispatcher
+                0x08000600       0xa8 ./Src/RTOS/Core/supervisor_call.o
+                0x08000600                OS_SVC_Dispatcher
+ .text._port_yield
+                0x080006a8       0x24 ./Src/RTOS/Core/sys_core_functions.o
  .text._port_fpu_mode_settings
-                0x08000690       0x4c ./Src/RTOS/Core/sys_core_functions.o
+                0x080006cc       0x4c ./Src/RTOS/Core/sys_core_functions.o
+ .text._port_stack_hardware_stack_init
+                0x08000718      0x15e ./Src/RTOS/Core/sys_core_functions.o
  .text._port_stack_init
-                0x080006dc      0x27e ./Src/RTOS/Core/sys_core_functions.o
- .text.OS_Yield
-                0x0800095a        0xc ./Src/RTOS/Core/sys_core_functions.o
- *fill*         0x08000966        0x2 
+                0x08000876      0x146 ./Src/RTOS/Core/sys_core_functions.o
  .text._add_to_ready_list
-                0x08000968       0x84 ./Src/RTOS/Core/sys_core_functions.o
+                0x080009bc       0x88 ./Src/RTOS/Core/sys_core_functions.o
  .text._remove_from_ready_list
-                0x080009ec       0x90 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000a44       0x98 ./Src/RTOS/Core/sys_core_functions.o
  .text._get_free_TCB
-                0x08000a7c       0x5c ./Src/RTOS/Core/sys_core_functions.o
+                0x08000adc       0x5c ./Src/RTOS/Core/sys_core_functions.o
  .text._add_free_TCB
-                0x08000ad8       0x40 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000b38       0x40 ./Src/RTOS/Core/sys_core_functions.o
  .text._task_suicide
-                0x08000b18        0xa ./Src/RTOS/Core/sys_core_functions.o
-                0x08000b18                _task_suicide
- *fill*         0x08000b22        0x2 
+                0x08000b78        0xa ./Src/RTOS/Core/sys_core_functions.o
+                0x08000b78                _task_suicide
+ *fill*         0x08000b82        0x2 
+ .text._sys_task_context_reset_handle
+                0x08000b84       0x60 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000b84                _sys_task_context_reset_handle
  .text._sys_create_task_static_handle
-                0x08000b24       0xbc ./Src/RTOS/Core/sys_core_functions.o
-                0x08000b24                _sys_create_task_static_handle
+                0x08000be4       0xd0 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000be4                _sys_create_task_static_handle
  .text._sys_delete_task_handle
-                0x08000be0       0x5c ./Src/RTOS/Core/sys_core_functions.o
-                0x08000be0                _sys_delete_task_handle
+                0x08000cb4       0x68 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000cb4                _sys_delete_task_handle
  .text._sys_task_suicide_handle
-                0x08000c3c       0x30 ./Src/RTOS/Core/sys_core_functions.o
-                0x08000c3c                _sys_task_suicide_handle
+                0x08000d1c       0x20 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000d1c                _sys_task_suicide_handle
  .text._sys_fpu_settings_handle
-                0x08000c6c       0x46 ./Src/RTOS/Core/sys_core_functions.o
-                0x08000c6c                _sys_fpu_settings_handle
- *fill*         0x08000cb2        0x2 
+                0x08000d3c       0x52 ./Src/RTOS/Core/sys_core_functions.o
+                0x08000d3c                _sys_fpu_settings_handle
+ *fill*         0x08000d8e        0x2 
  .text.__NVIC_SystemReset
-                0x08000cb4       0x2c ./Src/RTOS/Port/hardfault.o
+                0x08000d90       0x2c ./Src/RTOS/Port/hardfault.o
  .text.HardFault_Decoder
-                0x08000ce0       0x78 ./Src/RTOS/Port/hardfault.o
-                0x08000ce0                HardFault_Decoder
+                0x08000dbc       0x78 ./Src/RTOS/Port/hardfault.o
+                0x08000dbc                HardFault_Decoder
  .text.HardFault_Handler
-                0x08000d58       0x14 ./Src/RTOS/Port/hardfault.o
-                0x08000d58                HardFault_Handler
+                0x08000e34       0x14 ./Src/RTOS/Port/hardfault.o
+                0x08000e34                HardFault_Handler
  .text.MemManage_Handler_C
-                0x08000d6c       0x50 ./Src/RTOS/Port/port_mpu.o
-                0x08000d6c                MemManage_Handler_C
+                0x08000e48       0x50 ./Src/RTOS/Port/port_mpu.o
+                0x08000e48                MemManage_Handler_C
  .text._port_mpu_register_stacking_error_callback
-                0x08000dbc       0x20 ./Src/RTOS/Port/port_mpu.o
-                0x08000dbc                _port_mpu_register_stacking_error_callback
+                0x08000e98       0x20 ./Src/RTOS/Port/port_mpu.o
+                0x08000e98                _port_mpu_register_stacking_error_callback
  .text._port_mpu_initialization
-                0x08000ddc       0x74 ./Src/RTOS/Port/port_mpu.o
-                0x08000ddc                _port_mpu_initialization
+                0x08000eb8       0x74 ./Src/RTOS/Port/port_mpu.o
+                0x08000eb8                _port_mpu_initialization
  .text._port_mpu_prepare_task_stack_region
-                0x08000e50       0x54 ./Src/RTOS/Port/port_mpu.o
-                0x08000e50                _port_mpu_prepare_task_stack_region
+                0x08000f2c       0x54 ./Src/RTOS/Port/port_mpu.o
+                0x08000f2c                _port_mpu_prepare_task_stack_region
  .text.SVC_Handler_C
-                0x08000ea4       0x56 ./Src/RTOS/Port/port_supervisor_call.o
-                0x08000ea4                SVC_Handler_C
- *fill*         0x08000efa        0x2 
+                0x08000f80       0x56 ./Src/RTOS/Port/port_supervisor_call.o
+                0x08000f80                SVC_Handler_C
+ *fill*         0x08000fd6        0x2 
  .text._port_sys_SysTick_initialization
-                0x08000efc       0x34 ./Src/RTOS/Port/port_sys_timer.o
-                0x08000efc                _port_sys_SysTick_initialization
+                0x08000fd8       0x34 ./Src/RTOS/Port/port_sys_timer.o
+                0x08000fd8                _port_sys_SysTick_initialization
  .text._port_sys_SysTick_start
-                0x08000f30       0x20 ./Src/RTOS/Port/port_sys_timer.o
-                0x08000f30                _port_sys_SysTick_start
+                0x0800100c       0x20 ./Src/RTOS/Port/port_sys_timer.o
+                0x0800100c                _port_sys_SysTick_start
  .text.SysTick_Handler
-                0x08000f50       0x24 ./Src/RTOS/Port/port_sys_timer.o
-                0x08000f50                SysTick_Handler
- .text.Task1    0x08000f74       0x1e ./Src/main.o
-                0x08000f74                Task1
- *fill*         0x08000f92        0x2 
- .text.Task3    0x08000f94       0x30 ./Src/main.o
-                0x08000f94                Task3
- .text.Task2    0x08000fc4       0x48 ./Src/main.o
-                0x08000fc4                Task2
+                0x0800102c       0x24 ./Src/RTOS/Port/port_sys_timer.o
+                0x0800102c                SysTick_Handler
+ .text.Task1    0x08001050       0x2c ./Src/main.o
+                0x08001050                Task1
+ .text.Task3    0x0800107c       0x30 ./Src/main.o
+                0x0800107c                Task3
+ .text.Task2    0x080010ac       0x48 ./Src/main.o
+                0x080010ac                Task2
  .text.GPIO_Config
-                0x0800100c       0x6c ./Src/main.o
-                0x0800100c                GPIO_Config
- .text.main     0x08001078       0x94 ./Src/main.o
-                0x08001078                main
+                0x080010f4       0x6c ./Src/main.o
+                0x080010f4                GPIO_Config
+ .text.main     0x08001160       0x94 ./Src/main.o
+                0x08001160                main
  .text.SystemInit
-                0x0800110c       0x24 ./Src/system_stm32f4xx.o
-                0x0800110c                SystemInit
+                0x080011f4       0x24 ./Src/system_stm32f4xx.o
+                0x080011f4                SystemInit
  .text.Reset_Handler
-                0x08001130       0x50 ./Startup/startup_stm32f411ceux.o
-                0x08001130                Reset_Handler
+                0x08001218       0x50 ./Startup/startup_stm32f411ceux.o
+                0x08001218                Reset_Handler
  .text.Default_Handler
-                0x08001180        0x2 ./Startup/startup_stm32f411ceux.o
-                0x08001180                RTC_Alarm_IRQHandler
-                0x08001180                EXTI2_IRQHandler
-                0x08001180                DebugMon_Handler
-                0x08001180                SPI4_IRQHandler
-                0x08001180                TIM1_CC_IRQHandler
-                0x08001180                DMA2_Stream5_IRQHandler
-                0x08001180                DMA1_Stream5_IRQHandler
-                0x08001180                PVD_IRQHandler
-                0x08001180                SDIO_IRQHandler
-                0x08001180                TAMP_STAMP_IRQHandler
-                0x08001180                NMI_Handler
-                0x08001180                EXTI3_IRQHandler
-                0x08001180                TIM1_UP_TIM10_IRQHandler
-                0x08001180                I2C3_ER_IRQHandler
-                0x08001180                EXTI0_IRQHandler
-                0x08001180                I2C2_EV_IRQHandler
-                0x08001180                DMA1_Stream2_IRQHandler
-                0x08001180                UsageFault_Handler
-                0x08001180                DMA2_Stream2_IRQHandler
-                0x08001180                SPI1_IRQHandler
-                0x08001180                TIM1_BRK_TIM9_IRQHandler
-                0x08001180                DMA2_Stream3_IRQHandler
-                0x08001180                USART6_IRQHandler
-                0x08001180                DMA2_Stream0_IRQHandler
-                0x08001180                TIM4_IRQHandler
-                0x08001180                I2C1_EV_IRQHandler
-                0x08001180                DMA1_Stream6_IRQHandler
-                0x08001180                DMA1_Stream1_IRQHandler
-                0x08001180                TIM3_IRQHandler
-                0x08001180                RCC_IRQHandler
-                0x08001180                Default_Handler
-                0x08001180                EXTI15_10_IRQHandler
-                0x08001180                ADC_IRQHandler
-                0x08001180                DMA1_Stream7_IRQHandler
-                0x08001180                SPI5_IRQHandler
-                0x08001180                TIM5_IRQHandler
-                0x08001180                DMA2_Stream7_IRQHandler
-                0x08001180                I2C3_EV_IRQHandler
-                0x08001180                EXTI9_5_IRQHandler
-                0x08001180                RTC_WKUP_IRQHandler
-                0x08001180                SPI2_IRQHandler
-                0x08001180                DMA1_Stream0_IRQHandler
-                0x08001180                EXTI4_IRQHandler
-                0x08001180                WWDG_IRQHandler
-                0x08001180                TIM2_IRQHandler
-                0x08001180                OTG_FS_WKUP_IRQHandler
-                0x08001180                TIM1_TRG_COM_TIM11_IRQHandler
-                0x08001180                EXTI1_IRQHandler
-                0x08001180                USART2_IRQHandler
-                0x08001180                I2C2_ER_IRQHandler
-                0x08001180                DMA2_Stream1_IRQHandler
-                0x08001180                FLASH_IRQHandler
-                0x08001180                DMA2_Stream4_IRQHandler
-                0x08001180                BusFault_Handler
-                0x08001180                USART1_IRQHandler
-                0x08001180                OTG_FS_IRQHandler
-                0x08001180                SPI3_IRQHandler
-                0x08001180                DMA1_Stream4_IRQHandler
-                0x08001180                I2C1_ER_IRQHandler
-                0x08001180                DMA2_Stream6_IRQHandler
-                0x08001180                DMA1_Stream3_IRQHandler
- .text.memset   0x08001182       0x10 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-memset.o)
-                0x08001182                memset
- *fill*         0x08001192        0x2 
+                0x08001268        0x2 ./Startup/startup_stm32f411ceux.o
+                0x08001268                RTC_Alarm_IRQHandler
+                0x08001268                EXTI2_IRQHandler
+                0x08001268                DebugMon_Handler
+                0x08001268                SPI4_IRQHandler
+                0x08001268                TIM1_CC_IRQHandler
+                0x08001268                DMA2_Stream5_IRQHandler
+                0x08001268                DMA1_Stream5_IRQHandler
+                0x08001268                PVD_IRQHandler
+                0x08001268                SDIO_IRQHandler
+                0x08001268                TAMP_STAMP_IRQHandler
+                0x08001268                NMI_Handler
+                0x08001268                EXTI3_IRQHandler
+                0x08001268                TIM1_UP_TIM10_IRQHandler
+                0x08001268                I2C3_ER_IRQHandler
+                0x08001268                EXTI0_IRQHandler
+                0x08001268                I2C2_EV_IRQHandler
+                0x08001268                DMA1_Stream2_IRQHandler
+                0x08001268                UsageFault_Handler
+                0x08001268                DMA2_Stream2_IRQHandler
+                0x08001268                SPI1_IRQHandler
+                0x08001268                TIM1_BRK_TIM9_IRQHandler
+                0x08001268                DMA2_Stream3_IRQHandler
+                0x08001268                USART6_IRQHandler
+                0x08001268                DMA2_Stream0_IRQHandler
+                0x08001268                TIM4_IRQHandler
+                0x08001268                I2C1_EV_IRQHandler
+                0x08001268                DMA1_Stream6_IRQHandler
+                0x08001268                DMA1_Stream1_IRQHandler
+                0x08001268                TIM3_IRQHandler
+                0x08001268                RCC_IRQHandler
+                0x08001268                Default_Handler
+                0x08001268                EXTI15_10_IRQHandler
+                0x08001268                ADC_IRQHandler
+                0x08001268                DMA1_Stream7_IRQHandler
+                0x08001268                SPI5_IRQHandler
+                0x08001268                TIM5_IRQHandler
+                0x08001268                DMA2_Stream7_IRQHandler
+                0x08001268                I2C3_EV_IRQHandler
+                0x08001268                EXTI9_5_IRQHandler
+                0x08001268                RTC_WKUP_IRQHandler
+                0x08001268                SPI2_IRQHandler
+                0x08001268                DMA1_Stream0_IRQHandler
+                0x08001268                EXTI4_IRQHandler
+                0x08001268                WWDG_IRQHandler
+                0x08001268                TIM2_IRQHandler
+                0x08001268                OTG_FS_WKUP_IRQHandler
+                0x08001268                TIM1_TRG_COM_TIM11_IRQHandler
+                0x08001268                EXTI1_IRQHandler
+                0x08001268                USART2_IRQHandler
+                0x08001268                I2C2_ER_IRQHandler
+                0x08001268                DMA2_Stream1_IRQHandler
+                0x08001268                FLASH_IRQHandler
+                0x08001268                DMA2_Stream4_IRQHandler
+                0x08001268                BusFault_Handler
+                0x08001268                USART1_IRQHandler
+                0x08001268                OTG_FS_IRQHandler
+                0x08001268                SPI3_IRQHandler
+                0x08001268                DMA1_Stream4_IRQHandler
+                0x08001268                I2C1_ER_IRQHandler
+                0x08001268                DMA2_Stream6_IRQHandler
+                0x08001268                DMA1_Stream3_IRQHandler
+ .text.memset   0x0800126a       0x10 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-memset.o)
+                0x0800126a                memset
+ *fill*         0x0800127a        0x2 
  .text.__libc_init_array
-                0x08001194       0x48 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-init.o)
-                0x08001194                __libc_init_array
+                0x0800127c       0x48 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-init.o)
+                0x0800127c                __libc_init_array
  *(.glue_7)
- .glue_7        0x080011dc        0x0 linker stubs
+ .glue_7        0x080012c4        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080011dc        0x0 linker stubs
+ .glue_7t       0x080012c4        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x080011dc        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .eh_frame      0x080012c4        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.init)
- .init          0x080011dc        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crti.o
-                0x080011dc                _init
- .init          0x080011e0        0x8 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtn.o
+ .init          0x080012c4        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crti.o
+                0x080012c4                _init
+ .init          0x080012c8        0x8 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtn.o
  *(.fini)
- .fini          0x080011e8        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crti.o
-                0x080011e8                _fini
- .fini          0x080011ec        0x8 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtn.o
-                0x080011f4                        . = ALIGN (0x4)
-                0x080011f4                        _etext = .
+ .fini          0x080012d0        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crti.o
+                0x080012d0                _fini
+ .fini          0x080012d4        0x8 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtn.o
+                0x080012dc                        . = ALIGN (0x4)
+                0x080012dc                        _etext = .
 
-.vfp11_veneer   0x080011f4        0x0
- .vfp11_veneer  0x080011f4        0x0 linker stubs
+.vfp11_veneer   0x080012dc        0x0
+ .vfp11_veneer  0x080012dc        0x0 linker stubs
 
-.v4_bx          0x080011f4        0x0
- .v4_bx         0x080011f4        0x0 linker stubs
+.v4_bx          0x080012dc        0x0
+ .v4_bx         0x080012dc        0x0 linker stubs
 
-.iplt           0x080011f4        0x0
- .iplt          0x080011f4        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.iplt           0x080012dc        0x0
+ .iplt          0x080012dc        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.rodata         0x080011f4        0x0
-                0x080011f4                        . = ALIGN (0x4)
+.rodata         0x080012dc        0x0
+                0x080012dc                        . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
-                0x080011f4                        . = ALIGN (0x4)
+                0x080012dc                        . = ALIGN (0x4)
 
-.ARM.extab      0x080011f4        0x0
-                0x080011f4                        . = ALIGN (0x4)
+.ARM.extab      0x080012dc        0x0
+                0x080012dc                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080011f4                        . = ALIGN (0x4)
+                0x080012dc                        . = ALIGN (0x4)
 
-.ARM            0x080011f4        0x0
-                0x080011f4                        . = ALIGN (0x4)
-                0x080011f4                        __exidx_start = .
+.ARM            0x080012dc        0x0
+                0x080012dc                        . = ALIGN (0x4)
+                0x080012dc                        __exidx_start = .
  *(.ARM.exidx*)
-                0x080011f4                        __exidx_end = .
-                0x080011f4                        . = ALIGN (0x4)
+                0x080012dc                        __exidx_end = .
+                0x080012dc                        . = ALIGN (0x4)
 
-.preinit_array  0x080011f4        0x0
-                0x080011f4                        . = ALIGN (0x4)
-                0x080011f4                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x080012dc        0x0
+                0x080012dc                        . = ALIGN (0x4)
+                0x080012dc                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x080011f4                        PROVIDE (__preinit_array_end = .)
-                0x080011f4                        . = ALIGN (0x4)
+                0x080012dc                        PROVIDE (__preinit_array_end = .)
+                0x080012dc                        . = ALIGN (0x4)
 
-.init_array     0x080011f4        0x4
-                0x080011f4                        . = ALIGN (0x4)
-                0x080011f4                        PROVIDE (__init_array_start = .)
+.init_array     0x080012dc        0x4
+                0x080012dc                        . = ALIGN (0x4)
+                0x080012dc                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x080011f4        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x080011f8                        PROVIDE (__init_array_end = .)
-                0x080011f8                        . = ALIGN (0x4)
+ .init_array    0x080012dc        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x080012e0                        PROVIDE (__init_array_end = .)
+                0x080012e0                        . = ALIGN (0x4)
 
-.fini_array     0x080011f8        0x4
-                0x080011f8                        . = ALIGN (0x4)
+.fini_array     0x080012e0        0x4
+                0x080012e0                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080011f8        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .fini_array    0x080012e0        0x4 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x080011fc                        . = ALIGN (0x4)
-                0x080011fc                        _sidata = LOADADDR (.data)
+                0x080012e4                        . = ALIGN (0x4)
+                0x080012e4                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x080011fc        0x0
- .rel.iplt      0x080011fc        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.rel.dyn        0x080012e4        0x0
+ .rel.iplt      0x080012e4        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.data           0x20000000       0x24 load address 0x080011fc
+.data           0x20000000       0x24 load address 0x080012e4
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -1576,20 +1497,20 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
                 0x20000024                        . = ALIGN (0x4)
                 0x20000024                        _edata = .
 
-.igot.plt       0x20000024        0x0 load address 0x08001220
+.igot.plt       0x20000024        0x0 load address 0x08001308
  .igot.plt      0x20000024        0x0 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 0x20000024                        . = ALIGN (0x4)
 
-.bss            0x20000100      0x600 load address 0x08001220
+.bss            0x20000100      0x600 load address 0x08001308
                 0x20000100                        _sbss = .
                 0x20000100                        __bss_start__ = _sbss
  *(.bss)
  .bss           0x20000100       0x1c E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.bss*)
  .bss.os_context
-                0x2000011c      0x110 ./Src/RTOS/Core/context.o
+                0x2000011c      0x11c ./Src/RTOS/Core/context.o
                 0x2000011c                os_context
- *fill*         0x2000022c       0xd4 
+ *fill*         0x20000238       0xc8 
  .bss._idle_stack_handle_sys_stack
                 0x20000300      0x100 ./Src/RTOS/Core/os_manager.o
  .bss.mem_stacking_error_callback
@@ -1606,7 +1527,7 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
                 0x20000700                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20000700      0x600 load address 0x08001220
+                0x20000700      0x600 load address 0x08001308
                 0x20000700                        . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
                 0x20000700                        PROVIDE (_end = .)
@@ -1670,73 +1591,73 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
 LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libm.a
 LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7e-m+fp/hard\libgcc.a
 
-.debug_info     0x00000000     0x38d2
- .debug_info    0x00000000      0x2a1 ./Src/RTOS/Core/context.o
- .debug_info    0x000002a1      0x3e1 ./Src/RTOS/Core/context_switch_logic.o
- .debug_info    0x00000682      0xc14 ./Src/RTOS/Core/os_manager.o
- .debug_info    0x00001296      0x35f ./Src/RTOS/Core/supervisor_call.o
- .debug_info    0x000015f5      0xb39 ./Src/RTOS/Core/sys_core_functions.o
- .debug_info    0x0000212e      0x33e ./Src/RTOS/Port/hardfault.o
- .debug_info    0x0000246c      0x454 ./Src/RTOS/Port/port_mpu.o
- .debug_info    0x000028c0       0x24 ./Src/RTOS/Port/port_mpu_asm.o
- .debug_info    0x000028e4      0x171 ./Src/RTOS/Port/port_supervisor_call.o
- .debug_info    0x00002a55      0x2c4 ./Src/RTOS/Port/port_sys_timer.o
- .debug_info    0x00002d19       0x24 ./Src/RTOS/Port/scheduler.o
- .debug_info    0x00002d3d       0x24 ./Src/RTOS/Port/supervisor_call_asm.o
- .debug_info    0x00002d61      0x60a ./Src/main.o
- .debug_info    0x0000336b      0x537 ./Src/system_stm32f4xx.o
- .debug_info    0x000038a2       0x30 ./Startup/startup_stm32f411ceux.o
+.debug_info     0x00000000     0x3a97
+ .debug_info    0x00000000      0x2b4 ./Src/RTOS/Core/context.o
+ .debug_info    0x000002b4      0x3f4 ./Src/RTOS/Core/context_switch_logic.o
+ .debug_info    0x000006a8      0xc53 ./Src/RTOS/Core/os_manager.o
+ .debug_info    0x000012fb      0x52d ./Src/RTOS/Core/supervisor_call.o
+ .debug_info    0x00001828      0xaa5 ./Src/RTOS/Core/sys_core_functions.o
+ .debug_info    0x000022cd      0x33e ./Src/RTOS/Port/hardfault.o
+ .debug_info    0x0000260b      0x454 ./Src/RTOS/Port/port_mpu.o
+ .debug_info    0x00002a5f       0x24 ./Src/RTOS/Port/port_mpu_asm.o
+ .debug_info    0x00002a83      0x171 ./Src/RTOS/Port/port_supervisor_call.o
+ .debug_info    0x00002bf4      0x2c4 ./Src/RTOS/Port/port_sys_timer.o
+ .debug_info    0x00002eb8       0x24 ./Src/RTOS/Port/scheduler.o
+ .debug_info    0x00002edc       0x24 ./Src/RTOS/Port/supervisor_call_asm.o
+ .debug_info    0x00002f00      0x630 ./Src/main.o
+ .debug_info    0x00003530      0x537 ./Src/system_stm32f4xx.o
+ .debug_info    0x00003a67       0x30 ./Startup/startup_stm32f411ceux.o
 
-.debug_abbrev   0x00000000     0x1212
- .debug_abbrev  0x00000000       0xf1 ./Src/RTOS/Core/context.o
- .debug_abbrev  0x000000f1      0x192 ./Src/RTOS/Core/context_switch_logic.o
- .debug_abbrev  0x00000283      0x34f ./Src/RTOS/Core/os_manager.o
- .debug_abbrev  0x000005d2      0x19c ./Src/RTOS/Core/supervisor_call.o
- .debug_abbrev  0x0000076e      0x2ab ./Src/RTOS/Core/sys_core_functions.o
- .debug_abbrev  0x00000a19      0x153 ./Src/RTOS/Port/hardfault.o
- .debug_abbrev  0x00000b6c      0x1aa ./Src/RTOS/Port/port_mpu.o
- .debug_abbrev  0x00000d16       0x14 ./Src/RTOS/Port/port_mpu_asm.o
- .debug_abbrev  0x00000d2a       0x9e ./Src/RTOS/Port/port_supervisor_call.o
- .debug_abbrev  0x00000dc8       0xea ./Src/RTOS/Port/port_sys_timer.o
- .debug_abbrev  0x00000eb2       0x14 ./Src/RTOS/Port/scheduler.o
- .debug_abbrev  0x00000ec6       0x14 ./Src/RTOS/Port/supervisor_call_asm.o
- .debug_abbrev  0x00000eda      0x1fa ./Src/main.o
- .debug_abbrev  0x000010d4      0x11a ./Src/system_stm32f4xx.o
- .debug_abbrev  0x000011ee       0x24 ./Startup/startup_stm32f411ceux.o
+.debug_abbrev   0x00000000     0x12dc
+ .debug_abbrev  0x00000000       0xf8 ./Src/RTOS/Core/context.o
+ .debug_abbrev  0x000000f8      0x199 ./Src/RTOS/Core/context_switch_logic.o
+ .debug_abbrev  0x00000291      0x357 ./Src/RTOS/Core/os_manager.o
+ .debug_abbrev  0x000005e8      0x22a ./Src/RTOS/Core/supervisor_call.o
+ .debug_abbrev  0x00000812      0x2e7 ./Src/RTOS/Core/sys_core_functions.o
+ .debug_abbrev  0x00000af9      0x153 ./Src/RTOS/Port/hardfault.o
+ .debug_abbrev  0x00000c4c      0x1aa ./Src/RTOS/Port/port_mpu.o
+ .debug_abbrev  0x00000df6       0x14 ./Src/RTOS/Port/port_mpu_asm.o
+ .debug_abbrev  0x00000e0a       0x9e ./Src/RTOS/Port/port_supervisor_call.o
+ .debug_abbrev  0x00000ea8       0xea ./Src/RTOS/Port/port_sys_timer.o
+ .debug_abbrev  0x00000f92       0x14 ./Src/RTOS/Port/scheduler.o
+ .debug_abbrev  0x00000fa6       0x14 ./Src/RTOS/Port/supervisor_call_asm.o
+ .debug_abbrev  0x00000fba      0x1e4 ./Src/main.o
+ .debug_abbrev  0x0000119e      0x11a ./Src/system_stm32f4xx.o
+ .debug_abbrev  0x000012b8       0x24 ./Startup/startup_stm32f411ceux.o
 
-.debug_aranges  0x00000000      0x308
+.debug_aranges  0x00000000      0x320
  .debug_aranges
                 0x00000000       0x18 ./Src/RTOS/Core/context.o
  .debug_aranges
                 0x00000018       0x28 ./Src/RTOS/Core/context_switch_logic.o
  .debug_aranges
-                0x00000040       0x70 ./Src/RTOS/Core/os_manager.o
+                0x00000040       0x80 ./Src/RTOS/Core/os_manager.o
  .debug_aranges
-                0x000000b0       0x28 ./Src/RTOS/Core/supervisor_call.o
+                0x000000c0       0x30 ./Src/RTOS/Core/supervisor_call.o
  .debug_aranges
-                0x000000d8       0x88 ./Src/RTOS/Core/sys_core_functions.o
+                0x000000f0       0x88 ./Src/RTOS/Core/sys_core_functions.o
  .debug_aranges
-                0x00000160       0x30 ./Src/RTOS/Port/hardfault.o
+                0x00000178       0x30 ./Src/RTOS/Port/hardfault.o
  .debug_aranges
-                0x00000190       0x38 ./Src/RTOS/Port/port_mpu.o
+                0x000001a8       0x38 ./Src/RTOS/Port/port_mpu.o
  .debug_aranges
-                0x000001c8       0x20 ./Src/RTOS/Port/port_mpu_asm.o
+                0x000001e0       0x20 ./Src/RTOS/Port/port_mpu_asm.o
  .debug_aranges
-                0x000001e8       0x20 ./Src/RTOS/Port/port_supervisor_call.o
+                0x00000200       0x20 ./Src/RTOS/Port/port_supervisor_call.o
  .debug_aranges
-                0x00000208       0x30 ./Src/RTOS/Port/port_sys_timer.o
+                0x00000220       0x30 ./Src/RTOS/Port/port_sys_timer.o
  .debug_aranges
-                0x00000238       0x20 ./Src/RTOS/Port/scheduler.o
+                0x00000250       0x20 ./Src/RTOS/Port/scheduler.o
  .debug_aranges
-                0x00000258       0x20 ./Src/RTOS/Port/supervisor_call_asm.o
+                0x00000270       0x20 ./Src/RTOS/Port/supervisor_call_asm.o
  .debug_aranges
-                0x00000278       0x40 ./Src/main.o
+                0x00000290       0x40 ./Src/main.o
  .debug_aranges
-                0x000002b8       0x28 ./Src/system_stm32f4xx.o
+                0x000002d0       0x28 ./Src/system_stm32f4xx.o
  .debug_aranges
-                0x000002e0       0x28 ./Startup/startup_stm32f411ceux.o
+                0x000002f8       0x28 ./Startup/startup_stm32f411ceux.o
 
-.debug_macro    0x00000000     0xf6ab
+.debug_macro    0x00000000     0xf6d6
  .debug_macro   0x00000000      0x1e5 ./Src/RTOS/Core/context.o
  .debug_macro   0x000001e5      0xac0 ./Src/RTOS/Core/context.o
  .debug_macro   0x00000ca5       0x22 ./Src/RTOS/Core/context.o
@@ -1775,65 +1696,65 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
  .debug_macro   0x0000e705       0x22 ./Src/RTOS/Core/context.o
  .debug_macro   0x0000e727      0x1ef ./Src/RTOS/Core/context_switch_logic.o
  .debug_macro   0x0000e916      0x245 ./Src/RTOS/Core/os_manager.o
- .debug_macro   0x0000eb5b       0x52 ./Src/RTOS/Core/os_manager.o
- .debug_macro   0x0000ebad       0x28 ./Src/RTOS/Core/os_manager.o
- .debug_macro   0x0000ebd5       0x2e ./Src/RTOS/Core/os_manager.o
- .debug_macro   0x0000ec03      0x232 ./Src/RTOS/Core/supervisor_call.o
- .debug_macro   0x0000ee35      0x23b ./Src/RTOS/Core/sys_core_functions.o
- .debug_macro   0x0000f070       0xce ./Src/RTOS/Port/hardfault.o
- .debug_macro   0x0000f13e      0x14b ./Src/RTOS/Port/port_mpu.o
- .debug_macro   0x0000f289       0x87 ./Src/RTOS/Port/port_supervisor_call.o
- .debug_macro   0x0000f310       0xd8 ./Src/RTOS/Port/port_sys_timer.o
- .debug_macro   0x0000f3e8      0x1e9 ./Src/main.o
- .debug_macro   0x0000f5d1       0xda ./Src/system_stm32f4xx.o
+ .debug_macro   0x0000eb5b       0x58 ./Src/RTOS/Core/os_manager.o
+ .debug_macro   0x0000ebb3       0x28 ./Src/RTOS/Core/os_manager.o
+ .debug_macro   0x0000ebdb       0x34 ./Src/RTOS/Core/os_manager.o
+ .debug_macro   0x0000ec0f      0x232 ./Src/RTOS/Core/supervisor_call.o
+ .debug_macro   0x0000ee41      0x23b ./Src/RTOS/Core/sys_core_functions.o
+ .debug_macro   0x0000f07c       0xce ./Src/RTOS/Port/hardfault.o
+ .debug_macro   0x0000f14a      0x16a ./Src/RTOS/Port/port_mpu.o
+ .debug_macro   0x0000f2b4       0x87 ./Src/RTOS/Port/port_supervisor_call.o
+ .debug_macro   0x0000f33b       0xd8 ./Src/RTOS/Port/port_sys_timer.o
+ .debug_macro   0x0000f413      0x1e9 ./Src/main.o
+ .debug_macro   0x0000f5fc       0xda ./Src/system_stm32f4xx.o
 
-.debug_line     0x00000000     0x4b54
+.debug_line     0x00000000     0x4c3b
  .debug_line    0x00000000      0x665 ./Src/RTOS/Core/context.o
  .debug_line    0x00000665      0x714 ./Src/RTOS/Core/context_switch_logic.o
- .debug_line    0x00000d79      0x8fc ./Src/RTOS/Core/os_manager.o
- .debug_line    0x00001675      0x78d ./Src/RTOS/Core/supervisor_call.o
- .debug_line    0x00001e02      0xaa1 ./Src/RTOS/Core/sys_core_functions.o
- .debug_line    0x000028a3      0x557 ./Src/RTOS/Port/hardfault.o
- .debug_line    0x00002dfa      0x68e ./Src/RTOS/Port/port_mpu.o
- .debug_line    0x00003488       0x50 ./Src/RTOS/Port/port_mpu_asm.o
- .debug_line    0x000034d8      0x424 ./Src/RTOS/Port/port_supervisor_call.o
- .debug_line    0x000038fc      0x4f5 ./Src/RTOS/Port/port_sys_timer.o
- .debug_line    0x00003df1       0x53 ./Src/RTOS/Port/scheduler.o
- .debug_line    0x00003e44       0x52 ./Src/RTOS/Port/supervisor_call_asm.o
- .debug_line    0x00003e96      0x72d ./Src/main.o
- .debug_line    0x000045c3      0x516 ./Src/system_stm32f4xx.o
- .debug_line    0x00004ad9       0x7b ./Startup/startup_stm32f411ceux.o
+ .debug_line    0x00000d79      0x92c ./Src/RTOS/Core/os_manager.o
+ .debug_line    0x000016a5      0x7b2 ./Src/RTOS/Core/supervisor_call.o
+ .debug_line    0x00001e57      0xb17 ./Src/RTOS/Core/sys_core_functions.o
+ .debug_line    0x0000296e      0x557 ./Src/RTOS/Port/hardfault.o
+ .debug_line    0x00002ec5      0x6a2 ./Src/RTOS/Port/port_mpu.o
+ .debug_line    0x00003567       0x50 ./Src/RTOS/Port/port_mpu_asm.o
+ .debug_line    0x000035b7      0x424 ./Src/RTOS/Port/port_supervisor_call.o
+ .debug_line    0x000039db      0x4f5 ./Src/RTOS/Port/port_sys_timer.o
+ .debug_line    0x00003ed0       0x53 ./Src/RTOS/Port/scheduler.o
+ .debug_line    0x00003f23       0x52 ./Src/RTOS/Port/supervisor_call_asm.o
+ .debug_line    0x00003f75      0x735 ./Src/main.o
+ .debug_line    0x000046aa      0x516 ./Src/system_stm32f4xx.o
+ .debug_line    0x00004bc0       0x7b ./Startup/startup_stm32f411ceux.o
 
-.debug_str      0x00000000    0x5512c
- .debug_str     0x00000000    0x5354c ./Src/RTOS/Core/context.o
-                              0x53769 (size before relaxing)
- .debug_str     0x0005354c      0x131 ./Src/RTOS/Core/context_switch_logic.o
-                              0x5382c (size before relaxing)
- .debug_str     0x0005367d     0x123a ./Src/RTOS/Core/os_manager.o
-                              0x549e9 (size before relaxing)
- .debug_str     0x000548b7       0xe8 ./Src/RTOS/Core/supervisor_call.o
-                              0x53bc8 (size before relaxing)
- .debug_str     0x0005499f      0x192 ./Src/RTOS/Core/sys_core_functions.o
-                              0x548ad (size before relaxing)
- .debug_str     0x00054b31       0x51 ./Src/RTOS/Port/hardfault.o
+.debug_str      0x00000000    0x5522f
+ .debug_str     0x00000000    0x5355e ./Src/RTOS/Core/context.o
+                              0x5377b (size before relaxing)
+ .debug_str     0x0005355e      0x131 ./Src/RTOS/Core/context_switch_logic.o
+                              0x5383e (size before relaxing)
+ .debug_str     0x0005368f     0x12e1 ./Src/RTOS/Core/os_manager.o
+                              0x54aa9 (size before relaxing)
+ .debug_str     0x00054970      0x112 ./Src/RTOS/Core/supervisor_call.o
+                              0x53c86 (size before relaxing)
+ .debug_str     0x00054a82      0x19e ./Src/RTOS/Core/sys_core_functions.o
+                              0x545e9 (size before relaxing)
+ .debug_str     0x00054c20       0x51 ./Src/RTOS/Port/hardfault.o
                               0x4fea3 (size before relaxing)
- .debug_str     0x00054b82      0x176 ./Src/RTOS/Port/port_mpu.o
-                              0x509eb (size before relaxing)
- .debug_str     0x00054cf8       0x2e ./Src/RTOS/Port/port_mpu_asm.o
+ .debug_str     0x00054c71      0x19c ./Src/RTOS/Port/port_mpu.o
+                              0x50adc (size before relaxing)
+ .debug_str     0x00054e0d       0x2e ./Src/RTOS/Port/port_mpu_asm.o
                                  0x50 (size before relaxing)
- .debug_str     0x00054d26       0xc0 ./Src/RTOS/Port/port_supervisor_call.o
+ .debug_str     0x00054e3b       0xae ./Src/RTOS/Port/port_supervisor_call.o
                                0x3e23 (size before relaxing)
- .debug_str     0x00054de6       0x5b ./Src/RTOS/Port/port_sys_timer.o
+ .debug_str     0x00054ee9       0x5b ./Src/RTOS/Port/port_sys_timer.o
                               0x4fedf (size before relaxing)
- .debug_str     0x00054e41       0x1d ./Src/RTOS/Port/scheduler.o
+ .debug_str     0x00054f44       0x1d ./Src/RTOS/Port/scheduler.o
                                  0x4d (size before relaxing)
- .debug_str     0x00054e5e       0x27 ./Src/RTOS/Port/supervisor_call_asm.o
+ .debug_str     0x00054f61       0x27 ./Src/RTOS/Port/supervisor_call_asm.o
                                  0x57 (size before relaxing)
- .debug_str     0x00054e85      0x1b6 ./Src/main.o
-                              0x53bc0 (size before relaxing)
- .debug_str     0x0005503b       0xc0 ./Src/system_stm32f4xx.o
+ .debug_str     0x00054f88      0x1b6 ./Src/main.o
+                              0x53bec (size before relaxing)
+ .debug_str     0x0005513e       0xc0 ./Src/system_stm32f4xx.o
                               0x4fff7 (size before relaxing)
- .debug_str     0x000550fb       0x31 ./Startup/startup_stm32f411ceux.o
+ .debug_str     0x000551fe       0x31 ./Startup/startup_stm32f411ceux.o
                                  0x61 (size before relaxing)
 
 .comment        0x00000000       0x43
@@ -1851,43 +1772,43 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
  .comment       0x00000043       0x44 ./Src/system_stm32f4xx.o
 
 .debug_rnglists
-                0x00000000      0x1bd
+                0x00000000      0x1d0
  .debug_rnglists
                 0x00000000       0x19 ./Src/RTOS/Core/context_switch_logic.o
  .debug_rnglists
-                0x00000019       0x50 ./Src/RTOS/Core/os_manager.o
+                0x00000019       0x5c ./Src/RTOS/Core/os_manager.o
  .debug_rnglists
-                0x00000069       0x1a ./Src/RTOS/Core/supervisor_call.o
+                0x00000075       0x20 ./Src/RTOS/Core/supervisor_call.o
  .debug_rnglists
-                0x00000083       0x65 ./Src/RTOS/Core/sys_core_functions.o
+                0x00000095       0x66 ./Src/RTOS/Core/sys_core_functions.o
  .debug_rnglists
-                0x000000e8       0x1f ./Src/RTOS/Port/hardfault.o
+                0x000000fb       0x1f ./Src/RTOS/Port/hardfault.o
  .debug_rnglists
-                0x00000107       0x25 ./Src/RTOS/Port/port_mpu.o
+                0x0000011a       0x25 ./Src/RTOS/Port/port_mpu.o
  .debug_rnglists
-                0x0000012c       0x13 ./Src/RTOS/Port/port_supervisor_call.o
+                0x0000013f       0x13 ./Src/RTOS/Port/port_supervisor_call.o
  .debug_rnglists
-                0x0000013f       0x1f ./Src/RTOS/Port/port_sys_timer.o
+                0x00000152       0x1f ./Src/RTOS/Port/port_sys_timer.o
  .debug_rnglists
-                0x0000015e       0x2c ./Src/main.o
+                0x00000171       0x2c ./Src/main.o
  .debug_rnglists
-                0x0000018a       0x1a ./Src/system_stm32f4xx.o
+                0x0000019d       0x1a ./Src/system_stm32f4xx.o
  .debug_rnglists
-                0x000001a4       0x19 ./Startup/startup_stm32f411ceux.o
+                0x000001b7       0x19 ./Startup/startup_stm32f411ceux.o
 
-.debug_frame    0x00000000      0x758
+.debug_frame    0x00000000      0x7b4
  .debug_frame   0x00000000       0x5c ./Src/RTOS/Core/context_switch_logic.o
- .debug_frame   0x0000005c      0x18c ./Src/RTOS/Core/os_manager.o
- .debug_frame   0x000001e8       0x5c ./Src/RTOS/Core/supervisor_call.o
- .debug_frame   0x00000244      0x214 ./Src/RTOS/Core/sys_core_functions.o
- .debug_frame   0x00000458       0x58 ./Src/RTOS/Port/hardfault.o
- .debug_frame   0x000004b0       0xa4 ./Src/RTOS/Port/port_mpu.o
- .debug_frame   0x00000554       0x34 ./Src/RTOS/Port/port_supervisor_call.o
- .debug_frame   0x00000588       0x78 ./Src/RTOS/Port/port_sys_timer.o
- .debug_frame   0x00000600       0xb4 ./Src/main.o
- .debug_frame   0x000006b4       0x58 ./Src/system_stm32f4xx.o
- .debug_frame   0x0000070c       0x20 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-memset.o)
- .debug_frame   0x0000072c       0x2c E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-init.o)
+ .debug_frame   0x0000005c      0x1c4 ./Src/RTOS/Core/os_manager.o
+ .debug_frame   0x00000220       0x7c ./Src/RTOS/Core/supervisor_call.o
+ .debug_frame   0x0000029c      0x218 ./Src/RTOS/Core/sys_core_functions.o
+ .debug_frame   0x000004b4       0x58 ./Src/RTOS/Port/hardfault.o
+ .debug_frame   0x0000050c       0xa4 ./Src/RTOS/Port/port_mpu.o
+ .debug_frame   0x000005b0       0x34 ./Src/RTOS/Port/port_supervisor_call.o
+ .debug_frame   0x000005e4       0x78 ./Src/RTOS/Port/port_sys_timer.o
+ .debug_frame   0x0000065c       0xb4 ./Src/main.o
+ .debug_frame   0x00000710       0x58 ./Src/system_stm32f4xx.o
+ .debug_frame   0x00000768       0x20 E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-memset.o)
+ .debug_frame   0x00000788       0x2c E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.1.0.202410251130/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard\libc_nano.a(libc_a-init.o)
 
 .debug_line_str
                 0x00000000       0x87

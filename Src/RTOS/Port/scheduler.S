@@ -1,7 +1,6 @@
 #include "port_config.h"
 .extern OS_SwitchLogic
-.global OS_Load_Context
-.global OS_Load_Context_test
+.global OS_Switch_Context
 .global PendSV_Handler
 .type PendSV_Handler, %function
 .syntax unified
@@ -30,7 +29,7 @@ PendSV_Handler:
 
 	SaveContext
 
-OS_Load_Context:
+OS_Switch_Context:
 
 	push {r4, lr}
 

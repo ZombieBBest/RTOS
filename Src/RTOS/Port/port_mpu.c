@@ -1,5 +1,6 @@
 #include "port_mpu.h"
 #include "port_config.h"
+#include "port_functions.h"
 #include <stm32f4xx.h>
 #include <stddef.h>
 
@@ -11,6 +12,9 @@
 #define SRAM_REGION_NUMBER		(1UL)
 #define PERIPH_REGION_NUMBER	(2UL)
 #define STACK_REGION_NUMBER		(3UL)
+
+#define PC_SP_INDEX				(6UL)
+#define xPSR_SP_INDEX			(7UL)
 
 #define ENTER_HARDFAULT()			\
 	do {							\

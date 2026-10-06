@@ -17,13 +17,6 @@
 
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
-static inline void _port_yield(void) {
-	__asm volatile("" : : : "memory");
-	SCB->ICSR = SCB_ICSR_PENDSVSET_Msk;
-	__asm volatile("dsb" : : : "memory");
-	__asm volatile("isb" : : : "memory");
-}
-
 static inline void _port_fpu_start_settings(void) {
 	SCB->CPACR |= (3 << 22) | (3 << 20);
 
@@ -31,6 +24,13 @@ static inline void _port_fpu_start_settings(void) {
 	__DSB();
 	__ISB();
 }
+
+static inline void _port_yield(void) {
+	SCB->ICSR = SCB_ICSR_PENDSVSET_Msk;
+	__asm volatile("dsb" : : : "memory");
+	__asm volatile("isb" : : : "memory");
+}
+
 
 static inline void _port_fpu_mode_settings(uint32_t* sp, uint32_t AHP, uint32_t DN, uint32_t FZ, uint32_t RMODE) {
 	uint32_t* FPSCR_ptr = _get_FPSCR_from_SP(sp);
@@ -44,7 +44,7 @@ static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
 	__asm volatile (
 		"mov r0, %[task_sp] 	\n\t"
 		"ldr lr, =%[lr_exc] 	\n\t"
-		"b OS_Load_Context 		\n\t"
+		"b OS_Switch_Context 	\n\t"
 		:
 		: [task_sp] "r" (first_task_sp),
 		  [lr_exc]  "i" (INITIAL_EXC_RETURN)
@@ -61,7 +61,7 @@ static inline void _port_ISR_settings_apply(void) {
 	SCB->SHCSR |= (SCB_SHCSR_MEMFAULTENA_Msk);
 }
 
-static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
+static inline void* _port_stack_hardware_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
 
 	uintptr_t* stack_ptr = (uintptr_t*)((uintptr_t)stack_base + stack_size);
 	*(--stack_ptr) = 0;																		//Alignment Word
@@ -76,10 +76,17 @@ static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(vo
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//...S1
 	*(--stack_ptr) = 0;																		//S0
 
-	*(--stack_ptr) = (1 << 24);						*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
+	*(--stack_ptr) = (1 << PORT_CONFIG_T_BIT_POS);	*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
 	*(--stack_ptr) = (uintptr_t)return_ptr;			*(--stack_ptr) = 0;						//LR, R12
 	*(--stack_ptr) = 0;								*(--stack_ptr) = 0;						//R3, R2
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//R1, R0
+
+	return (void*)stack_ptr;
+}
+
+static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
+
+	uintptr_t* stack_ptr = _port_stack_hardware_stack_init(task_ptr, return_ptr, stack_base, stack_size);
 
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//R11...
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
