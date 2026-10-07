@@ -22,10 +22,6 @@
 #include "RTOS/Core/os_manager.h"
 
 
-
-OS_CREATE_STACK(stack1_handle, 256);
-OS_CREATE_STACK(stack2_handle, 256);
-
 void Task1(void) {
 	//GPIOC->ODR &= ~(GPIO_ODR_OD13);
 	OS_Return_t r1 = OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
@@ -34,7 +30,7 @@ void Task1(void) {
 	uint32_t* ptr = &tst;
 
 	(void)r1;
-	OS_RestartTask();
+	//OS_RestartTask();
 
 	return;
 	/*while(1) {
@@ -51,8 +47,8 @@ void Task3(void) {
 }
 
 void Task2(void) {
-	OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack1_handle, 1);
-	(void)h3;
+	//OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack1_handle, 1);
+	//(void)h3;
 
 	//(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
 	//(void)OS_GPIO_PIN_Free(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
@@ -80,6 +76,10 @@ void GPIO_Config(void) {
 int main(void)
 {
 	OS_Initialization();
+
+	OS_StackHandle_t stack1_handle = OS_CREATE_STACK(256);
+	OS_StackHandle_t stack2_handle = OS_CREATE_STACK(256);
+
 
 	OS_TaskHandle_t h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
 	OS_TaskHandle_t h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);

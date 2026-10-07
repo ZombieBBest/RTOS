@@ -32,8 +32,6 @@ static inline OS_TCB_t* _get_most_priority_task(void) {
 
 // ======================== INTERNAL ========================
 
-OS_CREATE_STACK(_idle_stack_handle, 256);
-
 void _idle_task(void) {
 	while (1) {
 		__WFI();
@@ -56,6 +54,8 @@ void OS_Initialization(void) {
 	_port_mpu_register_stacking_error_callback((void(*)(void))_sys_task_context_reset_handle);
 
 	__enable_irq();
+
+	OS_StackHandle_t _idle_stack_handle = OS_CREATE_STACK(256);
 
 	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);
 }
