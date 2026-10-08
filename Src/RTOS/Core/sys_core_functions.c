@@ -107,10 +107,8 @@ void _sys_task_context_reset_handle(void) {
 	}
 
 	OS_TCB_t* r_task = os_context.current_run_task;
-	r_task->stack_pointer = _port_stack_hardware_stack_init(r_task->task_function_ptr, _task_suicide, r_task->stack_descriptor->stack_ptr,
-													r_task->stack_descriptor->stack_size);
-
-	__set_PSP(r_task->stack_pointer);
+	r_task->stack_pointer = _port_corrupted_task_reset_stack(r_task->task_function_ptr, _task_suicide, r_task->stack_descriptor->stack_ptr,
+																r_task->stack_descriptor->stack_size);
 }
 
 OS_TaskHandle_t _sys_create_task_static_handle(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {

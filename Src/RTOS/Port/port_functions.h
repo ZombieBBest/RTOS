@@ -61,7 +61,7 @@ static inline void _port_ISR_settings_apply(void) {
 	SCB->SHCSR |= (SCB_SHCSR_MEMFAULTENA_Msk);
 }
 
-static inline void* _port_stack_hardware_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
+static inline void* _port_stack_hardware_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
 
 	uintptr_t* stack_ptr = (uintptr_t*)((uintptr_t)stack_base + stack_size);
 	*(--stack_ptr) = 0;																		//Alignment Word
@@ -86,7 +86,7 @@ static inline void* _port_stack_hardware_stack_init(void(*task_ptr)(void), void(
 
 static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
 
-	uintptr_t* stack_ptr = _port_stack_hardware_stack_init(task_ptr, return_ptr, stack_base, stack_size);
+	uintptr_t* stack_ptr = _port_stack_hardware_init(task_ptr, return_ptr, stack_base, stack_size);
 
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//R11...
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
@@ -103,6 +103,14 @@ static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(vo
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//...S16
 
 	return (void*)stack_ptr;
+}
+
+static inline void* _port_corrupted_task_reset_stack(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
+	uintptr_t* stack = _port_stack_hardware_init(task_ptr, return_ptr, stack_base, stack_size);
+
+	__set_PSP((uintptr_t)stack);
+
+	return stack;
 }
 
 #endif
