@@ -3,6 +3,8 @@
 .global OS_Switch_Context
 .global PendSV_Handler
 .type PendSV_Handler, %function
+.global TST_Aligner_Task
+.type TST_Aligner_Task, %function
 .syntax unified
 
 // ======================== INTERNAL ========================
@@ -11,10 +13,12 @@
 	mrs r0, PSP
 	stmdb r0!, {r4-r11}
 	vstmdb r0!, {s16-s31}
+	stmdb r0!, {r4, lr}		@r4 used like aligner
 .endm
 
 @2
 .macro LoadContext
+	ldmia r0!, {r4, lr}		@r4 used like aligner
 	vldmia r0!, {s16-s31}
 	ldmia r0!, {r4-r11}
 	msr PSP, r0
@@ -30,12 +34,7 @@ PendSV_Handler:
 	SaveContext
 
 OS_Switch_Context:
-
-	push {r4, lr}
-
 	bl _scheduler_switch_logic
-
-	pop {r4, lr}
 
 	clrex
 

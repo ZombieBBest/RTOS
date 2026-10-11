@@ -20,6 +20,8 @@ void HardFault_Decoder(unsigned int *stack) {
     (void)cfsr; (void)hfsr; (void)mmfar;
 
     __asm("bkpt #0");
+
+    __DSB();
     NVIC_SystemReset();
 }
 

@@ -21,6 +21,8 @@
 
 #include "RTOS/Core/os_manager.h"
 
+extern void TST_Aligner_Task(void);
+
 
 void Task1(void) {
 	//GPIOC->ODR &= ~(GPIO_ODR_OD13);
@@ -29,7 +31,7 @@ void Task1(void) {
 	uint32_t tst = 0xABABABAB;
 	uint32_t* ptr = &tst;
 
-	(void)r1;
+	(void)r1, (void)ptr;
 	//OS_RestartTask();
 
 	return;
@@ -47,7 +49,8 @@ void Task3(void) {
 }
 
 void Task2(void) {
-	//OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack1_handle, 1);
+	OS_StackHandle_t stack3_handle = OS_CREATE_STACK(256);
+	OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack3_handle, 1);
 	//(void)h3;
 
 	//(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
@@ -103,6 +106,7 @@ int main(void)
 
 
 //Прописать обработчики ошибок
+//Сброс MSP при старте
 
 //Dump задача
 //Перезапуск задачи при MemManage
@@ -110,8 +114,6 @@ int main(void)
 //Изменение приоритета задачи
 //Питание GPIO
 
-//Возвращать из CREATESTACK хэндлер стека
-//Исправить Syntax error в OS_CREATE_STACK
 //Внедрить ldrex/strex инструкции в планировщик
 //Добавить секции для дескрипторов
 //Перенести библиотеки на GitHub

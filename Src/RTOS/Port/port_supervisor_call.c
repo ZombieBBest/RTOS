@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-// ====================== DEFINITIONS =======================
+// ====================== DEFINITIONS ======================
 
 #define PC_SP_INDEX					(6UL)
 #define SVC_NUM_INSTRUCTION_INDEX	(-2UL)
@@ -10,9 +10,11 @@
 #define ARG2_SP_INDEX				(2UL)
 #define ARG3_SP_INDEX				(3UL)
 
-// ====================== ISR_HANDLE ========================
+// ========================= EXTERN =========================
 
 extern uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint32_t arg2, uint32_t arg3, uint32_t* caller_sp);
+
+// ====================== ISR_HANDLE ========================
 
 void SVC_Handler_C(uint32_t* sp) {
 	uint32_t pc_reg = sp[PC_SP_INDEX];

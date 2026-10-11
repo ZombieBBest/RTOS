@@ -37,14 +37,6 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint3
 		case SVC_RESTART_TASK:
 			_sys_task_context_reset_handle();
 			break;
-
-		/*case SVC_GPIO_PIN_REQUEST:
-			result = (uint32_t)_sys_gpio_pin_request((Drivers_GPIO_PortsEnum_t)arg0, (Drivers_GPIO_PinsEnum_t)arg1);
-			break;
-
-		case SVC_GPIO_PIN_FREE:
-			result = (uint32_t)_sys_gpio_pin_free((Drivers_GPIO_PortsEnum_t)arg0, (uint16_t)arg1);
-			break;*/
 	}
 
 	return result;

@@ -187,27 +187,3 @@ OS_Return_t _sys_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_
 
 	return OS_EXIT_SUCCESS;
 }
-
-/*OS_Return_t _sys_gpio_pin_request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
-	if (gpio >= DRIVERS_GPIO_PORTS_NUM || os_context.busy_gpio_pins[gpio] & pins_mask){
-		return OS_EXIT_ERROR;
-	}
-	else {
-		os_context.busy_gpio_pins[gpio] |= pins_mask;
-		os_context.current_run_task->permitted_gpio_pins[gpio] |= pins_mask;
-
-		return OS_EXIT_SUCCESS;
-	}
-}
-
-OS_Return_t _sys_gpio_pin_free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask) {
-	if (gpio >= DRIVERS_GPIO_PORTS_NUM || os_context.current_run_task->permitted_gpio_pins[gpio] & ~pins_mask) {
-		return OS_EXIT_ERROR;
-	}
-	else {
-		os_context.busy_gpio_pins[gpio] &= ~pins_mask;
-		os_context.current_run_task->permitted_gpio_pins[gpio] &= ~pins_mask;
-
-		return OS_EXIT_SUCCESS;
-	}
-}*/

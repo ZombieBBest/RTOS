@@ -30,7 +30,6 @@ typedef struct OS_TCB_t {
 	OS_StackDescriptor_t* stack_descriptor;
 
 	Port_MPU_StackRegion_t mpu_sr;
-	uint16_t permitted_gpio_pins[DRIVERS_GPIO_PORTS_NUM];
 } OS_TCB_t;
 
 typedef struct {
@@ -40,11 +39,9 @@ typedef struct {
 	OS_TCB_t  task_context[CONFIG_NUM_OF_TASKS];
 	OS_TCB_t* free_TCB_ptr;
 	OS_TCB_t* task_ready_list[CONFIG_NUM_OF_PRIORITIES];
-
-	uint16_t busy_gpio_pins[DRIVERS_GPIO_PORTS_NUM];
 } OS_Context_t;
 
-// ========================== EXTERN =========================
+// ========================= EXTERN =========================
 
 extern volatile OS_Context_t os_context;
 

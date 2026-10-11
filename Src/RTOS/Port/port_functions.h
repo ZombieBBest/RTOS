@@ -43,19 +43,17 @@ static inline void _port_start_scheduler_from_svc(void* first_task_sp) {
 	__set_CONTROL(__get_CONTROL() | CONTROL_nPRIV_Msk);
 	__asm volatile (
 		"mov r0, %[task_sp] 	\n\t"
-		"ldr lr, =%[lr_exc] 	\n\t"
 		"b OS_Switch_Context 	\n\t"
 		:
-		: [task_sp] "r" (first_task_sp),
-		  [lr_exc]  "i" (INITIAL_EXC_RETURN)
+		: [task_sp] "r" (first_task_sp)
 		: "r0", "lr", "memory"
 	);
 }
 
 static inline void _port_ISR_settings_apply(void) {
 	NVIC_SetPriority(MemoryManagement_IRQn, 4);
-	NVIC_SetPriority(SVCall_IRQn, 13);
 	NVIC_SetPriority(SysTick_IRQn, 14);
+	NVIC_SetPriority(SVCall_IRQn, 15);
 	NVIC_SetPriority(PendSV_IRQn, 15);
 
 	SCB->SHCSR |= (SCB_SHCSR_MEMFAULTENA_Msk);
@@ -102,13 +100,16 @@ static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(vo
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//...S16
 
+	*(--stack_ptr) = INITIAL_EXC_RETURN; 			*(--stack_ptr) = 0;						//LR, F4 Aligner
+
 	return (void*)stack_ptr;
 }
 
 static inline void* _port_corrupted_task_reset_stack(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
-	uintptr_t* stack = _port_stack_hardware_init(task_ptr, return_ptr, stack_base, stack_size);
+	uintptr_t* stack = _port_stack_init(task_ptr, return_ptr, stack_base, stack_size);
 
 	__set_PSP((uintptr_t)stack);
+	_port_yield();
 
 	return stack;
 }

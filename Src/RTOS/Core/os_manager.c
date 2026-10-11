@@ -87,37 +87,3 @@ void OS_RestartTask(void) {
 void OS_Yield(void) {
 	_PORT_ENTER_SVC_0_ARGS_AND_RETURN(SVC_YIELD);
 }
-
-/*OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
-	register OS_Return_t 				result 	__asm("r0");
-
-	register Drivers_GPIO_PortsEnum_t	arg0	__asm("r0") = gpio;
-	register uint16_t 					arg1 	__asm("r1") = pin;
-
-	__asm volatile(
-		"svc %[svc_num]		\n\t"
-		: "=r" (result)
-		: [svc_num] "i" (SVC_GPIO_PIN_REQUEST),
-		  "r" (arg0), "r" (arg1)
-		: "r12", "lr", "memory"
-	);
-
-	return result;
-}
-
-OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin) {
-	register OS_Return_t 				result 	__asm("r0");
-
-	register Drivers_GPIO_PortsEnum_t	arg0	__asm("r0") = gpio;
-	register uint16_t 					arg1 	__asm("r1") = pin;
-
-	__asm volatile(
-		"svc %[svc_num]		\n\t"
-		: "=r" (result)
-		: [svc_num] "i" (SVC_GPIO_PIN_FREE),
-		  "r" (arg0), "r" (arg1)
-		: "r12", "lr", "memory"
-	);
-
-	return result;
-}*/
