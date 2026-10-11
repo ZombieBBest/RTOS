@@ -15,6 +15,8 @@
 #define _get_FPSCR_from_SP(sp)		(&sp[24])
 #define INITIAL_EXC_RETURN  	 	(0xFFFFFFED)
 
+#define xPSR_BASE_STATE				((1UL << PORT_CONFIG_T_BIT_POS) | (0UL << PORT_CONFIG_SPREALIGN_BIT_POS))
+
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
 static inline void _port_fpu_start_settings(void) {
@@ -74,7 +76,7 @@ static inline void* _port_stack_hardware_init(void(*task_ptr)(void), void(*retur
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//...S1
 	*(--stack_ptr) = 0;																		//S0
 
-	*(--stack_ptr) = (1 << PORT_CONFIG_T_BIT_POS);	*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
+	*(--stack_ptr) = (xPSR_BASE_STATE);				*(--stack_ptr) = (uint32_t)task_ptr;	//PSR, PC
 	*(--stack_ptr) = (uintptr_t)return_ptr;			*(--stack_ptr) = 0;						//LR, R12
 	*(--stack_ptr) = 0;								*(--stack_ptr) = 0;						//R3, R2
 	*(--stack_ptr) = 0; 							*(--stack_ptr) = 0;						//R1, R0
@@ -106,10 +108,10 @@ static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(vo
 }
 
 static inline void* _port_corrupted_task_reset_stack(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
-	uintptr_t* stack = _port_stack_init(task_ptr, return_ptr, stack_base, stack_size);
+	uintptr_t* stack = _port_stack_hardware_init(task_ptr, return_ptr, stack_base, stack_size);
 
 	__set_PSP((uintptr_t)stack);
-	_port_yield();
+	//_port_yield();
 
 	return stack;
 }

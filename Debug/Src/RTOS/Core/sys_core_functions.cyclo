@@ -1,8 +1,8 @@
-../Src/RTOS/Core/../Port/port_functions.h:28:20:_port_yield	1
-../Src/RTOS/Core/../Port/port_functions.h:35:20:_port_fpu_mode_settings	1
-../Src/RTOS/Core/../Port/port_functions.h:62:21:_port_stack_hardware_init	1
-../Src/RTOS/Core/../Port/port_functions.h:85:21:_port_stack_init	1
-../Src/RTOS/Core/../Port/port_functions.h:108:21:_port_corrupted_task_reset_stack	1
+../Src/RTOS/Core/../Port/port_functions.h:30:20:_port_yield	1
+../Src/RTOS/Core/../Port/port_functions.h:37:20:_port_fpu_mode_settings	1
+../Src/RTOS/Core/../Port/port_functions.h:64:21:_port_stack_hardware_init	1
+../Src/RTOS/Core/../Port/port_functions.h:87:21:_port_stack_init	1
+../Src/RTOS/Core/../Port/port_functions.h:110:21:_port_corrupted_task_reset_stack	1
 ../Src/RTOS/Core/sys_core_functions.c:10:20:_add_to_ready_list	2
 ../Src/RTOS/Core/sys_core_functions.c:34:20:_remove_from_ready_list	3
 ../Src/RTOS/Core/sys_core_functions.c:60:25:_get_free_TCB	4

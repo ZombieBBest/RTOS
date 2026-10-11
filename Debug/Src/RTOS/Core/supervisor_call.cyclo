@@ -1,3 +1,3 @@
-../Src/RTOS/Core/../Port/port_functions.h:28:20:_port_yield	1
-../Src/RTOS/Core/../Port/port_functions.h:42:20:_port_start_scheduler_from_svc	1
+../Src/RTOS/Core/../Port/port_functions.h:30:20:_port_yield	1
+../Src/RTOS/Core/../Port/port_functions.h:44:20:_port_start_scheduler_from_svc	1
 ../Src/RTOS/Core/supervisor_call.c:9:10:OS_SVC_Dispatcher	8

@@ -18,8 +18,4 @@ OS_Return_t _sys_fpu_settings_handle(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_
 
 void _sys_task_context_reset_handle(void);
 
-OS_Return_t _sys_gpio_pin_request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask);
-
-OS_Return_t _sys_gpio_pin_free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pins_mask);
-
 #endif

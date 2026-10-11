@@ -1,6 +1,6 @@
 ../Inc/core_cm4.h:1814:22:__NVIC_SetPriority	16	static
-../Src/RTOS/Core/../Port/port_functions.h:20:20:_port_fpu_start_settings	4	static,ignoring_inline_asm
-../Src/RTOS/Core/../Port/port_functions.h:53:20:_port_ISR_settings_apply	8	static
+../Src/RTOS/Core/../Port/port_functions.h:22:20:_port_fpu_start_settings	4	static,ignoring_inline_asm
+../Src/RTOS/Core/../Port/port_functions.h:55:20:_port_ISR_settings_apply	8	static
 ../Src/RTOS/Core/os_manager.c:16:20:_context_initialization	16	static
 ../Src/RTOS/Core/os_manager.c:27:25:_get_most_priority_task	16	static
 ../Src/RTOS/Core/os_manager.c:35:6:_idle_task	4	static,ignoring_inline_asm

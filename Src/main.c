@@ -21,7 +21,7 @@
 
 #include "RTOS/Core/os_manager.h"
 
-extern void TST_Aligner_Task(void);
+extern void TST_Task(void);
 
 
 void Task1(void) {
@@ -49,16 +49,13 @@ void Task3(void) {
 }
 
 void Task2(void) {
-	OS_StackHandle_t stack3_handle = OS_CREATE_STACK(256);
+	/*OS_StackHandle_t stack3_handle = OS_CREATE_STACK(256);
 	OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack3_handle, 1);
-	//(void)h3;
-
-	//(void)OS_GPIO_PIN_Request(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
-	//(void)OS_GPIO_PIN_Free(DRIVERS_GPIO_PORT_C, DRIVERS_GPIO_PIN_13);
+	(void)h3;*/
 
 	while(1) {
-		GPIOC->ODR &= ~(GPIO_ODR_OD13);
-		for (uint32_t i = 0; i < 100000; i++);
+		/*GPIOC->ODR &= ~(GPIO_ODR_OD13);
+		for (uint32_t i = 0; i < 100000; i++);*/
 	}
 }
 
@@ -92,7 +89,7 @@ int main(void)
 
 	(void)r1, (void)r2;
 
-	h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
+	h1 = OS_CreateTaskStatic(TST_Task, stack1_handle, 1);
 	h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
 
 	GPIO_Config();
@@ -107,6 +104,7 @@ int main(void)
 
 //Прописать обработчики ошибок
 //Сброс MSP при старте
+//Trace Mode
 
 //Dump задача
 //Перезапуск задачи при MemManage

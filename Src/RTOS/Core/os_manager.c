@@ -87,3 +87,7 @@ void OS_RestartTask(void) {
 void OS_Yield(void) {
 	_PORT_ENTER_SVC_0_ARGS_AND_RETURN(SVC_YIELD);
 }
+
+void OS_DriverTake() {
+
+}

@@ -18,6 +18,7 @@
 #define PORT_CONFIG_PERIPH_SIZE_MPU				(28UL)
 
 #define PORT_CONFIG_T_BIT_POS					(24UL)
+#define PORT_CONFIG_SPREALIGN_BIT_POS			(9UL)
 
 #ifndef __ASSEMBLER__
 	#include <assert.h>
