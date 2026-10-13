@@ -10,6 +10,7 @@ Src/RTOS/Core/os_manager.o: ../Src/RTOS/Core/os_manager.c \
  ../Src/RTOS/Core/supervisor_call.h \
  ../Src/RTOS/Core/../Drivers/GPIO/gpio_stm32f4.h \
  ../Src/RTOS/Core/context.h ../Src/RTOS/Core/../Drivers/periphery_enums.h \
+ ../Src/RTOS/Core/../Drivers/GPIO/gpio_stm32f4.h \
  ../Src/RTOS/Core/config.h ../Src/RTOS/Core/sys_core_functions.h
 ../Src/RTOS/Core/os_manager.h:
 ../Src/RTOS/Core/../Port/port_functions.h:
@@ -30,5 +31,6 @@ Src/RTOS/Core/os_manager.o: ../Src/RTOS/Core/os_manager.c \
 ../Src/RTOS/Core/../Drivers/GPIO/gpio_stm32f4.h:
 ../Src/RTOS/Core/context.h:
 ../Src/RTOS/Core/../Drivers/periphery_enums.h:
+../Src/RTOS/Core/../Drivers/GPIO/gpio_stm32f4.h:
 ../Src/RTOS/Core/config.h:
 ../Src/RTOS/Core/sys_core_functions.h:

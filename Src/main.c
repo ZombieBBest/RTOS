@@ -21,7 +21,7 @@
 
 #include "RTOS/Core/os_manager.h"
 
-extern void TST_Task(void);
+//extern void TST_Task(void);
 
 
 void Task1(void) {
@@ -89,7 +89,7 @@ int main(void)
 
 	(void)r1, (void)r2;
 
-	h1 = OS_CreateTaskStatic(TST_Task, stack1_handle, 1);
+	h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
 	h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
 
 	GPIO_Config();
@@ -105,6 +105,8 @@ int main(void)
 //Прописать обработчики ошибок
 //Сброс MSP при старте
 //Trace Mode
+//Функции системы должны быть защищены от user mode регионом MPU
+//Написать copy_from_user с поимкой плохих адресов через MemManage
 
 //Dump задача
 //Перезапуск задачи при MemManage
@@ -112,6 +114,8 @@ int main(void)
 //Изменение приоритета задачи
 //Питание GPIO
 
+//Добавить Мьютексы + наследование приоритетов
+//Добавить Очереди
 //Внедрить ldrex/strex инструкции в планировщик
 //Добавить секции для дескрипторов
 //Перенести библиотеки на GitHub

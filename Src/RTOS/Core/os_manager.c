@@ -69,23 +69,23 @@ void OS_Start(void) {
 }
 
 OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
-	return (OS_TaskHandle_t)_PORT_ENTER_SVC_3_ARGS_AND_RETURN(SVC_CREATE_TASK, task_ptr, handle, priority);
+	return (OS_TaskHandle_t)_PORT_PRIVATE_SYSCALL_3_RET(SVC_CREATE_TASK, (uint32_t)task_ptr, (uint32_t)handle, priority);
 }
 
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle) {
-	return (OS_Return_t)_PORT_ENTER_SVC_1_ARGS_AND_RETURN(SVC_DELETE_TASK, (uint32_t)handle);
+	return (OS_Return_t)_PORT_PRIVATE_SYSCALL_1_RET(SVC_DELETE_TASK, (uint32_t)handle);
 }
 
 OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
-	return (OS_Return_t)_PORT_ENTER_SVC_4_ARGS_AND_RETURN(SVC_SET_FPSCR, h, n, f, r);
+	return (OS_Return_t)_PORT_PRIVATE_SYSCALL_4_RET(SVC_SET_FPSCR, h, n, f, r);
 }
 
 void OS_RestartTask(void) {
-	_PORT_ENTER_SVC_0_ARGS_AND_RETURN(SVC_RESTART_TASK);
+	_PORT_PRIVATE_SYSCALL_0_RET(SVC_RESTART_TASK);
 }
 
 void OS_Yield(void) {
-	_PORT_ENTER_SVC_0_ARGS_AND_RETURN(SVC_YIELD);
+	_PORT_PRIVATE_SYSCALL_0_RET(SVC_YIELD);
 }
 
 void OS_DriverTake() {

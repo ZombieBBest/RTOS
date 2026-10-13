@@ -11,3 +11,4 @@
 ../Src/RTOS/Core/os_manager.c:79:13:OS_FPU_Settings	1
 ../Src/RTOS/Core/os_manager.c:83:6:OS_RestartTask	1
 ../Src/RTOS/Core/os_manager.c:87:6:OS_Yield	1
+../Src/RTOS/Core/os_manager.c:91:6:OS_DriverTake	1

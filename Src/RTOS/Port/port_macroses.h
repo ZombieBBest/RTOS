@@ -16,7 +16,7 @@
 			: "r0", "r1", "r2", "r3", "r12", "lr", "memory"											\
 		)
 
-#define _PORT_ENTER_SVC_0_ARGS_AND_RETURN(svc_num)							\
+#define _PORT_PRIVATE_SYSCALL_0_RET(svc_num)								\
 	({																		\
 		register uint32_t 	result __asm("r0");								\
 																			\
@@ -30,7 +30,7 @@
 		result;																\
 	})
 
-#define _PORT_ENTER_SVC_1_ARGS_AND_RETURN(svc_num, argument_0)				\
+#define _PORT_PRIVATE_SYSCALL_1_RET(svc_num, argument_0)					\
 	({																		\
 		register uint32_t 	arg0_result __asm("r0") = (uint32_t)argument_0;	\
 																			\
@@ -44,7 +44,7 @@
 		arg0_result;														\
 	})
 
-#define _PORT_ENTER_SVC_3_ARGS_AND_RETURN(svc_num, argument_0, argument_1, argument_2)	\
+#define _PORT_PRIVATE_SYSCALL_3_RET(svc_num, argument_0, argument_1, argument_2)		\
 	({																					\
 		register uint32_t 	arg0_result __asm("r0") = (uint32_t)argument_0;				\
 		register uint32_t 	arg1 		__asm("r1") = (uint32_t)argument_1;				\
@@ -61,7 +61,7 @@
 		arg0_result;																	\
 	})
 
-#define _PORT_ENTER_SVC_4_ARGS_AND_RETURN(svc_num, argument_0, argument_1, argument_2, argument_3)	\
+#define _PORT_PRIVATE_SYSCALL_4_RET(svc_num, argument_0, argument_1, argument_2, argument_3)		\
 	({																								\
 		register uint32_t 	arg0_result __asm("r0") = (uint32_t)argument_0;							\
 		register uint32_t 	arg1 __asm("r1") = (uint32_t)argument_1;								\
