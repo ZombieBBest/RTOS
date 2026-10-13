@@ -17,6 +17,10 @@
 
 #define xPSR_BASE_STATE				((1UL << PORT_CONFIG_T_BIT_POS) | (0UL << PORT_CONFIG_SPREALIGN_BIT_POS))
 
+// =================== FUNCTIONS_PROTOTYPES ==================
+
+_Bool _port_copy_from_user(uint8_t* to, const uint8_t* from, size_t size_of_to);
+
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 
 static inline void _port_fpu_start_settings(void) {

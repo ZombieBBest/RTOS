@@ -3,8 +3,6 @@
 .global OS_Switch_Context
 .global PendSV_Handler
 .type PendSV_Handler, %function
-.global TST_Task
-.type TST_Task, %function
 .syntax unified
 
 // ======================== INTERNAL ========================
@@ -43,10 +41,3 @@ OS_Switch_Context:
 	mov r3, #0x00
 	msr basepri, r3
 	bx LR
-
-
-TST_Task:
-	svc #6
-
-mark:
-	b mark

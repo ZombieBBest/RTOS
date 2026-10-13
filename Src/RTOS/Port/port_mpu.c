@@ -4,6 +4,14 @@
 #include <stm32f4xx.h>
 #include <stddef.h>
 
+// ========================= EXTERN =========================
+
+extern void* copy_from_user_start_critical;
+
+extern void* copy_from_user_end_critical;
+
+extern void* copy_from_user_abort;
+
 // ====================== DEFINITIONS =======================
 
 #define CFSR_MEM_REG_MSK		(0x000000FFUL)
@@ -35,7 +43,10 @@ void MemManage_Handler_C(uint32_t* sp) {
 	volatile uint32_t mmfar = SCB->MMFAR;
 	uint32_t faults_to_clear = SCB->CFSR & CFSR_MEM_REG_MSK;
 
-	if (mem_stacking_error_callback) {
+	if ((uintptr_t)sp > ((uintptr_t)copy_from_user_start_critical - 1) && (uintptr_t)sp < ((uintptr_t)copy_from_user_end_critical + 1)) {
+		sp[PC_SP_INDEX] = (uintptr_t)copy_from_user_abort;
+	}
+	else if (mem_stacking_error_callback) {
 		mem_stacking_error_callback();
 	}
 	else {

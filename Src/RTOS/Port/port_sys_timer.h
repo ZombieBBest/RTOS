@@ -2,6 +2,7 @@
 #define PORT_SYS_TIMER_H_
 
 #include <stdint.h>
+#include <stddef.h>
 
 // =================== FUNCTIONS_PROTOTYPES ==================
 

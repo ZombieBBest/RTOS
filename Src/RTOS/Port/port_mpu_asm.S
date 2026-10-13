@@ -7,10 +7,9 @@ MemManage_Handler:
 	bkpt
 	tst lr, #4
 
-	itee ne
+	ite ne
 	mrsne r0, psp
-	moveq r0, #0				@If MSP - Enter HardFault
-	bxeq r0
+	mrseq r0, msp
 
 	push {r4, lr}
 

@@ -91,12 +91,7 @@ static inline void _add_free_TCB(OS_TCB_t* task_ptr) {
 // ======================== INTERNAL ========================
 
 void _task_suicide(void) {
-	__asm volatile(
-		"svc %[svc_num]		\n\t"
-		:
-		: [svc_num] "i" (SVC_SUICIDE_TASK)
-		: "r12", "lr", "memory"
-	);
+	_PORT_PRIVATE_SYSCALL_0_RET(SVC_SUICIDE_TASK);
 }
 
 // ====================== ISR_HANDLES =======================

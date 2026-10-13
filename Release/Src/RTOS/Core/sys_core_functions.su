@@ -1,7 +1,7 @@
 ../Src/RTOS/Core/sys_core_functions.c:93:6:_task_suicide	4	static,ignoring_inline_asm
-../Src/RTOS/Core/../Port/port_functions.h:64:21:_port_stack_hardware_init.constprop	0	static
-../Src/RTOS/Core/sys_core_functions.c:104:6:_sys_task_context_reset_handle	8	static,ignoring_inline_asm
-../Src/RTOS/Core/sys_core_functions.c:114:17:_sys_create_task_static_handle	40	static,ignoring_inline_asm
-../Src/RTOS/Core/sys_core_functions.c:147:13:_sys_delete_task_handle	16	static,ignoring_inline_asm
-../Src/RTOS/Core/sys_core_functions.c:174:13:_sys_task_suicide_handle	0	static
-../Src/RTOS/Core/sys_core_functions.c:179:13:_sys_fpu_settings_handle	12	static,ignoring_inline_asm
+../Src/RTOS/Core/../Port/port_functions.h:68:21:_port_stack_hardware_init.constprop	0	static
+../Src/RTOS/Core/sys_core_functions.c:99:6:_sys_task_context_reset_handle	8	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:109:17:_sys_create_task_static_handle	40	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:142:13:_sys_delete_task_handle	16	static,ignoring_inline_asm
+../Src/RTOS/Core/sys_core_functions.c:169:13:_sys_task_suicide_handle	0	static
+../Src/RTOS/Core/sys_core_functions.c:174:13:_sys_fpu_settings_handle	12	static,ignoring_inline_asm

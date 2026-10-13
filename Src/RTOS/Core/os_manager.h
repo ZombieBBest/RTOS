@@ -53,14 +53,4 @@ OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FP
 
 void OS_RestartTask(void);
 
-//OS_Return_t OS_GPIO_PIN_Request(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
-
-//OS_Return_t OS_GPIO_PIN_Free(Drivers_GPIO_PortsEnum_t gpio, uint16_t pin);
-
-// ================= PUBLIC_STATIC_FUNCTIONS ================
-
-/*static inline void OS_Yield(void) {
-	_port_yield();
-}*/
-
 #endif

@@ -1,6 +1,8 @@
 #ifndef RTOS_PORT_PORT_MACROSES_H_
 #define RTOS_PORT_PORT_MACROSES_H_
 
+// ====================== DEFINITIONS =======================
+
 #define INITIAL_EXC_RETURN   	(0xFFFFFFED)
 
 #define _PORT_OS_RUN(svc_n, first_task_stack_pointer)												\
