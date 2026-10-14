@@ -1,4 +1,4 @@
-../Src/RTOS/Port/port_mpu.c:42:6:MemManage_Handler_C	16	static,ignoring_inline_asm
-../Src/RTOS/Port/port_mpu.c:65:6:_port_mpu_register_stacking_error_callback	0	static
-../Src/RTOS/Port/port_mpu.c:69:6:_port_mpu_initialization	0	static,ignoring_inline_asm
-../Src/RTOS/Port/port_mpu.c:109:24:_port_mpu_prepare_task_stack_region	0	static
+../Src/RTOS/Port/port_mpu.c:43:6:MemManage_Handler_C	16	static,ignoring_inline_asm
+../Src/RTOS/Port/port_mpu.c:75:6:_port_mpu_register_stacking_error_callback	0	static
+../Src/RTOS/Port/port_mpu.c:79:6:_port_mpu_initialization	0	static,ignoring_inline_asm
+../Src/RTOS/Port/port_mpu.c:119:24:_port_mpu_prepare_task_stack_region	0	static

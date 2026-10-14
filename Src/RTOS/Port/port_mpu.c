@@ -27,6 +27,7 @@ extern void (copy_from_user_abort)(void);
 #define ENTER_HARDFAULT()			\
 	do {							\
 		__asm volatile (			\
+			"dsb 			\n\t"	\
 			"mov r0, #0 	\n\t"	\
 			"bx r0     		\n\t"	\
 		);							\
@@ -39,21 +40,29 @@ void(*mem_stacking_error_callback)(void) = NULL;
 
 // ========================== ISR ===========================
 
-void MemManage_Handler_C(uint32_t* sp) {
+void MemManage_Handler_C(uint32_t* sp, _Bool is_msp) {
 	volatile uint32_t mmfar = SCB->MMFAR;
 	uint32_t faults_to_clear = SCB->CFSR & CFSR_MEM_REG_MSK;
 
-	uintptr_t pc_r = sp[PC_SP_INDEX];
+	if (is_msp) {
+		uintptr_t* pc = (uintptr_t*)&sp[PC_SP_INDEX];
 
-	if (pc_r > ((uintptr_t)copy_from_user_start_critical - 1) && pc_r < ((uintptr_t)copy_from_user_end_critical + 1)) {
-		sp[PC_SP_INDEX] = (uintptr_t)copy_from_user_abort;
-	}
-	else if (mem_stacking_error_callback) {
-		mem_stacking_error_callback();
+		if (*pc > ((uintptr_t)copy_from_user_start_critical - 1) && *pc < ((uintptr_t)copy_from_user_end_critical + 1)) {
+			*pc = (uintptr_t)copy_from_user_abort;
+
+			goto exit_success;
+		}
 	}
 	else {
-		ENTER_HARDFAULT();
+		if (mem_stacking_error_callback) {
+			mem_stacking_error_callback();
+
+			goto exit_success;
+		}
 	}
+
+	ENTER_HARDFAULT();
+	exit_success:
 
 	(void)mmfar;
 	SCB->CFSR = faults_to_clear;

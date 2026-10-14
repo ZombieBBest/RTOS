@@ -7,9 +7,11 @@ MemManage_Handler:
 	bkpt
 	tst lr, #4
 
-	ite ne
-	mrsne r0, psp
+	ittee eq
 	mrseq r0, msp
+	moveq r1, #1
+	mrsne r0, psp
+	movne r1, #0
 
 	push {r4, lr}
 

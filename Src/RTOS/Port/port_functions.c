@@ -23,7 +23,7 @@ _Bool _port_copy_from_user(const uint8_t* from, uint8_t* to, size_t size_of_to) 
 		"copy_from_user_end_critical:   			\n\t"
 
 		"strb r3, [%[save]], #1						\n\t"
-		"sub %[rem], %[rem], #1						\n\t"
+		"sub %[rem], #1								\n\t"
 
 		"b 1b										\n\t"
 
