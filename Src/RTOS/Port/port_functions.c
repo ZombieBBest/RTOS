@@ -1,6 +1,6 @@
 #include "port_functions.h"
 
-_Bool _port_copy_from_user(uint8_t* to, const uint8_t* from, size_t size_of_to) {
+_Bool _port_copy_from_user(const uint8_t* from, uint8_t* to, size_t size_of_to) {
 	if (size_of_to == 0) return 1;
 
 	const uint8_t* src = from;
@@ -32,10 +32,10 @@ _Bool _port_copy_from_user(uint8_t* to, const uint8_t* from, size_t size_of_to) 
 
 		"copy_from_user_abort:						\n\t"
 
-		: [load] "+r" (src),
-		  [save] "+r" (dest),
-		  [rem] "+r" (remain),
-		  [state] "+r" (user_copy_is_ok)
+		: [load] 	"+r" (src),
+		  [save] 	"+r" (dest),
+		  [rem] 	"+r" (remain),
+		  [state] 	"+r" (user_copy_is_ok)
 		:
 		: "r3", "memory"
 	);

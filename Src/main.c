@@ -26,6 +26,8 @@
 
 void Task1(void) {
 	//GPIOC->ODR &= ~(GPIO_ODR_OD13);
+	//*((uint8_t*)(0x08000500)) = 10;
+	OS_Tst(0x20001500);
 	OS_Return_t r1 = OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
 
 	uint32_t tst = 0xABABABAB;

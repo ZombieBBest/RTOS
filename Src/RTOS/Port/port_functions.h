@@ -19,7 +19,7 @@
 
 // =================== FUNCTIONS_PROTOTYPES ==================
 
-_Bool _port_copy_from_user(uint8_t* to, const uint8_t* from, size_t size_of_to);
+_Bool _port_copy_from_user(const uint8_t* from, uint8_t* to, size_t size_of_to);
 
 // ================= PUBLIC_STATIC_FUNCTIONS ================
 

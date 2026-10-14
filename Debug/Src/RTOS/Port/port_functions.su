@@ -1,0 +1,1 @@
+../Src/RTOS/Port/port_functions.c:3:7:_port_copy_from_user	40	static,ignoring_inline_asm

@@ -53,4 +53,6 @@ OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FP
 
 void OS_RestartTask(void);
 
+void OS_Tst(uint8_t* ptr);
+
 #endif

@@ -88,6 +88,10 @@ void OS_Yield(void) {
 	_PORT_PRIVATE_SYSCALL_0_RET(SVC_YIELD);
 }
 
+void OS_Tst(uint8_t* ptr) {
+	_PORT_PRIVATE_SYSCALL_1_RET(SVC_TST, ptr);
+}
+
 void OS_DriverTake() {
 
 }

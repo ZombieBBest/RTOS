@@ -37,6 +37,11 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint3
 		case SVC_RESTART_TASK:
 			_sys_task_context_reset_handle();
 			break;
+
+		case SVC_TST:
+			uint32_t arr[4];
+			result = (uint32_t)_port_copy_from_user((uint8_t*)arg0, (uint8_t*)arr, 4 * 4);
+			break;
 	}
 
 	return result;
