@@ -19,7 +19,7 @@ _Bool _port_copy_from_user(const uint8_t* from, uint8_t* to, size_t size_of_to) 
 
 		"copy_from_user_start_critical:   			\n\t"
 		"ldrbt r3, [%[load]]						\n\t"
-		"add r3, #1									\n\t"
+		"add %[load], #1							\n\t"
 		"copy_from_user_end_critical:   			\n\t"
 
 		"strb r3, [%[save]], #1						\n\t"
@@ -29,6 +29,7 @@ _Bool _port_copy_from_user(const uint8_t* from, uint8_t* to, size_t size_of_to) 
 
 		"2:											\n\t"
 		"mov %[state], #1							\n\t"
+		"dmb										\n\t"
 
 		"copy_from_user_abort:						\n\t"
 

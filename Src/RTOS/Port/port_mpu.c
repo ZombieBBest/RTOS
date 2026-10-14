@@ -30,6 +30,9 @@ extern void (copy_from_user_abort)(void);
 			"dsb 			\n\t"	\
 			"mov r0, #0 	\n\t"	\
 			"bx r0     		\n\t"	\
+			:						\
+			:						\
+			: "memory"				\
 		);							\
 		while(1);					\
 	} while(0)
