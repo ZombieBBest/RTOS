@@ -9,6 +9,8 @@ typedef struct {
 	uint32_t pupdr;
 	uint32_t afr[2];
 	uint16_t otyper;
-} OS_DRIVERS_GPIO_PinSettings;
+
+	uint32_t pins;
+} OS_DRIVERS_GPIO_PinSettings_t;
 
 #endif

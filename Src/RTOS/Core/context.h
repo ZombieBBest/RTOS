@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <stm32f4xx.h>
 
-#include "../Drivers/periphery_enums.h"
+#include "../Drivers/periphery_include.h"
 #include "../Port/port_mpu.h"
 #include "memory.h"
 #include "config.h"
@@ -22,7 +22,7 @@ typedef struct OS_TCB_t {
 	uint32_t state;
 	uint32_t priority;
 	void* 	 stack_pointer;
-	void(*task_function_ptr)(void);
+	void (*task_function_ptr)(void);
 
 	struct OS_TCB_t* prev_node_ptr;
 	struct OS_TCB_t* next_node_ptr;

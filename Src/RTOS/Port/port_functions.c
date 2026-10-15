@@ -1,8 +1,6 @@
 #include "port_functions.h"
 
 _Bool _port_copy_from_user(const uint8_t* from, uint8_t* to, size_t size_of_to) {
-	if (size_of_to == 0) return 1;
-
 	const uint8_t* src = from;
 	uint8_t* dest = to;
 	uint32_t remain = size_of_to;

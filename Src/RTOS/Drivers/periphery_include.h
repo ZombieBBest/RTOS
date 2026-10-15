@@ -1,7 +1,9 @@
-#ifndef RTOS_DRIVERS_PERIPHERY_ENUMS_H_
-#define RTOS_DRIVERS_PERIPHERY_ENUMS_H_
+#ifndef RTOS_DRIVERS_PERIPHERY_INCLUDE_H_
+#define RTOS_DRIVERS_PERIPHERY_INCLUDE_H_
 
 #include "GPIO/gpio_stm32f4.h"
+
+//---------------------------------------------
 
 typedef enum {
 	DRIVERS_GPIO_PORT_A,
@@ -12,11 +14,8 @@ typedef enum {
 
 //---------------------------------------------
 
-typedef struct {
-	OS_DRIVERS_DriversEnum_t driver_name;
-	union {
-		OS_DRIVERS_GPIO_PinSettings pin;
-	} cfg;
+typedef union {
+	OS_DRIVERS_GPIO_PinSettings_t pin;
 } OS_DRIVERS_DriverSettings_t;
 
 typedef struct {
