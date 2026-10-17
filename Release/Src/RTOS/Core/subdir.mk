@@ -5,25 +5,28 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/RTOS/Core/context.c \
-../Src/RTOS/Core/context_switch_logic.c \
-../Src/RTOS/Core/os_manager.c \
-../Src/RTOS/Core/supervisor_call.c \
-../Src/RTOS/Core/sys_core_functions.c 
+../Src/RTOS/Core/core_context.c \
+../Src/RTOS/Core/core_context_switch_logic.c \
+../Src/RTOS/Core/core_drivers_table.c \
+../Src/RTOS/Core/core_handlers.c \
+../Src/RTOS/Core/core_manager.c \
+../Src/RTOS/Core/core_supervisor_dispatcher.c 
 
 OBJS += \
-./Src/RTOS/Core/context.o \
-./Src/RTOS/Core/context_switch_logic.o \
-./Src/RTOS/Core/os_manager.o \
-./Src/RTOS/Core/supervisor_call.o \
-./Src/RTOS/Core/sys_core_functions.o 
+./Src/RTOS/Core/core_context.o \
+./Src/RTOS/Core/core_context_switch_logic.o \
+./Src/RTOS/Core/core_drivers_table.o \
+./Src/RTOS/Core/core_handlers.o \
+./Src/RTOS/Core/core_manager.o \
+./Src/RTOS/Core/core_supervisor_dispatcher.o 
 
 C_DEPS += \
-./Src/RTOS/Core/context.d \
-./Src/RTOS/Core/context_switch_logic.d \
-./Src/RTOS/Core/os_manager.d \
-./Src/RTOS/Core/supervisor_call.d \
-./Src/RTOS/Core/sys_core_functions.d 
+./Src/RTOS/Core/core_context.d \
+./Src/RTOS/Core/core_context_switch_logic.d \
+./Src/RTOS/Core/core_drivers_table.d \
+./Src/RTOS/Core/core_handlers.d \
+./Src/RTOS/Core/core_manager.d \
+./Src/RTOS/Core/core_supervisor_dispatcher.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -33,7 +36,7 @@ Src/RTOS/Core/%.o Src/RTOS/Core/%.su Src/RTOS/Core/%.cyclo: ../Src/RTOS/Core/%.c
 clean: clean-Src-2f-RTOS-2f-Core
 
 clean-Src-2f-RTOS-2f-Core:
-	-$(RM) ./Src/RTOS/Core/context.cyclo ./Src/RTOS/Core/context.d ./Src/RTOS/Core/context.o ./Src/RTOS/Core/context.su ./Src/RTOS/Core/context_switch_logic.cyclo ./Src/RTOS/Core/context_switch_logic.d ./Src/RTOS/Core/context_switch_logic.o ./Src/RTOS/Core/context_switch_logic.su ./Src/RTOS/Core/os_manager.cyclo ./Src/RTOS/Core/os_manager.d ./Src/RTOS/Core/os_manager.o ./Src/RTOS/Core/os_manager.su ./Src/RTOS/Core/supervisor_call.cyclo ./Src/RTOS/Core/supervisor_call.d ./Src/RTOS/Core/supervisor_call.o ./Src/RTOS/Core/supervisor_call.su ./Src/RTOS/Core/sys_core_functions.cyclo ./Src/RTOS/Core/sys_core_functions.d ./Src/RTOS/Core/sys_core_functions.o ./Src/RTOS/Core/sys_core_functions.su
+	-$(RM) ./Src/RTOS/Core/core_context.cyclo ./Src/RTOS/Core/core_context.d ./Src/RTOS/Core/core_context.o ./Src/RTOS/Core/core_context.su ./Src/RTOS/Core/core_context_switch_logic.cyclo ./Src/RTOS/Core/core_context_switch_logic.d ./Src/RTOS/Core/core_context_switch_logic.o ./Src/RTOS/Core/core_context_switch_logic.su ./Src/RTOS/Core/core_drivers_table.cyclo ./Src/RTOS/Core/core_drivers_table.d ./Src/RTOS/Core/core_drivers_table.o ./Src/RTOS/Core/core_drivers_table.su ./Src/RTOS/Core/core_handlers.cyclo ./Src/RTOS/Core/core_handlers.d ./Src/RTOS/Core/core_handlers.o ./Src/RTOS/Core/core_handlers.su ./Src/RTOS/Core/core_manager.cyclo ./Src/RTOS/Core/core_manager.d ./Src/RTOS/Core/core_manager.o ./Src/RTOS/Core/core_manager.su ./Src/RTOS/Core/core_supervisor_dispatcher.cyclo ./Src/RTOS/Core/core_supervisor_dispatcher.d ./Src/RTOS/Core/core_supervisor_dispatcher.o ./Src/RTOS/Core/core_supervisor_dispatcher.su
 
 .PHONY: clean-Src-2f-RTOS-2f-Core
 

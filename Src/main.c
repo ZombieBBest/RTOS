@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include <stm32f4xx.h>
 
-#include "RTOS/Core/os_manager.h"
+#include "RTOS/Core/core_manager.h"
 
 //extern void TST_Task(void);
 

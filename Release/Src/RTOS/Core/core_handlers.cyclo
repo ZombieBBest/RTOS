@@ -1,0 +1,7 @@
+../Src/RTOS/Core/core_handlers.c:93:6:_task_suicide	1
+../Src/RTOS/Core/../Port/port_functions.h:68:21:_port_stack_hardware_init.constprop	1
+../Src/RTOS/Core/core_handlers.c:99:6:core_task_context_reset_handler	3
+../Src/RTOS/Core/core_handlers.c:109:17:core_create_task_handler	10
+../Src/RTOS/Core/core_handlers.c:142:13:core_delete_task_handler	8
+../Src/RTOS/Core/core_handlers.c:169:13:core_task_suicide_handler	1
+../Src/RTOS/Core/core_handlers.c:174:13:core_fpu_settings_handler	3

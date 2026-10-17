@@ -1,5 +1,5 @@
-#ifndef PORT_SYS_TIMER_H_
-#define PORT_SYS_TIMER_H_
+#ifndef RTOS_PORT_PORT_SYS_TIMER_H_
+#define RTOS_PORT_PORT_SYS_TIMER_H_
 
 #include <stdint.h>
 #include <stddef.h>

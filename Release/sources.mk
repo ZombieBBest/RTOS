@@ -24,6 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Src/RTOS/Core \
 Src/RTOS/Drivers/GPIO \
+Src/RTOS/Drivers \
 Src/RTOS/Port \
 Src \
 Startup \
