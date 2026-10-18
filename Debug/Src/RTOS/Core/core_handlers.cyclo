@@ -1,0 +1,15 @@
+../Src/RTOS/Core/../Port/port_functions.h:34:20:_port_yield	1
+../Src/RTOS/Core/../Port/port_functions.h:41:20:_port_fpu_mode_settings	1
+../Src/RTOS/Core/../Port/port_functions.h:68:21:_port_stack_hardware_init	1
+../Src/RTOS/Core/../Port/port_functions.h:91:21:_port_stack_init	1
+../Src/RTOS/Core/../Port/port_functions.h:114:21:_port_corrupted_task_reset_stack	1
+../Src/RTOS/Core/core_handlers.c:10:20:_add_to_ready_list	2
+../Src/RTOS/Core/core_handlers.c:34:20:_remove_from_ready_list	3
+../Src/RTOS/Core/core_handlers.c:60:25:_get_free_TCB	4
+../Src/RTOS/Core/core_handlers.c:79:20:_add_free_TCB	2
+../Src/RTOS/Core/core_handlers.c:93:6:_task_suicide	1
+../Src/RTOS/Core/core_handlers.c:99:6:core_task_context_reset_handler	3
+../Src/RTOS/Core/core_handlers.c:109:17:core_create_task_handler	8
+../Src/RTOS/Core/core_handlers.c:142:13:core_delete_task_handler	5
+../Src/RTOS/Core/core_handlers.c:169:13:core_task_suicide_handler	1
+../Src/RTOS/Core/core_handlers.c:174:13:core_fpu_settings_handler	3

@@ -16,11 +16,11 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint3
 			break;
 
 		case SVC_CREATE_TASK:
-			result = (uint32_t)core_create_task_handler((void(*)(void))arg0, (OS_StackHandle_t)arg1, arg2);
+			result = (uint32_t)_core_create_task_handler((void(*)(void))arg0, (OS_StackHandle_t)arg1, arg2);
 			break;
 
 		case SVC_DELETE_TASK:
-			result = (uint32_t)core_delete_task_handler((OS_TaskHandle_t)arg0);
+			result = (uint32_t)_core_delete_task_handler((OS_TaskHandle_t)arg0);
 			break;
 
 		case SVC_YIELD:
@@ -28,15 +28,15 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint3
 			break;
 
 		case SVC_SUICIDE_TASK:
-			result = (uint32_t)core_task_suicide_handler();
+			result = (uint32_t)_core_task_suicide_handler();
 			break;
 
 		case SVC_SET_FPSCR:
-			result = (uint32_t)core_fpu_settings_handler(caller_sp, arg0, arg1, arg2, arg3);
+			result = (uint32_t)_core_fpu_settings_handler(caller_sp, arg0, arg1, arg2, arg3);
 			break;
 
 		case SVC_RESTART_TASK:
-			core_task_context_reset_handler();
+			_core_task_context_reset_handler();
 			break;
 
 		case SVC_TST:

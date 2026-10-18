@@ -96,7 +96,7 @@ void _task_suicide(void) {
 
 // ====================== ISR_HANDLES =======================
 
-void core_task_context_reset_handler(void) {
+void _core_task_context_reset_handler(void) {
 	if (!_PORT_IS_INSIDE_CORE_ISR()) {
 		return;
 	}
@@ -106,7 +106,7 @@ void core_task_context_reset_handler(void) {
 																r_task->stack_descriptor->stack_size);
 }
 
-OS_TaskHandle_t core_create_task_handler(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
+OS_TaskHandle_t _core_create_task_handler(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;
 	OS_StackDescriptor_t* desc = (OS_StackDescriptor_t*)handle;
 
@@ -139,7 +139,7 @@ OS_TaskHandle_t core_create_task_handler(void(*task_ptr)(void), OS_StackHandle_t
 	return (OS_TaskHandle_t*)free_TCB;
 }
 
-OS_Return_t core_delete_task_handler(OS_TaskHandle_t handle) {
+OS_Return_t _core_delete_task_handler(OS_TaskHandle_t handle) {
 	OS_TCB_t* task_ptr = (OS_TCB_t*)handle;
 
 	if (!_PORT_IS_INSIDE_CORE_ISR()) {
@@ -166,12 +166,12 @@ OS_Return_t core_delete_task_handler(OS_TaskHandle_t handle) {
 	}
 }
 
-OS_Return_t core_task_suicide_handler(void) {
+OS_Return_t _core_task_suicide_handler(void) {
 	OS_TCB_t* c = os_context.current_run_task;
-	return core_delete_task_handler(c);
+	return _core_delete_task_handler(c);
 }
 
-OS_Return_t core_fpu_settings_handler(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
+OS_Return_t _core_fpu_settings_handler(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 
 	if (!_PORT_IS_INSIDE_CORE_ISR()) {

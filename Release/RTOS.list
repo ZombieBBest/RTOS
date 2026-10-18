@@ -170,14 +170,14 @@ Disassembly of section .text:
  800030a:	bf00      	nop
  800030c:	080002bd 	.word	0x080002bd
 
-08000310 <core_task_context_reset_handler>:
+08000310 <_core_task_context_reset_handler>:
  8000310:	b510      	push	{r4, lr}
  8000312:	f3ef 8305 	mrs	r3, IPSR
- 8000316:	b173      	cbz	r3, 8000336 <core_task_context_reset_handler+0x26>
+ 8000316:	b173      	cbz	r3, 8000336 <_core_task_context_reset_handler+0x26>
  8000318:	f3ef 8305 	mrs	r3, IPSR
  800031c:	2b0f      	cmp	r3, #15
- 800031e:	d80a      	bhi.n	8000336 <core_task_context_reset_handler+0x26>
- 8000320:	4b05      	ldr	r3, [pc, #20]	@ (8000338 <core_task_context_reset_handler+0x28>)
+ 800031e:	d80a      	bhi.n	8000336 <_core_task_context_reset_handler+0x26>
+ 8000320:	4b05      	ldr	r3, [pc, #20]	@ (8000338 <_core_task_context_reset_handler+0x28>)
  8000322:	681c      	ldr	r4, [r3, #0]
  8000324:	69a3      	ldr	r3, [r4, #24]
  8000326:	68e0      	ldr	r0, [r4, #12]
@@ -188,42 +188,42 @@ Disassembly of section .text:
  8000336:	bd10      	pop	{r4, pc}
  8000338:	2000011c 	.word	0x2000011c
 
-0800033c <core_create_task_handler>:
+0800033c <_core_create_task_handler>:
  800033c:	e92d 47f3 	stmdb	sp!, {r0, r1, r4, r5, r6, r7, r8, r9, sl, lr}
  8000340:	4681      	mov	r9, r0
  8000342:	4617      	mov	r7, r2
  8000344:	f3ef 8305 	mrs	r3, IPSR
- 8000348:	b923      	cbnz	r3, 8000354 <core_create_task_handler+0x18>
+ 8000348:	b923      	cbnz	r3, 8000354 <_core_create_task_handler+0x18>
  800034a:	2500      	movs	r5, #0
  800034c:	4628      	mov	r0, r5
  800034e:	b002      	add	sp, #8
  8000350:	e8bd 87f0 	ldmia.w	sp!, {r4, r5, r6, r7, r8, r9, sl, pc}
  8000354:	f3ef 8305 	mrs	r3, IPSR
  8000358:	2b0f      	cmp	r3, #15
- 800035a:	d8f6      	bhi.n	800034a <core_create_task_handler+0xe>
- 800035c:	4e36      	ldr	r6, [pc, #216]	@ (8000438 <core_create_task_handler+0xfc>)
+ 800035a:	d8f6      	bhi.n	800034a <_core_create_task_handler+0xe>
+ 800035c:	4e36      	ldr	r6, [pc, #216]	@ (8000438 <_core_create_task_handler+0xfc>)
  800035e:	f8d6 509c 	ldr.w	r5, [r6, #156]	@ 0x9c
  8000362:	2d00      	cmp	r5, #0
- 8000364:	d0f1      	beq.n	800034a <core_create_task_handler+0xe>
+ 8000364:	d0f1      	beq.n	800034a <_core_create_task_handler+0xe>
  8000366:	682b      	ldr	r3, [r5, #0]
  8000368:	2b00      	cmp	r3, #0
- 800036a:	d1ee      	bne.n	800034a <core_create_task_handler+0xe>
+ 800036a:	d1ee      	bne.n	800034a <_core_create_task_handler+0xe>
  800036c:	f8d6 209c 	ldr.w	r2, [r6, #156]	@ 0x9c
  8000370:	6952      	ldr	r2, [r2, #20]
  8000372:	f8c6 209c 	str.w	r2, [r6, #156]	@ 0x9c
  8000376:	f8d6 209c 	ldr.w	r2, [r6, #156]	@ 0x9c
- 800037a:	b112      	cbz	r2, 8000382 <core_create_task_handler+0x46>
+ 800037a:	b112      	cbz	r2, 8000382 <_core_create_task_handler+0x46>
  800037c:	f8d6 209c 	ldr.w	r2, [r6, #156]	@ 0x9c
  8000380:	6113      	str	r3, [r2, #16]
  8000382:	2300      	movs	r3, #0
  8000384:	616b      	str	r3, [r5, #20]
  8000386:	2900      	cmp	r1, #0
- 8000388:	d0df      	beq.n	800034a <core_create_task_handler+0xe>
+ 8000388:	d0df      	beq.n	800034a <_core_create_task_handler+0xe>
  800038a:	7a0c      	ldrb	r4, [r1, #8]
  800038c:	2c00      	cmp	r4, #0
- 800038e:	d1dc      	bne.n	800034a <core_create_task_handler+0xe>
+ 800038e:	d1dc      	bne.n	800034a <_core_create_task_handler+0xe>
  8000390:	2f20      	cmp	r7, #32
- 8000392:	d8da      	bhi.n	800034a <core_create_task_handler+0xe>
+ 8000392:	d8da      	bhi.n	800034a <_core_create_task_handler+0xe>
  8000394:	2302      	movs	r3, #2
  8000396:	f04f 0801 	mov.w	r8, #1
  800039a:	46ea      	mov	sl, sp
@@ -264,28 +264,28 @@ Disassembly of section .text:
  8000416:	60a8      	str	r0, [r5, #8]
  8000418:	60b3      	str	r3, [r6, #8]
  800041a:	f856 3027 	ldr.w	r3, [r6, r7, lsl #2]
- 800041e:	b923      	cbnz	r3, 800042a <core_create_task_handler+0xee>
+ 800041e:	b923      	cbnz	r3, 800042a <_core_create_task_handler+0xee>
  8000420:	e9c5 5504 	strd	r5, r5, [r5, #16]
  8000424:	f846 5027 	str.w	r5, [r6, r7, lsl #2]
- 8000428:	e790      	b.n	800034c <core_create_task_handler+0x10>
+ 8000428:	e790      	b.n	800034c <_core_create_task_handler+0x10>
  800042a:	691a      	ldr	r2, [r3, #16]
  800042c:	e9c5 2304 	strd	r2, r3, [r5, #16]
  8000430:	6155      	str	r5, [r2, #20]
  8000432:	611d      	str	r5, [r3, #16]
- 8000434:	e78a      	b.n	800034c <core_create_task_handler+0x10>
+ 8000434:	e78a      	b.n	800034c <_core_create_task_handler+0x10>
  8000436:	bf00      	nop
  8000438:	2000011c 	.word	0x2000011c
 
-0800043c <core_delete_task_handler>:
+0800043c <_core_delete_task_handler>:
  800043c:	b570      	push	{r4, r5, r6, lr}
  800043e:	f3ef 8305 	mrs	r3, IPSR
  8000442:	2b00      	cmp	r3, #0
- 8000444:	d03d      	beq.n	80004c2 <core_delete_task_handler+0x86>
+ 8000444:	d03d      	beq.n	80004c2 <_core_delete_task_handler+0x86>
  8000446:	f3ef 8305 	mrs	r3, IPSR
  800044a:	2b0f      	cmp	r3, #15
- 800044c:	d839      	bhi.n	80004c2 <core_delete_task_handler+0x86>
+ 800044c:	d839      	bhi.n	80004c2 <_core_delete_task_handler+0x86>
  800044e:	2800      	cmp	r0, #0
- 8000450:	d039      	beq.n	80004c6 <core_delete_task_handler+0x8a>
+ 8000450:	d039      	beq.n	80004c6 <_core_delete_task_handler+0x8a>
  8000452:	6942      	ldr	r2, [r0, #20]
  8000454:	6983      	ldr	r3, [r0, #24]
  8000456:	6846      	ldr	r6, [r0, #4]
@@ -293,8 +293,8 @@ Disassembly of section .text:
  800045a:	4290      	cmp	r0, r2
  800045c:	721d      	strb	r5, [r3, #8]
  800045e:	f106 0128 	add.w	r1, r6, #40	@ 0x28
- 8000462:	4b1a      	ldr	r3, [pc, #104]	@ (80004cc <core_delete_task_handler+0x90>)
- 8000464:	d11a      	bne.n	800049c <core_delete_task_handler+0x60>
+ 8000462:	4b1a      	ldr	r3, [pc, #104]	@ (80004cc <_core_delete_task_handler+0x90>)
+ 8000464:	d11a      	bne.n	800049c <_core_delete_task_handler+0x60>
  8000466:	689a      	ldr	r2, [r3, #8]
  8000468:	2401      	movs	r4, #1
  800046a:	40b4      	lsls	r4, r6
@@ -306,7 +306,7 @@ Disassembly of section .text:
  800047c:	2202      	movs	r2, #2
  800047e:	6002      	str	r2, [r0, #0]
  8000480:	f8d3 209c 	ldr.w	r2, [r3, #156]	@ 0x9c
- 8000484:	b10a      	cbz	r2, 800048a <core_delete_task_handler+0x4e>
+ 8000484:	b10a      	cbz	r2, 800048a <_core_delete_task_handler+0x4e>
  8000486:	6142      	str	r2, [r0, #20]
  8000488:	6110      	str	r0, [r2, #16]
  800048a:	f8c3 009c 	str.w	r0, [r3, #156]	@ 0x9c
@@ -314,7 +314,7 @@ Disassembly of section .text:
  8000490:	2200      	movs	r2, #0
  8000492:	4298      	cmp	r0, r3
  8000494:	6002      	str	r2, [r0, #0]
- 8000496:	d00b      	beq.n	80004b0 <core_delete_task_handler+0x74>
+ 8000496:	d00b      	beq.n	80004b0 <_core_delete_task_handler+0x74>
  8000498:	2000      	movs	r0, #0
  800049a:	bd70      	pop	{r4, r5, r6, pc}
  800049c:	6904      	ldr	r4, [r0, #16]
@@ -324,34 +324,34 @@ Disassembly of section .text:
  80004a6:	42a0      	cmp	r0, r4
  80004a8:	bf08      	it	eq
  80004aa:	f843 2021 	streq.w	r2, [r3, r1, lsl #2]
- 80004ae:	e7e2      	b.n	8000476 <core_delete_task_handler+0x3a>
- 80004b0:	4b07      	ldr	r3, [pc, #28]	@ (80004d0 <core_delete_task_handler+0x94>)
+ 80004ae:	e7e2      	b.n	8000476 <_core_delete_task_handler+0x3a>
+ 80004b0:	4b07      	ldr	r3, [pc, #28]	@ (80004d0 <_core_delete_task_handler+0x94>)
  80004b2:	f04f 5280 	mov.w	r2, #268435456	@ 0x10000000
  80004b6:	605a      	str	r2, [r3, #4]
  80004b8:	f3bf 8f4f 	dsb	sy
  80004bc:	f3bf 8f6f 	isb	sy
- 80004c0:	e7ea      	b.n	8000498 <core_delete_task_handler+0x5c>
+ 80004c0:	e7ea      	b.n	8000498 <_core_delete_task_handler+0x5c>
  80004c2:	2003      	movs	r0, #3
- 80004c4:	e7e9      	b.n	800049a <core_delete_task_handler+0x5e>
+ 80004c4:	e7e9      	b.n	800049a <_core_delete_task_handler+0x5e>
  80004c6:	2002      	movs	r0, #2
- 80004c8:	e7e7      	b.n	800049a <core_delete_task_handler+0x5e>
+ 80004c8:	e7e7      	b.n	800049a <_core_delete_task_handler+0x5e>
  80004ca:	bf00      	nop
  80004cc:	2000011c 	.word	0x2000011c
  80004d0:	e000ed00 	.word	0xe000ed00
 
-080004d4 <core_task_suicide_handler>:
- 80004d4:	4b01      	ldr	r3, [pc, #4]	@ (80004dc <core_task_suicide_handler+0x8>)
+080004d4 <_core_task_suicide_handler>:
+ 80004d4:	4b01      	ldr	r3, [pc, #4]	@ (80004dc <_core_task_suicide_handler+0x8>)
  80004d6:	6818      	ldr	r0, [r3, #0]
- 80004d8:	f7ff bfb0 	b.w	800043c <core_delete_task_handler>
+ 80004d8:	f7ff bfb0 	b.w	800043c <_core_delete_task_handler>
  80004dc:	2000011c 	.word	0x2000011c
 
-080004e0 <core_fpu_settings_handler>:
+080004e0 <_core_fpu_settings_handler>:
  80004e0:	b530      	push	{r4, r5, lr}
  80004e2:	f3ef 8405 	mrs	r4, IPSR
- 80004e6:	b19c      	cbz	r4, 8000510 <core_fpu_settings_handler+0x30>
+ 80004e6:	b19c      	cbz	r4, 8000510 <_core_fpu_settings_handler+0x30>
  80004e8:	f3ef 8405 	mrs	r4, IPSR
  80004ec:	2c0f      	cmp	r4, #15
- 80004ee:	d80f      	bhi.n	8000510 <core_fpu_settings_handler+0x30>
+ 80004ee:	d80f      	bhi.n	8000510 <_core_fpu_settings_handler+0x30>
  80004f0:	6e04      	ldr	r4, [r0, #96]	@ 0x60
  80004f2:	f89d 500c 	ldrb.w	r5, [sp, #12]
  80004f6:	f024 64f8 	bic.w	r4, r4, #130023424	@ 0x7c00000
@@ -363,7 +363,7 @@ Disassembly of section .text:
  800050c:	2000      	movs	r0, #0
  800050e:	bd30      	pop	{r4, r5, pc}
  8000510:	2003      	movs	r0, #3
- 8000512:	e7fc      	b.n	800050e <core_fpu_settings_handler+0x2e>
+ 8000512:	e7fc      	b.n	800050e <_core_fpu_settings_handler+0x2e>
 
 08000514 <_idle_task>:
  8000514:	bf30      	wfi
@@ -494,9 +494,9 @@ Disassembly of section .text:
  8000652:	4620      	mov	r0, r4
  8000654:	b006      	add	sp, #24
  8000656:	e8bd 4070 	ldmia.w	sp!, {r4, r5, r6, lr}
- 800065a:	f7ff be6f 	b.w	800033c <core_create_task_handler>
+ 800065a:	f7ff be6f 	b.w	800033c <_core_create_task_handler>
  800065e:	4620      	mov	r0, r4
- 8000660:	f7ff feec 	bl	800043c <core_delete_task_handler>
+ 8000660:	f7ff feec 	bl	800043c <_core_delete_task_handler>
  8000664:	b006      	add	sp, #24
  8000666:	bd70      	pop	{r4, r5, r6, pc}
  8000668:	4b0e      	ldr	r3, [pc, #56]	@ (80006a4 <OS_SVC_Dispatcher+0x8c>)
@@ -505,7 +505,7 @@ Disassembly of section .text:
  8000670:	f3bf 8f4f 	dsb	sy
  8000674:	f3bf 8f6f 	isb	sy
  8000678:	e7e8      	b.n	800064c <OS_SVC_Dispatcher+0x34>
- 800067a:	f7ff ff2b 	bl	80004d4 <core_task_suicide_handler>
+ 800067a:	f7ff ff2b 	bl	80004d4 <_core_task_suicide_handler>
  800067e:	e7f1      	b.n	8000664 <OS_SVC_Dispatcher+0x4c>
  8000680:	b2db      	uxtb	r3, r3
  8000682:	9300      	str	r3, [sp, #0]
@@ -513,9 +513,9 @@ Disassembly of section .text:
  8000686:	b2d3      	uxtb	r3, r2
  8000688:	b2ca      	uxtb	r2, r1
  800068a:	b2e1      	uxtb	r1, r4
- 800068c:	f7ff ff28 	bl	80004e0 <core_fpu_settings_handler>
+ 800068c:	f7ff ff28 	bl	80004e0 <_core_fpu_settings_handler>
  8000690:	e7e8      	b.n	8000664 <OS_SVC_Dispatcher+0x4c>
- 8000692:	f7ff fe3d 	bl	8000310 <core_task_context_reset_handler>
+ 8000692:	f7ff fe3d 	bl	8000310 <_core_task_context_reset_handler>
  8000696:	e7d9      	b.n	800064c <OS_SVC_Dispatcher+0x34>
  8000698:	2210      	movs	r2, #16
  800069a:	a902      	add	r1, sp, #8

@@ -47,11 +47,11 @@ void OS_Initialization(void) {
 	_port_ISR_settings_apply();
 
 	_context_initialization();
-	_port_sys_SysTick_initialization(CONFIG_F_CPU_HZ, CONFIG_TICK_RATE_HZ);
+	_port_sys_SysTick_initialization(CONFIG_F_CPU_HZ, CONFIG_TICK_RATE_PER_SEC_HZ);
 
 	_port_mpu_initialization();
 
-	_port_mpu_register_stacking_error_callback((void(*)(void))core_task_context_reset_handler);
+	_port_mpu_register_stacking_error_callback((void(*)(void))_core_task_context_reset_handler);
 
 	__enable_irq();
 

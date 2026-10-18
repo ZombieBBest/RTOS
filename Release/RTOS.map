@@ -479,21 +479,21 @@ LOAD E:/STM32CubeIDE_1.17.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.extern
                 0x080002bc                _task_suicide
  .text._port_stack_hardware_init.constprop.0
                 0x080002c4       0x4c ./Src/RTOS/Core/core_handlers.o
- .text.core_task_context_reset_handler
+ .text._core_task_context_reset_handler
                 0x08000310       0x2c ./Src/RTOS/Core/core_handlers.o
-                0x08000310                core_task_context_reset_handler
- .text.core_create_task_handler
+                0x08000310                _core_task_context_reset_handler
+ .text._core_create_task_handler
                 0x0800033c      0x100 ./Src/RTOS/Core/core_handlers.o
-                0x0800033c                core_create_task_handler
- .text.core_delete_task_handler
+                0x0800033c                _core_create_task_handler
+ .text._core_delete_task_handler
                 0x0800043c       0x98 ./Src/RTOS/Core/core_handlers.o
-                0x0800043c                core_delete_task_handler
- .text.core_task_suicide_handler
+                0x0800043c                _core_delete_task_handler
+ .text._core_task_suicide_handler
                 0x080004d4        0xc ./Src/RTOS/Core/core_handlers.o
-                0x080004d4                core_task_suicide_handler
- .text.core_fpu_settings_handler
+                0x080004d4                _core_task_suicide_handler
+ .text._core_fpu_settings_handler
                 0x080004e0       0x34 ./Src/RTOS/Core/core_handlers.o
-                0x080004e0                core_fpu_settings_handler
+                0x080004e0                _core_fpu_settings_handler
  .text._idle_task
                 0x08000514        0x4 ./Src/RTOS/Core/core_manager.o
                 0x08000514                _idle_task
