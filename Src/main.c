@@ -29,7 +29,6 @@ void Task1(void) {
 
 	//uint32_t tst_arr[4] = {10, 200, 3000, 0xFFFFFFFF};
 	//OS_Tst((uint8_t*)tst_arr);
-	OS_Tst(0x00001500);
 	OS_Return_t r1 = OS_FPU_Settings(FPU_ALT_FORMAT, FPU_DEFAULT_NaN, FPU_FLASH_TO_ZERO_MODE, FPU_ROUND_TO_ZERO);
 
 	uint32_t tst = 0xABABABAB;
@@ -85,16 +84,16 @@ int main(void)
 	OS_StackHandle_t stack2_handle = OS_CREATE_STACK(256);
 
 
-	OS_TaskHandle_t h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
-	OS_TaskHandle_t h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
+	OS_TaskHandle_t h1 = OS_CreateTask(Task1, stack1_handle, 1);
+	OS_TaskHandle_t h2 = OS_CreateTask(Task2, stack2_handle, 1);
 
 	OS_Return_t r1 = OS_DeleteTask(h1);
 	OS_Return_t r2 = OS_DeleteTask(h2);
 
 	(void)r1, (void)r2;
 
-	h1 = OS_CreateTaskStatic(Task1, stack1_handle, 1);
-	h2 = OS_CreateTaskStatic(Task2, stack2_handle, 1);
+	h1 = OS_CreateTask(Task1, stack1_handle, 1);
+	h2 = OS_CreateTask(Task2, stack2_handle, 1);
 
 	GPIO_Config();
 
@@ -110,7 +109,6 @@ int main(void)
 //Сброс MSP при старте
 //Trace Mode
 //Функции системы должны быть защищены от user mode регионом MPU
-//Написать copy_from_user с поимкой плохих адресов через MemManage
 
 //Dump задача
 //Перезапуск задачи при MemManage

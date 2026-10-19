@@ -7,8 +7,8 @@ typedef struct {
 	void (*mode)(void);
 	void (*send)(void);
 	void (*read)(void);
-} OS_DRIVERS_DriversFunctions_t;
+} OS_DriversFunctions_t;
 
-extern OS_DRIVERS_DriversFunctions_t* drivers_functions_table_ptr;
+extern OS_DriversFunctions_t* os_drivers_functions_table_ptr;
 
 #endif

@@ -13,7 +13,8 @@ typedef enum {
 	OS_EXIT_SUCCESS,
 	OS_EXIT_ERROR,
 	OS_EXIT_ERROR_INVALID_ARGUMENT,
-	OS_EXIT_ERROR_NOT_FROM_SYSCALL
+	OS_EXIT_ERROR_NOT_FROM_SYSCALL,
+	OS_DRIVER_EXIT_ERROR_DRIVERS_OVERFLOW
 } OS_Return_t;
 
 
@@ -45,14 +46,12 @@ void OS_Initialization(void);
 
 void OS_Start(void);
 
-OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority);
+OS_TaskHandle_t OS_CreateTask(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority);
 
 OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle);
 
 OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
 
 void OS_RestartTask(void);
-
-void OS_Tst(uint8_t* ptr);
 
 #endif

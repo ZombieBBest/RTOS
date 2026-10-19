@@ -1,7 +1,0 @@
-../Src/RTOS/Core/core_handlers.c:93:6:_task_suicide	4	static,ignoring_inline_asm
-../Src/RTOS/Core/../Port/port_functions.h:68:21:_port_stack_hardware_init.constprop	0	static
-../Src/RTOS/Core/core_handlers.c:99:6:_core_task_context_reset_handler	8	static,ignoring_inline_asm
-../Src/RTOS/Core/core_handlers.c:109:17:_core_create_task_handler	40	static,ignoring_inline_asm
-../Src/RTOS/Core/core_handlers.c:142:13:_core_delete_task_handler	16	static,ignoring_inline_asm
-../Src/RTOS/Core/core_handlers.c:169:13:_core_task_suicide_handler	0	static
-../Src/RTOS/Core/core_handlers.c:174:13:_core_fpu_settings_handler	12	static,ignoring_inline_asm

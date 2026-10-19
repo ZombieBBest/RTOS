@@ -57,7 +57,7 @@ void OS_Initialization(void) {
 
 	OS_StackHandle_t _idle_stack_handle = OS_CREATE_STACK(256);
 
-	OS_CreateTaskStatic(_idle_task, _idle_stack_handle, 0);
+	OS_CreateTask(_idle_task, _idle_stack_handle, 0);
 }
 
 void OS_Start(void) {
@@ -68,7 +68,7 @@ void OS_Start(void) {
 	_PORT_OS_RUN(SVC_START_OS, most_priority_task->stack_pointer);
 }
 
-OS_TaskHandle_t OS_CreateTaskStatic(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
+OS_TaskHandle_t OS_CreateTask(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	return (OS_TaskHandle_t)_PORT_PRIVATE_SYSCALL_3_RET(SVC_CREATE_TASK, (uint32_t)task_ptr, (uint32_t)handle, priority);
 }
 
@@ -86,10 +86,6 @@ void OS_RestartTask(void) {
 
 void OS_Yield(void) {
 	_PORT_PRIVATE_SYSCALL_0_RET(SVC_YIELD);
-}
-
-void OS_Tst(uint8_t* ptr) {
-	_PORT_PRIVATE_SYSCALL_1_RET(SVC_TST, ptr);
 }
 
 void OS_DriverTake() {

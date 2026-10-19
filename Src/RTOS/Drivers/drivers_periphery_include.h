@@ -7,7 +7,7 @@
 
 //---------------------------------------------
 
-extern OS_DRIVERS_DriversFunctions_t drivers_functions_table[CONFIG_NUM_OF_DRIVERS];
+void _drivers_initialization(void);
 
 //---------------------------------------------
 
@@ -15,14 +15,14 @@ typedef enum {
 	DRIVERS_GPIO_PORT_A,
 	DRIVERS_GPIO_PORT_B,
 	DRIVERS_GPIO_PORT_C,
-	DRIVERS_GPIO_PORTS_NUM
-} OS_DRIVERS_DriversEnum_t;
+	DRIVERS_NUM
+} Drivers_DriversEnum_t;
 
 //---------------------------------------------
 
 typedef union {
 	OS_DRIVERS_GPIO_PinSettings_t pin;
-} OS_DRIVERS_DriverSettings_t;
+} Drivers_DriverSettings_t;
 
 //---------------------------------------------
 
@@ -45,5 +45,13 @@ typedef enum {
 	DRIVERS_GPIO_PIN_15 = (1UL << 15UL),
 	DRIVERS_GPIO_PIN_NUM
 } Drivers_GPIO_PinsEnum_t;
+
+//---------------------------------------------
+
+extern OS_DriversFunctions_t drivers_functions_table[CONFIG_NUM_OF_DRIVERS];
+
+extern uint8_t drivers_functions_table_free_index;
+
+extern uint8_t table_of_drivers_indexes[DRIVERS_NUM];
 
 #endif

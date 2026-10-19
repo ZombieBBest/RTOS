@@ -1,5 +1,0 @@
-../Src/main.c:55:6:Task2	0	static
-../Src/main.c:27:6:Task1	8	static
-../Src/main.c:48:6:Task3	0	static
-../Src/main.c:66:6:GPIO_Config	0	static
-../Src/main.c:80:5:main	40	static

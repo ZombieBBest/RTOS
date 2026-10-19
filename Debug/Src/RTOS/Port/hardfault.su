@@ -1,3 +1,0 @@
-../Inc/core_cm4.h:1938:34:__NVIC_SystemReset	4	static,ignoring_inline_asm
-../Src/RTOS/Port/hardfault.c:5:6:HardFault_Decoder	64	static,ignoring_inline_asm
-../Src/RTOS/Port/hardfault.c:28:29:HardFault_Handler	0	static,ignoring_inline_asm

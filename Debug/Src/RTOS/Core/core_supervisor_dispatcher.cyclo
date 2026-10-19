@@ -1,3 +1,0 @@
-../Src/RTOS/Core/../Port/port_functions.h:34:20:_port_yield	1
-../Src/RTOS/Core/../Port/port_functions.h:48:20:_port_start_scheduler_from_svc	1
-../Src/RTOS/Core/core_supervisor_dispatcher.c:10:10:OS_SVC_Dispatcher	9
