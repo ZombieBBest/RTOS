@@ -19,6 +19,7 @@ typedef enum {
 } OS_TaskStates_t;
 
 typedef struct OS_TCB_t {
+	uint8_t id;
 	uint32_t state;
 	uint32_t priority;
 	void* 	 stack_pointer;

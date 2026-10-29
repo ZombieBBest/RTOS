@@ -12,5 +12,6 @@
 #define CONFIG_NUM_OF_DRIVERS			(2UL)
 
 static_assert((CONFIG_NUM_OF_TASKS >= 1), "Error: CONFIG_NUM_OF_TASKS must be greater than or equal to 1");
+static_assert((CONFIG_NUM_OF_TASKS <= 256), "Error: CONFIG_NUM_OF_TASKS must be less than or equal to 256");
 
 #endif

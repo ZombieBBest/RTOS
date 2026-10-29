@@ -17,9 +17,12 @@ static inline void _context_initialization(void) {
 	memset((void*)&os_context, 0, sizeof(OS_Context_t));
 
 	for (uint32_t i = 0; i < CONFIG_NUM_OF_TASKS - 1; i++) {
+		os_context.task_context[i].id = i;
 		os_context.task_context[i].next_node_ptr = (OS_TCB_t*)&os_context.task_context[i + 1];
 		os_context.task_context[i + 1].prev_node_ptr = (OS_TCB_t*)&os_context.task_context[i];
 	}
+
+	os_context.task_context[CONFIG_NUM_OF_TASKS - 1].id = CONFIG_NUM_OF_TASKS - 1;
 
 	os_context.free_TCB_ptr = (OS_TCB_t*)&os_context.task_context[0];
 }

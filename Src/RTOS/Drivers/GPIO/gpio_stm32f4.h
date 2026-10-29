@@ -2,6 +2,7 @@
 #define RTOS_DRIVERS_GPIO_GPIO_STM32F4_H_
 
 #include "stdint.h"
+#include "../../Core/core_return_type.h"
 
 typedef struct {
 	uint32_t moder;
@@ -14,5 +15,7 @@ typedef struct {
 typedef struct {
 	uint32_t pins;
 } OS_DRIVERS_GPIO_TakeExtendParametr_t;
+
+OS_Return_t OS_GPIO_Register_Driver(void);
 
 #endif

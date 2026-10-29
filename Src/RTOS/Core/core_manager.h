@@ -3,20 +3,12 @@
 
 #include <stdint.h>
 #include "../Port/port_functions.h"
+#include "core_return_type.h"
 #include "core_memory.h"
 
 // ==================== TYPES_DEFINITION ====================
 
 typedef void* OS_TaskHandle_t;
-
-typedef enum {
-	OS_EXIT_SUCCESS,
-	OS_EXIT_ERROR,
-	OS_EXIT_ERROR_INVALID_ARGUMENT,
-	OS_EXIT_ERROR_NOT_FROM_SYSCALL,
-	OS_DRIVER_EXIT_ERROR_DRIVERS_OVERFLOW
-} OS_Return_t;
-
 
 typedef enum {
 	FPU_IEEE_FORMAT,

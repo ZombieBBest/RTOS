@@ -48,9 +48,9 @@ typedef enum {
 
 //---------------------------------------------
 
-extern OS_DriversFunctions_t drivers_functions_table[CONFIG_NUM_OF_DRIVERS];
+extern OS_DriversFunctions_t drivers_handlers_table[CONFIG_NUM_OF_DRIVERS];
 
-extern uint8_t drivers_functions_table_free_index;
+extern uint8_t drivers_handlers_table_free_index;
 
 extern uint8_t table_of_drivers_indexes[DRIVERS_NUM];
 
