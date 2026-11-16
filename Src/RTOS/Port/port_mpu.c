@@ -106,10 +106,11 @@ void _port_mpu_initialization(void) {
 			  | (MPU_RBAR_VALID_Msk)
 			  | ((PERIPH_REGION_NUMBER << MPU_RBAR_REGION_Pos) & MPU_RBAR_REGION_Msk);
 	MPU->RASR = (0x01UL << MPU_RASR_XN_Pos)
-			  | (0x01UL << MPU_RASR_AP_Pos)
+			  | (0x01UL << MPU_RASR_AP_Pos)  //(0b011UL << MPU_RASR_AP_Pos) - for testing
 			  | (0x01UL << MPU_RASR_B_Pos)
 			  | ((PORT_CONFIG_PERIPH_SIZE_MPU << MPU_RASR_SIZE_Pos) & MPU_RASR_SIZE_Msk)
 			  | (0x01UL << MPU_RASR_ENABLE_Pos);
+				//Кэширование запрещено, чтобы всегда иметь актуальные данные
 
 
 	MPU->CTRL |= (MPU_CTRL_PRIVDEFENA_Msk | MPU_CTRL_ENABLE_Msk);

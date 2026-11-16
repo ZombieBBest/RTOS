@@ -46,6 +46,22 @@
 		arg0_result;														\
 	})
 
+#define _PORT_PRIVATE_SYSCALL_2_RET(svc_num, argument_0, argument_1)		\
+	({																		\
+		register uint32_t 	arg0_result __asm("r0") = (uint32_t)argument_0;	\
+		register uint32_t 	arg1 		__asm("r1") = (uint32_t)argument_1;	\
+																			\
+		__asm volatile(														\
+			"svc %[svc_n]		\n\t"										\
+			: "+r" (arg0_result)											\
+			: [svc_n] "i" (svc_num),										\
+			  "r" (arg1)													\
+			: "r12", "lr", "memory"											\
+		);																	\
+																			\
+		arg0_result;														\
+	})
+
 #define _PORT_PRIVATE_SYSCALL_3_RET(svc_num, argument_0, argument_1, argument_2)		\
 	({																					\
 		register uint32_t 	arg0_result __asm("r0") = (uint32_t)argument_0;				\

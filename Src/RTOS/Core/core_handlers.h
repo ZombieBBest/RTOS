@@ -1,7 +1,6 @@
 #ifndef RTOS_CORE_CORE_SYS_FUNCTIONS_H_
 #define RTOS_CORE_CORE_HANDLERS_H_
 
-#include "../Drivers/GPIO/gpio_stm32f4.h"
 #include "core_context.h"
 #include "core_manager.h"
 

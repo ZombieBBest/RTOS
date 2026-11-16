@@ -3,8 +3,6 @@
 
 #include <stdint.h>
 #include <stm32f4xx.h>
-
-#include "../Drivers/drivers_periphery_include.h"
 #include "../Port/port_mpu.h"
 #include "core_config.h"
 #include "core_memory.h"

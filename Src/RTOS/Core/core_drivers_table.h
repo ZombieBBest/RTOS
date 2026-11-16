@@ -2,6 +2,8 @@
 #define RTOS_CORE_CORE_DRIVERS_TABLE_H_
 
 #include "core_return_type.h"
+#include <stddef.h>
+#include <stdint.h>
 
 typedef struct {
 	OS_Return_t (*take)(void);
@@ -12,5 +14,7 @@ typedef struct {
 } OS_DriversFunctions_t;
 
 extern OS_DriversFunctions_t* os_drivers_handlers_table_ptr;
+
+extern uint8_t os_num_of_drivers;
 
 #endif

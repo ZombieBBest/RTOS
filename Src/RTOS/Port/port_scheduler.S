@@ -22,7 +22,6 @@
 	msr PSP, r0
 .endm
 
-
 // ========================== ISR ===========================
 
 PendSV_Handler:
@@ -37,6 +36,7 @@ OS_Switch_Context:
 	clrex
 
 	LoadContext
+	orr lr, lr, #0x08
 
 	mov r3, #0x00
 	msr basepri, r3

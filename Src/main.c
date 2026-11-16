@@ -47,7 +47,7 @@ void Task1(void) {
 void Task3(void) {
 	while(1) {
 		GPIOC->ODR |= (GPIO_ODR_OD13);
-		for (uint32_t i = 0; i < 100000; i++);
+		for (uint32_t i = 0; i < 2000000; i++);
 	}
 }
 
@@ -57,8 +57,8 @@ void Task2(void) {
 	(void)h3;*/
 
 	while(1) {
-		/*GPIOC->ODR &= ~(GPIO_ODR_OD13);
-		for (uint32_t i = 0; i < 100000; i++);*/
+		GPIOC->ODR &= ~(GPIO_ODR_OD13);
+		for (uint32_t i = 0; i < 2000000; i++);
 	}
 }
 
@@ -76,15 +76,68 @@ void GPIO_Config(void) {
 	GPIOC->ODR |= (GPIO_ODR_OD13);
 }
 
+void SetClockPLL(void) {
+	RCC->APB1ENR |= RCC_APB1ENR_PWREN;
+	PWR->CR |= PWR_CR_VOS;
+
+	RCC->CR &= ~RCC_CR_PLLON_Msk;
+	while (RCC->CR & RCC_CR_PLLRDY);
+
+	RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLSRC_Msk;
+
+	RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLM_Msk;
+	RCC->PLLCFGR |= 8 << RCC_PLLCFGR_PLLM_Pos;
+
+	RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLN_Msk;
+	RCC->PLLCFGR |= 200 << RCC_PLLCFGR_PLLN_Pos;
+
+	RCC->PLLCFGR &= ~RCC_PLLCFGR_PLLP_Msk;
+	RCC->PLLCFGR |= RCC_PLLCFGR_PLLP_0;
+
+	FLASH->ACR |= FLASH_ACR_DCEN | FLASH_ACR_ICEN | FLASH_ACR_PRFTEN;
+
+	FLASH->ACR &= ~FLASH_ACR_LATENCY;
+	FLASH->ACR |= FLASH_ACR_LATENCY_3WS;
+
+	RCC->CFGR &= ~(RCC_CFGR_PPRE2_Msk | RCC_CFGR_PPRE1_Msk | RCC_CFGR_HPRE_Msk);
+	RCC->CFGR |= RCC_CFGR_PPRE1_DIV2;
+
+	RCC->CR |= RCC_CR_PLLON_Msk;
+	while (!(RCC->CR & RCC_CR_PLLRDY_Msk));
+
+	RCC->CFGR &= ~RCC_CFGR_SW_Msk;
+	RCC->CFGR |= RCC_CFGR_SW_PLL;
+
+	while ((RCC->CFGR & RCC_CFGR_SWS_Msk) != RCC_CFGR_SWS_PLL);
+
+	SystemCoreClockUpdate();
+}
+
+void Init_CYCCNT(void) {
+	CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+	DWT->CYCCNT = 0;
+	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+}
+
 int main(void)
 {
+	SetClockPLL();
+	Init_CYCCNT();
 	OS_Initialization();
 
 	OS_StackHandle_t stack1_handle = OS_CREATE_STACK(256);
 	OS_StackHandle_t stack2_handle = OS_CREATE_STACK(256);
 
+	volatile uint32_t t1 = DWT->CYCCNT;
+	OS_TaskHandle_t h1 = OS_CreateTask(Task2, stack1_handle, 1);
+	volatile uint32_t t2 = DWT->CYCCNT - t1;
 
-	OS_TaskHandle_t h1 = OS_CreateTask(Task1, stack1_handle, 1);
+
+	OS_TaskHandle_t h2 = OS_CreateTask(Task3, stack2_handle, 1);
+
+	(void)h1, (void)t2, (void)h2;
+
+	/*OS_TaskHandle_t h1 = OS_CreateTask(Task1, stack1_handle, 1);
 	OS_TaskHandle_t h2 = OS_CreateTask(Task2, stack2_handle, 1);
 
 	OS_Return_t r1 = OS_DeleteTask(h1);
@@ -93,22 +146,24 @@ int main(void)
 	(void)r1, (void)r2;
 
 	h1 = OS_CreateTask(Task1, stack1_handle, 1);
-	h2 = OS_CreateTask(Task2, stack2_handle, 1);
+	h2 = OS_CreateTask(Task2, stack2_handle, 1);*/
 
 	GPIO_Config();
 
-	volatile float a = 0.0f;
-	a += 0.1f;
+	//volatile float a = 0.0f;
+	//a += 0.1f;
 
 	OS_Start();
 }
 
 
 
+//Переписать стартовый код
 //Прописать обработчики ошибок
 //Сброс MSP при старте
 //Trace Mode
 //Функции системы должны быть защищены от user mode регионом MPU
+//Запретить прерываниям с приоритетом < 4 вызывать API ядра
 
 //Dump задача
 //Перезапуск задачи при MemManage

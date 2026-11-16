@@ -5,7 +5,6 @@
 #include "../Port/port_macroses.h"
 #include "../Port/port_mpu.h"
 #include "../Port/port_sys_timer.h"
-#include "../Drivers/GPIO/gpio_stm32f4.h"
 #include "core_config.h"
 #include "core_context.h"
 #include "core_supervisor_dispatcher.h"
@@ -89,8 +88,4 @@ void OS_RestartTask(void) {
 
 void OS_Yield(void) {
 	_PORT_PRIVATE_SYSCALL_0_RET(SVC_YIELD);
-}
-
-void OS_DriverTake() {
-
 }

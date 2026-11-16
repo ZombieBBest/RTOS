@@ -48,9 +48,21 @@ MEMORY
   FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 512K
 }
 
+__flash_start__ = ORIGIN(FLASH);
+__ram_start__ = ORIGIN(RAM);
+
 /* Sections */
 SECTIONS
 {
+  .core_mutexes (NOLOAD) :
+  {
+    . = ALIGN(4);
+    __core_mutexes_start__ = .;
+    KEEP(*(.core_mutexe*))
+    . = ALIGN(4);
+    __core_mutexes_end__ = .;
+  } > RAM
+
   /* The startup code into "FLASH" Rom type memory */
   .isr_vector :
   {

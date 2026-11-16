@@ -1,7 +1,6 @@
 #include "core_supervisor_dispatcher.h"
 
 #include "../Port/port_functions.h"
-#include "../Drivers/GPIO/gpio_stm32f4.h"
 #include "core_manager.h"
 #include "core_handlers.h"
 
