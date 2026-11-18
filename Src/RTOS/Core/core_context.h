@@ -13,18 +13,21 @@ typedef enum {
 	OS_STATE_FREE,
 	OS_STATE_READY,
 	OS_STATE_RESERVED,
+	OS_STATE_WAITING,
 	OS_NUM_OF_STATES
 } OS_TaskStates_t;
 
 typedef struct OS_TCB_t {
-	uint8_t id;
 	uint32_t state;
 	uint32_t priority;
+	uint32_t base_priority;
 	void* 	 stack_pointer;
 	void (*task_function_ptr)(void);
 
 	struct OS_TCB_t* prev_node_ptr;
 	struct OS_TCB_t* next_node_ptr;
+
+	void* locked_mutexes[CONFIG_MAX_MUXEXES_FOR_TASK];
 
 	OS_StackDescriptor_t* stack_descriptor;
 

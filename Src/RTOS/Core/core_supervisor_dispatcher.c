@@ -33,10 +33,6 @@ uint32_t OS_SVC_Dispatcher(uint32_t svc_arg, uint32_t arg0, uint32_t arg1, uint3
 		case SVC_SET_FPSCR:
 			result = (uint32_t)_core_fpu_settings_handler(caller_sp, arg0, arg1, arg2, arg3);
 			break;
-
-		case SVC_RESTART_TASK:
-			_core_task_context_reset_handler();
-			break;
 	}
 
 	return result;

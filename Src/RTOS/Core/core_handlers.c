@@ -10,6 +10,7 @@
 static inline void _add_to_ready_list(OS_TCB_t* task_ptr, uint32_t priority) {
 	task_ptr->state = OS_STATE_READY;
 	task_ptr->priority = priority;
+	task_ptr->base_priority = priority;
 
 	os_context.priority_bitmap |= (1 << priority);
 
@@ -116,7 +117,7 @@ OS_TaskHandle_t _core_create_task_handler(void(*task_ptr)(void), OS_StackHandle_
 
 	free_TCB = _get_free_TCB();
 	if (free_TCB) {
-		if (desc && !desc->is_taken && priority <= CONFIG_NUM_OF_PRIORITIES) {
+		if (desc && !desc->is_taken && priority < CONFIG_NUM_OF_PRIORITIES) {
 			free_TCB->state = OS_STATE_RESERVED;
 			desc->is_taken = 1;
 		}

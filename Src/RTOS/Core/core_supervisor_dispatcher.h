@@ -10,7 +10,6 @@ typedef enum {
 	SVC_YIELD,
 	SVC_SUICIDE_TASK,
 	SVC_SET_FPSCR,
-	SVC_RESTART_TASK,
 } OS_SVC_Enter_t;
 
 #endif

@@ -45,38 +45,14 @@ void(*mem_stacking_error_callback)(void) = NULL;
 
 void MemManage_Handler_C(uint32_t* sp, _Bool is_msp) {
 	volatile uint32_t mmfar = SCB->MMFAR;
-	uint32_t faults_to_clear = SCB->CFSR & CFSR_MEM_REG_MSK;
-
-	if (is_msp) {
-		uintptr_t* pc = (uintptr_t*)&sp[PC_SP_INDEX];
-
-		if (*pc > ((uintptr_t)copy_from_user_start_critical - 1) && *pc < ((uintptr_t)copy_from_user_end_critical + 1)) {
-			*pc = (uintptr_t)copy_from_user_abort;
-
-			goto exit_success;
-		}
-	}
-	else {
-		if (mem_stacking_error_callback) {
-			mem_stacking_error_callback();
-
-			goto exit_success;
-		}
-	}
+	SCB->CFSR &= CFSR_MEM_REG_MSK;
 
 	ENTER_HARDFAULT();
-	exit_success:
 
 	(void)mmfar;
-	SCB->CFSR = faults_to_clear;
-	__DSB();
 }
 
 // ====================== PUBLIC_API ========================
-
-void _port_mpu_register_stacking_error_callback(void(*callback)(void)) {
-	mem_stacking_error_callback = callback;
-}
 
 void _port_mpu_initialization(void) {
 	MPU->CTRL &= ~(MPU_CTRL_ENABLE_Msk);

@@ -58,7 +58,7 @@ SECTIONS
   {
     . = ALIGN(4);
     __core_mutexes_start__ = .;
-    KEEP(*(.core_mutexe*))
+    KEEP(*(.core_mutexes*))
     . = ALIGN(4);
     __core_mutexes_end__ = .;
   } > RAM

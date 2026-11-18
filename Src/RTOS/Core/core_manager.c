@@ -16,12 +16,9 @@ static inline void _context_initialization(void) {
 	memset((void*)&os_context, 0, sizeof(OS_Context_t));
 
 	for (uint32_t i = 0; i < CONFIG_NUM_OF_TASKS - 1; i++) {
-		os_context.task_context[i].id = i;
 		os_context.task_context[i].next_node_ptr = (OS_TCB_t*)&os_context.task_context[i + 1];
 		os_context.task_context[i + 1].prev_node_ptr = (OS_TCB_t*)&os_context.task_context[i];
 	}
-
-	os_context.task_context[CONFIG_NUM_OF_TASKS - 1].id = CONFIG_NUM_OF_TASKS - 1;
 
 	os_context.free_TCB_ptr = (OS_TCB_t*)&os_context.task_context[0];
 }
@@ -33,6 +30,8 @@ static inline OS_TCB_t* _get_most_priority_task(void) {
 }
 
 // ======================== INTERNAL ========================
+
+OS_CREATE_STACK(sys_idle_stack_handle, 256);
 
 void _idle_task(void) {
 	while (1) {
@@ -53,13 +52,9 @@ void OS_Initialization(void) {
 
 	_port_mpu_initialization();
 
-	_port_mpu_register_stacking_error_callback((void(*)(void))_core_task_context_reset_handler);
-
 	__enable_irq();
 
-	OS_StackHandle_t _idle_stack_handle = OS_CREATE_STACK(256);
-
-	OS_CreateTask(_idle_task, _idle_stack_handle, 0);
+	OS_CreateTask(_idle_task, sys_idle_stack_handle, 0);
 }
 
 void OS_Start(void) {
@@ -80,10 +75,6 @@ OS_Return_t OS_DeleteTask(OS_TaskHandle_t handle) {
 
 OS_Return_t OS_FPU_Settings(OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n, OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r) {
 	return (OS_Return_t)_PORT_PRIVATE_SYSCALL_4_RET(SVC_SET_FPSCR, h, n, f, r);
-}
-
-void OS_RestartTask(void) {
-	_PORT_PRIVATE_SYSCALL_0_RET(SVC_RESTART_TASK);
 }
 
 void OS_Yield(void) {

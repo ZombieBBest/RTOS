@@ -119,19 +119,19 @@ void Init_CYCCNT(void) {
 	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
+OS_CREATE_MUTEX(test_mutex_handle);
+OS_CREATE_STACK(stack1_handle, 256);
+OS_CREATE_STACK(stack2_handle, 256);
+
 int main(void)
 {
 	SetClockPLL();
 	Init_CYCCNT();
 	OS_Initialization();
 
-	OS_StackHandle_t stack1_handle = OS_CREATE_STACK(256);
-	OS_StackHandle_t stack2_handle = OS_CREATE_STACK(256);
-
 	volatile uint32_t t1 = DWT->CYCCNT;
 	OS_TaskHandle_t h1 = OS_CreateTask(Task2, stack1_handle, 1);
 	volatile uint32_t t2 = DWT->CYCCNT - t1;
-
 
 	OS_TaskHandle_t h2 = OS_CreateTask(Task3, stack2_handle, 1);
 

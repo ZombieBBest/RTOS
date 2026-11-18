@@ -3,5 +3,6 @@
 
 #include "Core/core_manager.h"
 #include "Core/core_memory.h"
+#include "Core/core_mutex.h"
 
 #endif
