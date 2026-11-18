@@ -18,18 +18,18 @@ typedef struct{
 // ======================= PUBLIC_API =======================
 
 /* GLOBAL ONLY. Size_in_bytes must be a multiply of 2 and greater than or equal to 256 */
-#define OS_CREATE_STACK(name, size_in_bytes)																								\
+#define OS_CREATE_STACK(name, size_in_bytes)																						\
 	static_assert((size_in_bytes >= 256), "Error: stack must be greater than or equal to 256");										\
 	static_assert((size_in_bytes & (size_in_bytes - 1)) == 0, "Error: stack size must be a power of 2 (e.g. 256, 512, 1024...)");	\
 																																	\
-	__attribute__((aligned(size_in_bytes), used)) static uint8_t sys_stack_##name[size_in_bytes];											\
+	__attribute__((aligned(size_in_bytes), used)) static uint8_t sys_stack_##name[size_in_bytes];									\
 																																	\
-	__attribute__((used)) static OS_StackDescriptor_t sys_descriptor_##name = {															\
-			.stack_ptr = (void*)&sys_stack_##name,																							\
+	__attribute__((used)) static OS_StackDescriptor_t sys_descriptor_##name = {														\
+			.stack_ptr = (void*)&sys_stack_##name,																					\
 			.stack_size = size_in_bytes,																							\
 			.is_taken = 0,																											\
 	};																																\
-	extern const OS_StackHandle_t name;	\
-	const OS_StackHandle_t name = (OS_StackHandle_t)&sys_descriptor_##name;																								\
+	extern const OS_StackHandle_t name;																								\
+	const OS_StackHandle_t name = (OS_StackHandle_t)&sys_descriptor_##name;															\
 
 #endif
