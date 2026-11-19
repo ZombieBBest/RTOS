@@ -1,4 +1,4 @@
-#include "core_handlers.h"
+#include "core_task_handlers.h"
 
 #include "../Port/port_functions.h"
 #include "../Port/port_macroses.h"
@@ -96,16 +96,6 @@ void _task_suicide(void) {
 }
 
 // ====================== ISR_HANDLES =======================
-
-void _core_task_context_reset_handler(void) {
-	if (!_PORT_IS_INSIDE_CORE_ISR()) {
-		return;
-	}
-
-	OS_TCB_t* r_task = os_context.current_run_task;
-	r_task->stack_pointer = _port_corrupted_task_reset_stack(r_task->task_function_ptr, _task_suicide, r_task->stack_descriptor->stack_ptr,
-																r_task->stack_descriptor->stack_size);
-}
 
 OS_TaskHandle_t _core_create_task_handler(void(*task_ptr)(void), OS_StackHandle_t handle, uint32_t priority) {
 	OS_TCB_t* free_TCB = NULL;

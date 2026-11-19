@@ -23,6 +23,10 @@
 
 //extern void TST_Task(void);
 
+OS_CREATE_MUTEX(test_mutex_handle);
+OS_CREATE_STACK(stack1_handle, 256);
+OS_CREATE_STACK(stack2_handle, 256);
+
 
 void Task1(void) {
 	//GPIOC->ODR &= ~(GPIO_ODR_OD13);
@@ -52,6 +56,7 @@ void Task3(void) {
 }
 
 void Task2(void) {
+	OS_TakeMutex(test_mutex_handle);
 	/*OS_StackHandle_t stack3_handle = OS_CREATE_STACK(256);
 	OS_TaskHandle_t h3 = OS_CreateTaskStatic(Task3, stack3_handle, 1);
 	(void)h3;*/
@@ -119,10 +124,6 @@ void Init_CYCCNT(void) {
 	DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
 }
 
-OS_CREATE_MUTEX(test_mutex_handle);
-OS_CREATE_STACK(stack1_handle, 256);
-OS_CREATE_STACK(stack2_handle, 256);
-
 int main(void)
 {
 	SetClockPLL();
@@ -159,6 +160,7 @@ int main(void)
 
 
 //Переписать стартовый код
+//Перенести FPU в отдельный handlers файл
 //Прописать обработчики ошибок
 //Сброс MSP при старте
 //Trace Mode

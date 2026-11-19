@@ -15,6 +15,4 @@ OS_Return_t _core_task_suicide_handler(void);
 OS_Return_t _core_fpu_settings_handler(uint32_t* sp, OS_FPU_HALFPRECISION_t h, OS_FPU_NaN_MODE_t n,
 									OS_FPU_FLASH_TO_ZERO_t f, OS_FPU_ROUNDING_t r);
 
-void _core_task_context_reset_handler(void);
-
 #endif

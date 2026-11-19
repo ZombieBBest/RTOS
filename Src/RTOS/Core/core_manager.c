@@ -8,7 +8,8 @@
 #include "core_config.h"
 #include "core_context.h"
 #include "core_supervisor_dispatcher.h"
-#include "core_handlers.h"
+#include "core_task_handlers.h"
+#include "core_mutex.h"
 
 // ===================== INTERNAL_STATIC ====================
 

@@ -111,13 +111,4 @@ static inline void* _port_stack_init(void(*task_ptr)(void), void(*return_ptr)(vo
 	return (void*)stack_ptr;
 }
 
-static inline void* _port_corrupted_task_reset_stack(void(*task_ptr)(void), void(*return_ptr)(void), void* stack_base, size_t stack_size) {
-	uintptr_t* stack = _port_stack_hardware_init(task_ptr, return_ptr, stack_base, stack_size);
-
-	__set_PSP((uintptr_t)stack);
-	//_port_yield();
-
-	return stack;
-}
-
 #endif

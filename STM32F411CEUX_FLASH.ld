@@ -59,8 +59,8 @@ SECTIONS
     . = ALIGN(4);
     __core_mutexes_start__ = .;
     KEEP(*(.core_mutexes*))
-    . = ALIGN(4);
     __core_mutexes_end__ = .;
+    . = ALIGN(4);
   } > RAM
 
   /* The startup code into "FLASH" Rom type memory */
