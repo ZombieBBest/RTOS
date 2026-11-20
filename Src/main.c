@@ -21,9 +21,7 @@
 
 #include "RTOS/os_api.h"
 
-//extern void TST_Task(void);
-
-OS_CREATE_MUTEX(test_mutex_handle);
+OS_CREATE_MUTEX(test_mutex_handle, 3);
 OS_CREATE_STACK(stack1_handle, 256);
 OS_CREATE_STACK(stack2_handle, 256);
 

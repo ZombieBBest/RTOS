@@ -54,15 +54,6 @@ __ram_start__ = ORIGIN(RAM);
 /* Sections */
 SECTIONS
 {
-  .core_mutexes (NOLOAD) :
-  {
-    . = ALIGN(4);
-    __core_mutexes_start__ = .;
-    KEEP(*(.core_mutexes*))
-    __core_mutexes_end__ = .;
-    . = ALIGN(4);
-  } > RAM
-
   /* The startup code into "FLASH" Rom type memory */
   .isr_vector :
   {
@@ -154,6 +145,11 @@ SECTIONS
     *(.data*)          /* .data* sections */
     *(.RamFunc)        /* .RamFunc sections */
     *(.RamFunc*)       /* .RamFunc* sections */
+
+    . = ALIGN(4);
+    __core_mutexes_start__ = .;
+    KEEP(*(.core_mutexes*))
+    __core_mutexes_end__ = .;
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */

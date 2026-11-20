@@ -4,6 +4,12 @@
 #include "../Port/port_macroses.h"
 #include "../Port/port_mpu.h"
 #include "core_supervisor_dispatcher.h"
+#include "core_mutex.h"
+
+// ========================= EXTERN =========================
+
+extern uint8_t __core_mutexes_start__[];
+extern uint8_t __core_mutexes_end__[];
 
 // ===================== INTERNAL_STATIC ====================
 
@@ -32,7 +38,7 @@ static inline void _add_to_ready_list(OS_TCB_t* task_ptr, uint32_t priority) {
 	}
 }
 
-static inline void _remove_from_ready_list(OS_TCB_t* task_ptr) {
+static inline void _remove_from_ready_list(OS_TCB_t* task_ptr, OS_TaskStates_t state) {
 	uint32_t priority = task_ptr->priority;
 
 	if (task_ptr->next_node_ptr == task_ptr) {
@@ -55,7 +61,7 @@ static inline void _remove_from_ready_list(OS_TCB_t* task_ptr) {
 	task_ptr->next_node_ptr = NULL;
 	task_ptr->prev_node_ptr = NULL;
 
-	task_ptr->state = OS_STATE_RESERVED;
+	task_ptr->state = state;
 }
 
 static inline OS_TCB_t* _get_free_TCB(void) {
@@ -140,7 +146,7 @@ OS_Return_t _core_delete_task_handler(OS_TaskHandle_t handle) {
 	if (task_ptr) {
 		task_ptr->stack_descriptor->is_taken = 0;
 
-		_remove_from_ready_list(task_ptr);
+		_remove_from_ready_list(task_ptr, OS_STATE_RESERVED);
 
 		_add_free_TCB(task_ptr);
 
@@ -170,6 +176,58 @@ OS_Return_t _core_fpu_settings_handler(uint32_t* sp, OS_FPU_HALFPRECISION_t h, O
 	}
 
 	_port_fpu_mode_settings(sp, (uint32_t)h, (uint32_t)n, (uint32_t)f, (uint32_t)r);
+
+	return OS_EXIT_SUCCESS;
+}
+
+OS_Return_t _core_mutex_take_handler(OS_Mutex_t* mutex) {
+	OS_TCB_t* task_ptr = os_context.current_run_task;
+
+	if (!_PORT_IS_INSIDE_CORE_ISR()) {
+		return OS_EXIT_ERROR_NOT_FROM_SYSCALL;
+	}
+
+	if ((uintptr_t)__core_mutexes_start__ > (uintptr_t)mutex ||
+		(uintptr_t)__core_mutexes_end__ <= (uintptr_t)mutex  ||
+		((uintptr_t)mutex - (uintptr_t)__core_mutexes_start__) % sizeof(OS_Mutex_t) != 0
+	) {
+		return OS_MUTEX_INVALID_HANDLE;
+	}
+
+	if (task_ptr->priority > mutex->priority_ceiling) {
+		return OS_MUTEX_INVALID_PRIORITY;
+	}
+
+	if (mutex->is_free) {
+		mutex->is_free = 0;
+		mutex->owner_ptr = task_ptr;
+
+		task_ptr->priority = mutex->priority_ceiling;
+	}
+	else {
+		_remove_from_ready_list(task_ptr, OS_STATE_WAITING);
+
+		mutex->priority_bitmap |= (1 << task_ptr->priority);
+
+		OS_TCB_t* head = mutex->queue_wait_list[task_ptr->priority];
+
+		if (!head) {
+			task_ptr->next_node_ptr = task_ptr;
+			task_ptr->prev_node_ptr = task_ptr;
+			mutex->queue_wait_list[task_ptr->priority] = task_ptr;
+		}
+		else {
+			OS_TCB_t* tail = head->prev_node_ptr;
+
+			task_ptr->next_node_ptr = head;
+			task_ptr->prev_node_ptr = tail;
+
+			tail->next_node_ptr = task_ptr;
+			head->prev_node_ptr = task_ptr;
+		}
+
+		_port_yield();
+	}
 
 	return OS_EXIT_SUCCESS;
 }

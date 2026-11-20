@@ -10,14 +10,20 @@ typedef struct {
 	OS_TCB_t* owner_ptr;
 
 	OS_TCB_t* queue_wait_list[CONFIG_NUM_OF_PRIORITIES];
-	uint32_t priority_bitmup;
+	uint32_t priority_bitmap;
 } OS_Mutex_t;
 
 typedef void* OS_MutexHandle_t;
 
 //GLOBAL ONLY
-#define OS_CREATE_MUTEX(name)	\
-	__attribute__((section(".core_mutexes"), used)) static OS_Mutex_t sys_##name##_mutex_struct; 	\
+#define OS_CREATE_MUTEX(name, ceiling)																\
+	__attribute__((section(".core_mutexes"), used)) static OS_Mutex_t sys_##name##_mutex_struct = {	\
+		.is_free = 1,																				\
+		.owner_ptr = NULL,																			\
+		.priority_bitmap = 0,																		\
+		.priority_ceiling = ceiling,																\
+		.queue_wait_list = {0}																		\
+	};																								\
 	extern const OS_MutexHandle_t name; 															\
 	const OS_MutexHandle_t name = &sys_##name##_mutex_struct
 

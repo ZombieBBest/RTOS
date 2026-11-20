@@ -3,7 +3,6 @@
 #include "../Port/port_functions.h"
 #include "core_manager.h"
 #include "core_task_handlers.h"
-#include "core_mutex_handlers.h"
 
 // ====================== ISR_HANDLE ========================
 
